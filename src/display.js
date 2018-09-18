@@ -29,7 +29,6 @@ class Display {
         this.width = this.view.width;
         this.height = this.view.height;
         this.squares = [];
-        console.log(this.Game);
     }
 
     generateTables(level){
@@ -65,14 +64,20 @@ class Display {
             this.view.offsets[i] = new Offset();
             this.generateTables(i);
         }
+        this.calculateBlocks();
+    }
+
+    calculateBlocks(){
         for(let i = 0; i < this.squares.length; i++){
             for(let j = 0; j < this.squares[i].length; j++){
                 for(let z = 0; z < this.squares[i][j].length; z++){
                     let block = this.getCorrespondingMapBlock(i, j, z);
+                    block.calculateIcon();
                     this.setBlock(i, j, z, block);
                 }
             }
         }
+
     }
 
     getCorrespondingMapBlock(x, y, z){
@@ -98,7 +103,6 @@ class DisplayBlock{
     constructor(x, y, level, td){
         this.x = x;
         this.y = y;
-        this.td = td;
         this.level = level;
         this.icon = "";
         this.color = "white";

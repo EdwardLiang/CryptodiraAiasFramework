@@ -1,13 +1,9 @@
 class Display {
 
     constructor(){
-        this.view = new View();
-
-        this.width = this.view.width;
-        this.height = this.view.height;
-
         this.canvases = [];
         this.squares = [];
+        this.td = [];
 
         this.div = document.createElement("div");
         let scale = Math.min((window.innerWidth - 50) / 1855, (window.innerHeight- 50) / 965);
@@ -26,6 +22,9 @@ class Display {
         canvas.style.opacity = "0";
         this.inventory = canvas;
         this.inventoryVisible = false;
+        this.height = 15;
+        this.width = 30;
+        this.levels = 4;
 
         let messages = document.createElement("table");
         messages.style.position = "absolute";
@@ -36,21 +35,34 @@ class Display {
         this.messages = messages;
         this.messagesVisible = false;
 
-        this.bWidth = this.view.blockWidthPx;
-        this.bHeight = this.view.blockHeightPx; 
+        this.td = new Array(this.width);
+        this.squares = new Array(this.width);
+        for (let i = 0; i < this.width; i++){
+            this.squares[i] = new Array(this.height);
+            this.td[i] = new Array(this.height);
+            for (let j = 0; j < this.squares[i].length; j++){
+                this.squares[i][j] = new Array(this.levels);
+                this.td[i][j] = new Array(this.levels);
+            }
+        }
+
+        for(let i = 0; i < this.levels; i++){
+            this.generateTables(i);
+        }
 
         this.div.appendChild(this.inventory);
         this.div.appendChild(this.messages);
-        /*
-           let tr = document.createElement("tr");
-           let td1 = document.createElement("td");
+    }
 
-
-           td1.style.fontSize = Math.floor(this.height * 0.8) + "px";
-           td1.style.font = Math.floor(this.height * 0.8) + "px monospace";
-           td1.style.color = "white";
-           tr.append(td1);
-           messages.append(tr);*/
+    parseJSON(json){
+        this.squares = JSON.parse(json);
+        for(let i = 0; i < this.squares.length; i++){
+            for(let j = 0; j < this.squares[i].length; j++){
+                for(let k = 0; k < this.squares[j].length; k++){
+                    Object.assign(new DisplayBlock, this.squares[i][j][k]);
+                }
+            }
+        }
     }
 
     clearMessages(){
@@ -127,7 +139,7 @@ class Display {
             for (let j = 0; j < this.width; j++){
                 let td = document.createElement("td");
                 this.squares[j][i][level] = new DisplayBlock(j, i, level); 
-                this.squares[j][i][level].td = td;
+                this.td[j][i][level] = td;
                 td.style.width = this.expWidth * this.coeffW + "px";
                 td.style.height = this.expWidth * this.coeffH + "px";
                 td.style.overflow = "visible";
@@ -154,19 +166,19 @@ class Display {
         for(let i = 0; i < this.squares.length; i++){
             for(let j = 0; j < this.squares[i].length; j++){
                 for(let z = 0; z < this.squares[i][j].length; z++){
-                    this.clearBlock(i, j, z);
-                    this.clear(i, j, z, Game.player);
+                    //this.clearBlock(i, j, z);
+                    //this.clear(i, j, z, Game.player);
                     //this.level.map[i + this.view.xOffset][j + this.view.yOffset][z].clear();
                     //this.setBlock(i, j, z, this.level.map[i + this.view.offsets[z].xOffset][j + this.view.offsets[z].yOffset][z]);
 
                     //this.setBlock(i, j, z, Game.map.getBlock(i + this.view.offsets[z].xOffset, j + this.view.offsets[z].yOffset, z);
 
-                    this.setBlock(i, j, z, this.getCorrespondingMapBlock(i, j, z));
+                    //this.setBlock(i, j, z, this.getCorrespondingMapBlock(i, j, z));
                     this.draw(i, j, z);
                 }
             }
         }
-        this.adjustLayerOpacity();
+        //this.adjustLayerOpacity();
         twemoji.parse(document.body);
     }
 
@@ -186,9 +198,12 @@ class Display {
 
     draw(x, y, level) {
         let s = this.squares[x][y][level];
-        s.td.innerHTML = s.icon; 
-        s.td.style.color = s.color;
-        s.getStyle(s.td);
+        let td = this.td[x][y][level];
+        //console.log(td);
+        //console.log("x: " + x + "y: " + y + "z: " + level);
+        td.innerHTML = s.icon; 
+        td.style.color = s.color;
+        //s.getStyle(s.td);
     };
 
     drawIcon(x, y, level, icon) {
@@ -228,29 +243,21 @@ class Display {
         return bC;
 
     }
+}
 
-    class DisplayBlock{
-        constructor(x, y, level, td){
-            this.x = x;
-            this.y = y;
-            this.td = td;
-            this.level = level;
-            this.icon = "";
-            this.color = "white";
-        }
-        sty(e) {
-
-        }
-        set style(s){
-            this.sty = s;
-        }
-        getStyle(e){
-            this.sty(e);
-        }
-
+class DisplayBlock{
+    constructor(x, y, level){
+        this.x = x;
+        this.y = y;
+        this.level = level;
+        this.icon = "";
+        this.color = "white";
     }
+    /*set style(s){
+      this.sty = s;
+      }
+      getStyle(e){
+      this.sty(e);
+      }*/
 
-    function getKey(x, y, level){
-        return x + "," + y + "," + level;
-    }
 }

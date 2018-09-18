@@ -33,7 +33,7 @@ module.exports = {
         this.map.setLevel(level1, 1);
         this.map.setLevel(level2, 2);
         this.map.setLevel(level3, 3);
-        this.map.setLevel(level4, 4);
+        //this.map.setLevel(level4, 4);
         //this.map.setLevel(level5, 5);
 
 
@@ -97,14 +97,14 @@ module.exports = {
         this.map.setBlock(6,6,2, new mapblock.StaircaseUpBlock(6,6,2));
         this.map.setBlock(3,3,3, new mapblock.StaircaseDownBlock(3,3,3));
 
-        this.map.setBlock(6,6,3, new mapblock.StaircaseUpBlock(6,6,3));
-        this.map.setBlock(3,3,4, new mapblock.StaircaseDownBlock(3,3,4));
+        //this.map.setBlock(6,6,3, new mapblock.StaircaseUpBlock(6,6,3));
+        //this.map.setBlock(3,3,4, new mapblock.StaircaseDownBlock(3,3,4));
 
         //this.map.setBlock(6,6,4, new StaircaseUpBlock(6,6));
         //this.map.setBlock(3,3,5, new StaircaseDownBlock(3,3));
 
         this.map.setBlock(7,3,0, new mapblock.BookBlock(7,3));
-        this.map.setBlock(3,5,4, new mapblock.GrassBlock(3,5,4));
+        //this.map.setBlock(3,5,4, new mapblock.GrassBlock(3,5,4));
         this.map.getBlock(5,5,0).items.push(new items.Orange());
         this.map.getBlock(6,5,0).items.push(new items.BasicShirt());
         this.map.getBlock(8,5,0).items.push(new items.BasicPants());
@@ -188,7 +188,7 @@ module.exports = {
         this.display.displayMap(this.map);
         this.map.clearVisible();
         //this.display.redraw();
-        console.log(this.display.getDisplayBlocks());
+       return this.display.getDisplayBlocks();
     }
 
 };

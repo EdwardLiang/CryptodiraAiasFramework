@@ -17,7 +17,7 @@ io.on('connection', function(client){
     console.log('Client connected');
     client.on('join', function(data){
         Game.init();
-        Game.makeDisplayBlocks();
+        client.emit('blocks', Game.makeDisplayBlocks());
     });
 });
 

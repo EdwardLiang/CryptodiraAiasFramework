@@ -1,28 +1,36 @@
 <!DOCTYPE html>
 <html>
     <head>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-<script src="http://twemoji.maxcdn.com/2/twemoji.min.js?11.0"></script>
-<link rel="icon" href="./resources/shield.png" type="image/png">
-<style>
+        <meta charset="UTF-8">
+
+        <link rel="stylesheet" href="./display/style.css">
+        <script src="http://twemoji.maxcdn.com/2/twemoji.min.js?11.0"></script>
+        <link rel="icon" href="./resources/shield.png" type="image/png">
+        <style>
 body{
     background-color: #222;
     text-shadow: 1px 1px #000;
 }
-</style>
-<title> Cryptodira Aias </title>
-<script src="/display/display.js"></script>
-<script src="socket/socket.io-client/dist/socket.io.js"></script>
-<script>
-    var socket = io.connect('http://127.0.0.1:8080');
-    socket.on('connect', function(data){
-        socket.emit('join', 'Hello World');
-    });
-</script>
+        </style>
+        <title> Cryptodira Aias </title>
     </head>
-    <body onload="Game.init()">
+    <body>
 
     </body>
+    <script src="/display/display.js"></script>
+    <script src="socket/socket.io-client/dist/socket.io.js"></script>
+    <script>
+var socket = io.connect('http://127.0.0.1:8080');
+var display = new Display(); 
+socket.on('connect', function(data){
+    socket.emit('join', 'Hello World');
+    display.redraw();
+});
+socket.on('blocks', function(data){
+    display.parseJSON(data);
+    display.redraw();
+});
+    </script>
+
 
 </html>
