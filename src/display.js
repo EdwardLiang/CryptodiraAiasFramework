@@ -99,6 +99,14 @@ class Display {
     getDisplayBlocks(){
         return JSON.stringify(this.squares);
     }
+
+    getCreaturesJSON(creatures){
+        return JSON.stringify(creatures, ['x', 'y', 'z', 'id']);
+    }
+
+    getPlayerJSON(player){
+        return JSON.stringify(player, ['x', 'y', 'z']);
+    }
 }
 
 class DisplayBlock{

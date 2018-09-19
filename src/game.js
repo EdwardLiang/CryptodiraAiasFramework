@@ -189,6 +189,16 @@ module.exports = {
         this.map.clearVisible();
         //this.display.redraw();
        return this.display.getDisplayBlocks();
-    }
+    },
 
+    getCreaturesJSON(){
+        let creatures = [];
+        for(let i = 0; i < this.map.levels.length; i++){
+            creatures = creatures.concat(this.map.levels[i].creatures);
+        }
+        return this.display.getCreaturesJSON(creatures);
+    },
+    getPlayerJSON(){
+        return this.display.getPlayerJSON(this.player);
+    }
 };

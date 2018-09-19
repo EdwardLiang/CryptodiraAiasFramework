@@ -22,7 +22,7 @@ class Creature{
         this.availableSymbols = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
         this.behaviorTreeBuilder = new btb.RandomMoveBuilder(this, this.Game); 
         this.behaviorTree = this.behaviorTreeBuilder.behaviorTree;
-        this.id = 14;
+        this.id = 0;
     }
 
     get level(){
@@ -174,7 +174,7 @@ class Dolphin extends WaterCreature{
     constructor(x, y, z, game){
         super(x, y, z, "&#x1F42C;", "blue", game);
         this.name = "Dolphin";
-        this.id = 15;
+        this.id = 2;
     }
 
     move(diff){
@@ -190,7 +190,7 @@ class Turtle extends Creature{
     constructor(x, y, z, game){
         super(x, y, z, "&#x1F422;", "green", game);
         this.name = "Turtle";
-        this.id = 16;
+        this.id = 3;
     }
 
     move(diff){
@@ -206,7 +206,7 @@ class Tower extends Creature{
     constructor(x,y,z, game){
         super(x, y, z, "", "grey", game);
         this.name = "Tower";
-        this.id = 17;
+        this.id = 4;
     }
     getStyle(e){
         super.getStyle(e);
@@ -226,7 +226,7 @@ class Elephant extends Creature{
         this.width = 2;
         this.height = 2;
         this.zLevels = 3;
-        this.id = 18;
+        this.id = 5;
     }
 
     move(diff){
@@ -277,7 +277,7 @@ class Bird extends Creature{
         this.behaviorTreeBuilder = new btb.DirectMoveBuilder(this, target, this.Game); 
         this.behaviorTree = this.behaviorTreeBuilder.behaviorTree;
         this.name = "Bird";
-        this.id = 19;
+        this.id = 6;
     }
 
     move(diff){
@@ -297,7 +297,7 @@ class Cat extends Creature{
         this.behaviorTreeBuilder = new btb.MoveBoxBuilder(this, this.Game);
         this.behaviorTree = this.behaviorTreeBuilder.behaviorTree;
         this.name = "Cat";
-        this.id = 20;
+        this.id = 7;
     }
 
     move(diff){
@@ -317,7 +317,7 @@ class Dog extends Creature{
         this.behaviorTreeBuilder = new btb.MoveBoxPredicateBuilder(this, this.Game);
         this.behaviorTree = this.behaviorTreeBuilder.behaviorTree;
         this.name = "Dog";
-        this.id = 21;
+        this.id = 8;
     }
 
     move(diff){
@@ -336,7 +336,7 @@ class Robot extends Creature{
         this.behaviorTreeBuilder = new btb.MoveBoxPredicateInverseBuilder(this, this.Game);
         this.behaviorTree = this.behaviorTreeBuilder.behaviorTree;
         this.name = "Robot";
-        this.id = 22;
+        this.id = 9;
     }
 
     move(diff){
