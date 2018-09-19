@@ -24,10 +24,16 @@ var socket = io.connect('http://127.0.0.1:8080');
 var display = new Display(); 
 socket.on('connect', function(data){
     socket.emit('join', 'Hello World');
-    display.redraw();
+    //display.redraw();
 });
 socket.on('blocks', function(data){
-    display.parseJSON(data);
+    display.parseJSONBlocks(data);
+});
+socket.on('creatures', function(data){
+    display.parseJSONCreatures(data);
+});
+socket.on('player', function(data){
+    display.parseJSONPlayer(data);
     display.redraw();
 });
     </script>

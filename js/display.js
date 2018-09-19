@@ -54,8 +54,14 @@ class Display {
         this.div.appendChild(this.messages);
     }
 
-    parseJSON(json){
+    parseJSONBlocks(json){
         this.squares = JSON.parse(json);
+    }
+    parseJSONCreatures(json){
+        this.creatures = JSON.parse(json);
+    }
+    parseJSONPlayer(json){
+        this.player = JSON.parse(json);
     }
 
     clearMessages(){
@@ -172,6 +178,19 @@ class Display {
                 }
             }
         }
+        for(let i = 0; i < this.creatures.length; i++){
+            let c = this.creatures[i];
+            let creatureIcon = creatureCodes[c["id"]];
+            let tdC = this.td[c["x"]][c["y"]][c["z"]];
+            if(creatureIcon != undefined){
+                tdC.innerHTML = creatureIcon;
+            }
+            tdC.classList.add("c" + c["id"]);
+        }
+        let tdP = this.td[this.player["x"]][this.player["y"]][this.player["z"]];
+        tdP.classList.add("player");
+        tdP.innerHTML = "&#x1F3C3";
+
         //this.adjustLayerOpacity();
         twemoji.parse(document.body);
     }
@@ -194,11 +213,12 @@ class Display {
         let s = this.squares[x][y][level];
         let td = this.td[x][y][level];
         td.className = "n" + s;
-	let icon = blockCodes[s];
+        let icon = blockCodes[s];
 
         if(icon != undefined){
             td.innerHTML = icon;
         }
+
         //console.log(td);
         //console.log("x: " + x + "y: " + y + "z: " + level);
         //td.innerHTML = s.icon; 
@@ -264,3 +284,13 @@ blockCodes["9"] = "&#128857;";
 blockCodes["10"] = "&#x1F332;";
 blockCodes["11"] = "&#x1F333;";
 blockCodes["12"] = "&#x26F2;";
+
+let creatureCodes = {};
+creatureCodes["2"] = "&#x1F42C;";
+creatureCodes["3"] = "&#x1F422;";
+creatureCodes["5"] = "&#x1F418;";
+creatureCodes["6"] = "&#x1F426;";
+creatureCodes["7"] = "&#x1F408;";
+creatureCodes["8"] = "&#x1F415;";
+creatureCodes["9"] = "&#x1F916;";
+

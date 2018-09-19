@@ -19,8 +19,8 @@ io.on('connection', function(client){
     client.on('join', function(data){
         Game.init();
         client.emit('blocks', Game.makeDisplayBlocks());
-        console.log(Game.getCreaturesJSON());
-        console.log(Game.getPlayerJSON());
+        client.emit('creatures', Game.getCreaturesJSON());
+        client.emit('player', Game.getPlayerJSON());
     });
 });
 
