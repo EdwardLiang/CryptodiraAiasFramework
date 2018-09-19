@@ -44,6 +44,12 @@ socket.on('offsets', function(data){
     display.parseJSONOffsets(data);
     display.redraw();
 });
+socket.on('message', function(data){
+    display.clearMessages();
+    display.showMessage(JSON.parse(data));
+});
+
+
 
 window.addEventListener("keydown", PlayerEventListener);
 

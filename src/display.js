@@ -67,6 +67,16 @@ class Display {
         }
         this.calculateBlocksAndItems();
     }
+    getMessage(){
+        return JSON.stringify(this.message);
+    }
+
+    showMessage(message){
+        this.message = message;
+    }
+    clearMessages(){
+        this.message = "";
+    }
 
     calculateBlocksAndItems(){
         this.items = [];

@@ -31,7 +31,7 @@ io.on('connection', function(client){
         client.emit('items', Game.getItemsJSON());
         client.emit('player', Game.getPlayerJSON());
         client.emit('offsets', Game.getOffsetsJSON());
-
+        client.emit('message', Game.getMessage());
     });
 
 });

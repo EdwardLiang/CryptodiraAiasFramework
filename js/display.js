@@ -91,8 +91,8 @@ class Display {
         let tr = document.createElement("tr");
         let td1 = document.createElement("td");
 
-        this.bWidth = this.view.blockWidthPx;
-        this.bHeight = this.view.blockHeightPx; 
+        //this.bWidth = this.view.blockWidthPx;
+        //this.bHeight = this.view.blockHeightPx; 
 
         td1.style.fontSize = this.expWidth * this.coeffW * 0.70 + "px";
         td1.style.font = this.expWidth * this.coeffW * 0.70  + "px monospace";

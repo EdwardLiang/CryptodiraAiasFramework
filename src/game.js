@@ -217,6 +217,9 @@ module.exports = {
     getItemsJSON(){
         //Items are returned with an already display-offsetted values since it was easy.
         return this.display.getItemsJSON();
+    },
+    getMessage(){
+        //Items are returned with an already display-offsetted values since it was easy.
+        return this.display.getMessage();
     }
-
 };
