@@ -34,8 +34,12 @@ socket.on('creatures', function(data){
 });
 socket.on('player', function(data){
     display.parseJSONPlayer(data);
+});
+socket.on('offsets', function(data){
+    display.parseJSONOffsets(data);
     display.redraw();
 });
+
     </script>
 
 

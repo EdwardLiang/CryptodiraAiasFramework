@@ -7,6 +7,7 @@ class Level{
         this.width = width;
         this.height = height;
         this.creatures = [];
+        this.items = [];
 
         this.blocks = new Array(width);
         for (let i = 0; i < this.blocks.length; i++){

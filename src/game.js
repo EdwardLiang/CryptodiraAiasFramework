@@ -200,5 +200,9 @@ module.exports = {
     },
     getPlayerJSON(){
         return this.display.getPlayerJSON(this.player);
+    },
+    getOffsetsJSON(){
+        return this.display.getOffsetsJSON();
     }
+
 };

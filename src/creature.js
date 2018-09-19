@@ -5,10 +5,11 @@ var btb = require("./behavior/behaviortreebuilder.js");
 class Creature{
 
     constructor(x, y, level, icon, iconColor, Game){
-        this.Game = Game;
         this.x = x;
         this.y = y;
         this.z = level;
+        this.id = 0;
+        this.Game = Game;
         this.width = 1;
         this.height = 1;
         //this.zLevels = 1;
@@ -22,7 +23,6 @@ class Creature{
         this.availableSymbols = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
         this.behaviorTreeBuilder = new btb.RandomMoveBuilder(this, this.Game); 
         this.behaviorTree = this.behaviorTreeBuilder.behaviorTree;
-        this.id = 0;
     }
 
     get level(){

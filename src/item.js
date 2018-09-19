@@ -5,6 +5,7 @@ class Item {
         this.iconColor = iconColor;
         this.name = name;
         this.displayPrecedence = 3;
+        this.id = 0;
         //3 bottom, 2, middle, 1 top
         //unimplemented
     }
@@ -13,95 +14,111 @@ class Item {
 class MiscItem extends Item{
     constructor(icon, iconColor, name){
         super(icon, iconColor, name);
+        this.id = 1;
     }
 }
 
 class Food extends Item{
     constructor(icon, iconColor, name){
         super(icon, iconColor, name);
+        this.id = 2;
     }
 }
 
 class Orange extends Food{
     constructor(){
         super("&#x1F34A;", "orange", "orange");
+        this.id = 3;
     }
 }
 
 class Peanut extends Food{
     constructor(){
         super("&#x1F95C;", "brown", "peanut");
+        this.id = 4;
     }
 }
 
 class Battery extends MiscItem{
     constructor(){
         super("&#x1F50B;", "green", "battery");
+        this.id = 5;
     }
 }
 
 class Equipment extends Item{
     constructor(icon, iconColor, name){
         super(icon, iconColor, name);
+        this.id = 6;
     }
 }
 
 class Shirt extends Equipment{
     constructor(icon, iconColor, name){
         super(icon, iconColor, name);
+        this.id = 7;
     }
 }
 
 class BasicShirt extends Shirt{
     constructor(){
         super("&#x1F455", "blue", "basic shirt");
+        this.id = 8;
     }
 }
 
 class Pants extends Equipment{
     constructor(icon, iconColor, name){
         super(icon, iconColor, name);
+        this.id = 9;
     }
 }
 
 class BasicPants extends Pants{
     constructor(){
         super("&#x1F456", "blue", "basic pants");
+        this.id = 10;
     }
 }
 
 class Shoes extends Equipment{
     constructor(icon, iconColor, name){
         super(icon, iconColor, name);
+        this.id = 11;
     }
 }
 
 class RunningShoes extends Shoes{
     constructor(){
         super("&#x1F45F", "blue", "running shoes");
+        this.id = 12;
     }
 }
 class Shield extends Equipment{
     constructor(icon, iconColor, name){
         super(icon, iconColor, name);
+        this.id = 13;
     }
 }
 
 class CryptodiraAias extends Shield{
     constructor(){
         super("&#x1F6E1", "blue", "Cryptodira Aias");
+        this.id = 14;
     }
 }
 
 class Weapon extends Item{
     constructor(icon, iconColor, name){
         super(icon, iconColor, name);
+        this.id = 15;
     }
 }
 
 class Pencil extends Weapon{
     constructor(){
         super("&#x270F", "blue", "pencil");
+        this.id = 16;
     }
 }
 
@@ -109,12 +126,14 @@ class Pencil extends Weapon{
 class Ring extends Equipment{
     constructor(icon, iconColor, name){
         super(icon, iconColor, name);
+        this.id = 17;
     }
 }
 
 class Book extends Item{
     constructor(icon, iconColor, name){
         super(icon, iconColor, name);
+        this.id = 18;
     }
 }
 

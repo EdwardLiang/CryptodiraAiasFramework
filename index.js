@@ -21,6 +21,7 @@ io.on('connection', function(client){
         client.emit('blocks', Game.makeDisplayBlocks());
         client.emit('creatures', Game.getCreaturesJSON());
         client.emit('player', Game.getPlayerJSON());
+        client.emit('offsets', Game.getOffsetsJSON());
     });
 });
 

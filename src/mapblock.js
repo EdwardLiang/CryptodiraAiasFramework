@@ -20,6 +20,10 @@ class MapBlock{
         this.iconId = 0;
     }
 
+    get item(){
+        return this.items[0];
+    }
+
     checkMovable(c) {
         if(this.creatures[0] === c){
             return true; 

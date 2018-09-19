@@ -63,6 +63,10 @@ class Display {
     parseJSONPlayer(json){
         this.player = JSON.parse(json);
     }
+    parseJSONOffsets(json){
+        this.offsets = JSON.parse(json);
+        console.log(this.offsets);
+    }
 
     clearMessages(){
         this.messages.innerHTML = "";
@@ -180,16 +184,40 @@ class Display {
         }
         for(let i = 0; i < this.creatures.length; i++){
             let c = this.creatures[i];
+            let x = parseInt(c["x"]);
+            let y = parseInt(c["y"]);
+            let z = parseInt(c["z"]);
+            let xOffset = parseInt(this.offsets[z].xOffset);
+            let yOffset = parseInt(this.offsets[z].yOffset);
+            if(x - xOffset > this.width - 1 || 
+                x - xOffset < 0 
+                || y - yOffset > this.height - 1 ||
+                y - yOffset < 0){
+                continue;
+            }
             let creatureIcon = creatureCodes[c["id"]];
-            let tdC = this.td[c["x"]][c["y"]][c["z"]];
+            let tdC = this.td[x - xOffset][y - yOffset][z];
             if(creatureIcon != undefined){
                 tdC.innerHTML = creatureIcon;
             }
             tdC.classList.add("c" + c["id"]);
         }
-        let tdP = this.td[this.player["x"]][this.player["y"]][this.player["z"]];
-        tdP.classList.add("player");
-        tdP.innerHTML = "&#x1F3C3";
+        let p = this.player;
+        let x = parseInt(p["x"]);
+        let y = parseInt(p["y"]);
+        let z = parseInt(p["z"]);
+        let xOffset = parseInt(this.offsets[z].xOffset);
+        let yOffset = parseInt(this.offsets[z].yOffset);
+        if(x - xOffset > this.width - 1 || 
+                x - xOffset < 0 
+                || y - yOffset > this.height - 1 ||
+                y - yOffset < 0){
+        }
+        else{
+            let tdP = this.td[x - xOffset][y - yOffset][z];
+            tdP.classList.add("player");
+            tdP.innerHTML = "&#x1F3C3";
+        }
 
         //this.adjustLayerOpacity();
         twemoji.parse(document.body);

@@ -65,14 +65,21 @@ class Display {
             this.view.offsets[i] = new Offset();
             //this.generateTables(i);
         }
-        this.calculateBlocks();
+        this.calculateBlocksAndItems();
     }
 
-    calculateBlocks(){
+    calculateBlocksAndItems(){
+        this.items = [];
         for(let i = 0; i < this.squares.length; i++){
             for(let j = 0; j < this.squares[i].length; j++){
                 for(let z = 0; z < this.squares[i][j].length; z++){
                     let block = this.getCorrespondingMapBlock(i, j, z);
+                    if(block.items.length > 0){
+                        this.items.push({id: block.item.id, 
+                            x: i - this.view.offsets[z].xOffset
+                            , y: j - this.view.offsets[z].xOffset
+                            , z: z});
+                    }
                     block.calculateIconId();
                     this.setBlock(i, j, z, block);
                 }
@@ -101,13 +108,36 @@ class Display {
     }
 
     getCreaturesJSON(creatures){
+        //console.log(JSON.stringify(creatures, creatureReplacer));
+        //console.log(creatureReplacer);
         return JSON.stringify(creatures, ['x', 'y', 'z', 'id']);
     }
 
     getPlayerJSON(player){
+        /*return JSON.stringify(player, function(key, val){
+            if(key === 'x'){
+                return val - this.view.offsets[player.z].xOffset;
+            }
+            else if(key === 'y'){
+                return val - this.view.offsets[player.z].yOffset;
+            }
+            else if(key === 'z' || key === 'id' || !key){
+                return val;
+            }
+            else{
+                return undefined;
+            }
+
+        }.bind(this));
+        */
         return JSON.stringify(player, ['x', 'y', 'z']);
     }
+
+    getOffsetsJSON(){
+        return JSON.stringify(this.view.offsets);
+    }
 }
+
 
 class DisplayBlock{
     constructor(x, y, level, td){
