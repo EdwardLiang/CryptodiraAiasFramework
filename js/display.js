@@ -194,6 +194,11 @@ class Display {
         let s = this.squares[x][y][level];
         let td = this.td[x][y][level];
         td.className = "n" + s;
+	let icon = blockCodes[s];
+
+        if(icon != undefined){
+            td.innerHTML = icon;
+        }
         //console.log(td);
         //console.log("x: " + x + "y: " + y + "z: " + level);
         //td.innerHTML = s.icon; 
@@ -251,5 +256,11 @@ class DisplayBlock{
       getStyle(e){
       this.sty(e);
       }*/
-
 }
+
+let blockCodes = {};
+blockCodes["2"] = "&#x1F4D6;";
+blockCodes["9"] = "&#128857;";
+blockCodes["10"] = "&#x1F332;";
+blockCodes["11"] = "&#x1F333;";
+blockCodes["12"] = "&#x26F2;";

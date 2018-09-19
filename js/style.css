@@ -35,10 +35,6 @@ img.emoji {
     background-position: center;
 }
 
-.n2 {
-    content: "&#x1F4D6;";
-}
-
 .n3 {
     background-image: url(../resources/aiga-stairs.png);
     transform: scaleX(-1);
@@ -62,9 +58,25 @@ img.emoji {
 }
 
 .n6 {
-    background-color: white
+    background-color: white !important;
 }
 
-.n7 {
-    
+.n8 {
+    opacity: 0.0 !important;   
+}
+
+.n10 {
+    background-color: green !important;
+}
+
+.n11 {
+    background-color: green !important;
+}
+
+.n13 {
+    background-color: #585858 !important;
+    background-image:url(../resources/rock2.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
 }
