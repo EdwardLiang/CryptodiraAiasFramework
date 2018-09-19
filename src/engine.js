@@ -44,7 +44,7 @@ class Engine {
                 else{
                     var message = this.messageQ.shift();
                 }
-                this.Game.display.showMessage(message);
+                //this.Game.display.showMessage(message);
             }
         }
         else{

@@ -199,6 +199,7 @@ move(diff){
             display.view.offsets[player.z].xOffset = 0;
         }
 
+
         display.view.offsets[player.z].yOffset = player.y - Math.floor(display.height / 2);
         var restHeight = (display.height) - (player.y - display.view.offsets[player.z].yOffset); 
 

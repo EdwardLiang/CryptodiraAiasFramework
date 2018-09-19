@@ -8,6 +8,7 @@ var level = require("./level.js");
 var mapblock = require("./mapblock.js");
 var items = require("./item.js");
 var btb = require("./behavior/behaviortreebuilder.js");
+var controls = require("./controls.js");
 
 module.exports = {
     display: null,
@@ -155,10 +156,12 @@ module.exports = {
         this.map.addCreature(dol);
         this.map.addCreature(tow);
 
-        //PlayerEventListener.player = this.player;
-        //PlayerEventListener.map = this.map;
-        //PlayerEventListener.engine = this.engine;
-        //PlayerEventListener.display = this.display;
+        this.controls = controls.PlayerEventListener;
+
+        controls.PlayerEventListener.player = this.player;
+        controls.PlayerEventListener.map = this.map;
+        controls.PlayerEventListener.engine = this.engine;
+        controls.PlayerEventListener.display = this.display;
 
         //window.addEventListener("keydown", PlayerEventListener);
 
@@ -186,6 +189,12 @@ module.exports = {
 
     makeDisplayBlocks(){
         this.display.displayMap(this.map);
+        this.map.clearVisible();
+        //this.display.redraw();
+       return this.display.getDisplayBlocks();
+    },
+
+    getBlocksJSON(){
         this.map.clearVisible();
         //this.display.redraw();
        return this.display.getDisplayBlocks();

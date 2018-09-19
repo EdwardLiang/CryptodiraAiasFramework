@@ -1,14 +1,16 @@
-DIRS = {};
-DIRS[72] = new Distance(-1, 0, 0); //left
-DIRS[74] = new Distance(0, 1, 0); //down
-DIRS[75] = new Distance(0, -1, 0); //up
-DIRS[76] = new Distance(1, 0, 0); //right
-DIRS[89] = new Distance(-1, -1, 0); //left up
-DIRS[66] = new Distance(-1, 1, 0); //left down 
-DIRS[78] = new Distance(1, 1, 0); //right down 
-DIRS[85] = new Distance(1, -1, 0); //right up
-DIRS[188] = new Distance(0, 0, 1);
-DIRS[190] = new Distance(0, 0, -1);
+"use strict";
+var distance = require("./distance.js");
+let DIRS = {};
+DIRS[72] = new distance.Distance(-1, 0, 0); //left
+DIRS[74] = new distance.Distance(0, 1, 0); //down
+DIRS[75] = new distance.Distance(0, -1, 0); //up
+DIRS[76] = new distance.Distance(1, 0, 0); //right
+DIRS[89] = new distance.Distance(-1, -1, 0); //left up
+DIRS[66] = new distance.Distance(-1, 1, 0); //left down 
+DIRS[78] = new distance.Distance(1, 1, 0); //right down 
+DIRS[85] = new distance.Distance(1, -1, 0); //right up
+DIRS[188] = new distance.Distance(0, 0, 1);
+DIRS[190] = new distance.Distance(0, 0, -1);
 
 
 function itemSelectorWear(e){
@@ -274,23 +276,23 @@ let PlayerEventListener = {
         let code = e.keyCode;
 
 
-        if(code == 32 && Game.engine.messageQ.length > 0){
+        if(code == 32 && this.engine.messageQ.length > 0){
 
-            Game.display.clearMessages();
-            if(Game.engine.messageQ.length > 1){
-                var message = Game.engine.messageQ.shift() + " --more--";
+            this.display.clearMessages();
+            if(this.engine.messageQ.length > 1){
+                var message = this.engine.messageQ.shift() + " --more--";
             }
             else{
-                var message = Game.engine.messageQ.shift();
+                var message = this.engine.messageQ.shift();
             }
-            Game.display.showMessage(message);
+            this.display.showMessage(message);
             return;
         }
-        else if(Game.engine.messageQ.length > 0){
+        else if(this.engine.messageQ.length > 0){
             return;
         }
 
-        if(code == 32 && !(Game.engine.messageQ.length > 0)){
+        if(code == 32 && !(this.engine.messageQ.length > 0)){
             if(this.display.inventoryVisible){
                 this.display.hideInventory();
             }
@@ -386,10 +388,14 @@ let PlayerEventListener = {
         }
 
         this.engine.addEvent(PlayerEventListener.player.move(diff));
-        if(!Game.realTime){
+        if(!this.realTime){
             this.map.creaturesAct();
             this.engine.timeStep();
         }
     }
 
+}
+
+module.exports = {
+    PlayerEventListener: PlayerEventListener
 }

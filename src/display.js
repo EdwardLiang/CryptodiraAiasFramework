@@ -39,7 +39,7 @@ class Display {
         }
     }
     */
-
+    
     displayMap(map) {
         this.levels = map.levels;
         this.level = map;
@@ -76,8 +76,8 @@ class Display {
                     let block = this.getCorrespondingMapBlock(i, j, z);
                     if(block.items.length > 0){
                         this.items.push({id: block.item.id, 
-                            x: i - this.view.offsets[z].xOffset
-                            , y: j - this.view.offsets[z].xOffset
+                            x: i 
+                            , y: j 
                             , z: z});
                     }
                     block.calculateIconId();
@@ -104,6 +104,7 @@ class Display {
     }
 
     getDisplayBlocks(){
+        this.calculateBlocksAndItems();
         return JSON.stringify(this.squares);
     }
 

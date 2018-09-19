@@ -68,7 +68,6 @@ class Display {
     }
     parseJSONOffsets(json){
         this.offsets = JSON.parse(json);
-        console.log(this.offsets);
     }
 
     clearMessages(){
@@ -240,6 +239,7 @@ class Display {
     draw(x, y, level) {
         let s = this.squares[x][y][level];
         let td = this.td[x][y][level];
+        td.innerHTML = "";
         td.className = "n" + s;
         let icon = blockCodes[s];
 

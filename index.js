@@ -24,7 +24,18 @@ io.on('connection', function(client){
         client.emit('player', Game.getPlayerJSON());
         client.emit('offsets', Game.getOffsetsJSON());
     });
+    client.on('key', function(data){
+        Game.controls.handleEvent(JSON.parse(data));
+        client.emit('blocks', Game.getBlocksJSON());
+        client.emit('creatures', Game.getCreaturesJSON());
+        client.emit('items', Game.getItemsJSON());
+        client.emit('player', Game.getPlayerJSON());
+        client.emit('offsets', Game.getOffsetsJSON());
+
+    });
+
 });
+
 
 server.listen(8080);
 

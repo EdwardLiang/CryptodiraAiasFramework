@@ -39,13 +39,13 @@ class BehaviorTree {
     }
 
     next(){
-        if(Game.realTime && this.countForDelay != this.realTimeDelay){
+        /*if(Game.realTime && this.countForDelay != this.realTimeDelay){
             this.countForDelay++;
             return this.dummyRealTimeNode;
         }
         else if (Game.realTime && this.countForDelay == this.realTimeDelay){
             this.countForDelay = 0;
-        }
+        }*/
         if(this.lastNode instanceof ExecuteBehaviorNode){
             var a = this.stack.pop();
             this.lastSuccess = a.success;

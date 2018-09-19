@@ -17,6 +17,7 @@ body{
 
     </body>
     <script src="/display/display.js"></script>
+    <script src="/display/controls.js"></script>
     <script src="socket/socket.io-client/dist/socket.io.js"></script>
     <link rel="stylesheet" href="./display/style.css">
     <script>
@@ -43,6 +44,8 @@ socket.on('offsets', function(data){
     display.parseJSONOffsets(data);
     display.redraw();
 });
+
+window.addEventListener("keydown", PlayerEventListener);
 
     </script>
 
