@@ -6,6 +6,7 @@ var io = require('socket.io')(server);
 var Game = require('./src/game.js');
 
 app.use("/socket", express.static('node_modules'));
+app.use("/resources", express.static('resources'));
 app.use("/display", express.static('js'));
 
 app.get('/', function(req, res, next){

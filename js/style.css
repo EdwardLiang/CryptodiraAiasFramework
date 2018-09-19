@@ -14,3 +14,57 @@ img.emoji {
     vertical-align: -0.1em;
 }
 
+.level0 tbody tr td {
+   background-color: #540; 
+}
+.level1 tbody tr td {
+   background-color: #560; 
+}
+.level2 tbody tr td {
+   background-color: #600; 
+}
+.level3 tbody tr td {
+   background-color: #545; 
+}
+
+
+.n1 {
+    background-image:url(../resources/aiga-stairs.png);
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.n2 {
+    content: "&#x1F4D6;";
+}
+
+.n3 {
+    background-image: url(../resources/aiga-stairs.png);
+    transform: scaleX(-1);
+    background-size: 80%;
+}
+
+.n4 {
+    background-image: url(../resources/water-black.png);
+    background-color: blue !important;
+    background-size: 90%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.n5 {
+    background-image:url(../resources/grass.png);
+    background-color: green !important;
+    background-size: 90%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.n6 {
+    background-color: white
+}
+
+.n7 {
+    
+}

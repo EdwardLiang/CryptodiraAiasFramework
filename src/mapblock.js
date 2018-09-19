@@ -16,6 +16,8 @@ class MapBlock{
         this.player = false;
         this.noImg = false;
         this.creatureSegment = false;
+        this.id = 0;
+        this.iconId = 0;
     }
 
     checkMovable(c) {
@@ -60,6 +62,17 @@ class MapBlock{
             this.noImg = false;
         }
     }
+    calculateIconId(){
+        /*if(this.creatures.length > 0 && !this.creatureSegment){
+            this.iconId = this.creatures[0].id;
+        }
+        else if(this.items.length > 0){
+            this.iconId = this.items[0].id;
+        }
+        else{*/
+        this.iconId = this.id;
+        //}
+    }
     set creature(c){
         if(c != null){
             this.creatures.unshift(c);
@@ -92,7 +105,7 @@ class MapBlock{
             this.creatures[0].getStyle(e);
         }
         //if(this.creatures[0] === Game.player){
-         //   e.style.opacity = "0.7";
+        //   e.style.opacity = "0.7";
         //}
     }
 }
@@ -106,6 +119,7 @@ class StaircaseBlock extends MapBlock{
 class StaircaseUpBlock extends StaircaseBlock{
     constructor(x, y){
         super(x, y);
+        this.id = 1;
         //this.icon = "<";
     }
 
@@ -135,6 +149,7 @@ class BookBlock extends StaircaseUpBlock{
         this.icon = "&#x1F4D6;";
         this.originalIcon = "&#x1F4D6;";
         this.iconColor = "blue";
+        this.id = 2;
         //this.lvl = new level.Level(50, 30);
         //this.lvl.setBlock(1, 1, new EvergreenBlock(1, 1));
         //this.lvl.setBlock(2, 1, new StaircaseDownBlock(7, 3));
@@ -149,7 +164,7 @@ class BookBlock extends StaircaseUpBlock{
             }
             this.creatures[0].getStyle(e);
         }
-       // if(this.creatures[0] === Game.player){
+        // if(this.creatures[0] === Game.player){
         //    e.style.opacity = "0.7";
         //}
 
@@ -160,6 +175,7 @@ class BookBlock extends StaircaseUpBlock{
 class StaircaseDownBlock extends StaircaseBlock{
     constructor(x, y){
         super(x, y);
+        this.id = 3;
         //this.icon = ">";
     }
 
@@ -189,6 +205,7 @@ class WaterBlock extends MapBlock{
         super(x, y);
         this.icon = " ";
         this.iconColor = "black";
+        this.id = 4;
     }
     getStyle(e){
         super.getStyle(e);
@@ -211,6 +228,7 @@ class GrassBlock extends MapBlock{
         super(x, y);
         this.icon = " ";
         this.iconColor = "black";
+        this.id = 5;
     }
     getStyle(e){
         super.getStyle(e);
@@ -229,6 +247,7 @@ class IceBlock extends MapBlock{
         super(x, y);
         this.icon = " ";
         this.iconColor = "black";
+        this.id = 6;
     }
     getStyle(e){
         super.getStyle(e);
@@ -242,6 +261,7 @@ class UnmovableBlock extends MapBlock{
         this.movable = false;
         this.icon = " ";
         this.iconColor = "black";
+        this.id = 7;
     }
 }
 
@@ -251,6 +271,7 @@ class SolidBlock extends UnmovableBlock{
         this.movable = false;
         this.icon = " ";
         this.iconColor = "black";
+        this.id = 8;
     }
     getStyle(e){
         e.style.opacity = "0.0";
@@ -262,6 +283,7 @@ class WallBlock extends UnmovableBlock{
         super(x, y);
         this.icon = "&#128857;";
         this.iconColor = "AA3311";
+        this.id = 9;
     }
     getStyle(e){
 
@@ -279,6 +301,7 @@ class EvergreenBlock extends MapBlock{
         this.icon = "&#x1F332;";
         this.originalIcon = "&#x1F332;";
         this.iconColor = "green";
+        this.id = 10;
     }
     calculateIcon(){
         this.icon = "&#x1F332;";
@@ -297,6 +320,7 @@ class DeciduousBlock extends MapBlock{
         this.icon = "&#x1F333;";
         this.originalIcon = "&#x1F333;";
         this.iconColor = "green";
+        this.id = 11;
     }
     calculateIcon(){
         this.icon = "&#x1F333;";
@@ -315,6 +339,7 @@ class FountainBlock extends MapBlock{
         this.icon = "&#x26F2;";
         this.originalIcon = "&#x26F2;";
         this.iconColor = "blue";
+        this.id = 12;
     }
     calculateIcon(){
         this.icon = "&#x26F2;";
@@ -328,6 +353,7 @@ class StoneBlock extends UnmovableBlock{
         super(x, y);
         this.icon = " ";
         this.iconColor = "black";
+        this.id = 13;
     }
     getStyle(e){
         super.getStyle();

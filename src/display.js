@@ -30,7 +30,7 @@ class Display {
         this.height = this.view.height;
         this.squares = [];
     }
-
+/*
     generateTables(level){
         for(let i = 0; i < this.height; i++){
             for (let j = 0; j < this.width; j++){
@@ -38,6 +38,7 @@ class Display {
             }
         }
     }
+    */
 
     displayMap(map) {
         this.levels = map.levels;
@@ -62,7 +63,7 @@ class Display {
 
         for (let i = 0; i < this.levels.length; i++){
             this.view.offsets[i] = new Offset();
-            this.generateTables(i);
+            //this.generateTables(i);
         }
         this.calculateBlocks();
     }
@@ -72,7 +73,7 @@ class Display {
             for(let j = 0; j < this.squares[i].length; j++){
                 for(let z = 0; z < this.squares[i][j].length; z++){
                     let block = this.getCorrespondingMapBlock(i, j, z);
-                    block.calculateIcon();
+                    block.calculateIconId();
                     this.setBlock(i, j, z, block);
                 }
             }
@@ -85,9 +86,10 @@ class Display {
     }
 
     setBlock(x, y, level, block){
-        this.squares[x][y][level].icon = block.icon;
-        this.squares[x][y][level].color = block.iconColor;
-        this.squares[x][y][level].style = block.getStyle.bind(block);
+        //this.squares[x][y][level].icon = block.icon;
+        //this.squares[x][y][level].color = block.iconColor;
+        //this.squares[x][y][level].style = block.getStyle.bind(block);
+        this.squares[x][y][level] = block.iconId;
     }
     clearBlock(x, y, level){
         this.squares[x][y][level].icon = "";

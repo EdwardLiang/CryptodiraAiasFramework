@@ -56,13 +56,6 @@ class Display {
 
     parseJSON(json){
         this.squares = JSON.parse(json);
-        for(let i = 0; i < this.squares.length; i++){
-            for(let j = 0; j < this.squares[i].length; j++){
-                for(let k = 0; k < this.squares[j].length; k++){
-                    Object.assign(new DisplayBlock, this.squares[i][j][k]);
-                }
-            }
-        }
     }
 
     clearMessages(){
@@ -115,6 +108,7 @@ class Display {
 
     generateTables(level){
         let canvas = document.createElement("table"); 
+        canvas.className = "level" + level;
         canvas.style.position = "absolute";
         canvas.style.bottom =  ((9.4) - level*1) + "%";
         canvas.style.left = ((5.4) - level*.65) + "%";
@@ -148,7 +142,7 @@ class Display {
                 td.align = "center";
                 td.style.font = this.expWidth * 0.7 * this.coeffW + "px monospace";
                 td.style.textAlign = "center";
-                td.style.backgroundColor = bC;
+                //td.style.backgroundColor = bC;
                 td.style.color = "white";
                 td.style.opacity = opacity;
                 tr.append(td);
@@ -199,19 +193,17 @@ class Display {
     draw(x, y, level) {
         let s = this.squares[x][y][level];
         let td = this.td[x][y][level];
+        td.className = "n" + s;
         //console.log(td);
         //console.log("x: " + x + "y: " + y + "z: " + level);
-        td.innerHTML = s.icon; 
-        td.style.color = s.color;
+        //td.innerHTML = s.icon; 
+        //td.style.color = s.color;
         //s.getStyle(s.td);
     };
 
     drawIcon(x, y, level, icon) {
         let s = this.squares[getKey(x, y, level)];
         s.td.innerHTML = icon; 
-    };
-
-    drawExp(x, y, icon, color) {
     };
 
     setLevelOpacity(level, op){
