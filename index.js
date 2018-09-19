@@ -20,6 +20,7 @@ io.on('connection', function(client){
         Game.init();
         client.emit('blocks', Game.makeDisplayBlocks());
         client.emit('creatures', Game.getCreaturesJSON());
+        client.emit('items', Game.getItemsJSON());
         client.emit('player', Game.getPlayerJSON());
         client.emit('offsets', Game.getOffsetsJSON());
     });

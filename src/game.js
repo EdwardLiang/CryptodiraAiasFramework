@@ -197,12 +197,17 @@ module.exports = {
             creatures = creatures.concat(this.map.levels[i].creatures);
         }
         return this.display.getCreaturesJSON(creatures);
+
     },
     getPlayerJSON(){
         return this.display.getPlayerJSON(this.player);
     },
     getOffsetsJSON(){
         return this.display.getOffsetsJSON();
+    },
+    getItemsJSON(){
+        //Items are returned with an already display-offsetted values since it was easy.
+        return this.display.getItemsJSON();
     }
 
 };

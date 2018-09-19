@@ -136,6 +136,10 @@ class Display {
     getOffsetsJSON(){
         return JSON.stringify(this.view.offsets);
     }
+
+    getItemsJSON(){
+        return JSON.stringify(this.items);
+    }
 }
 
 

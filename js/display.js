@@ -57,6 +57,9 @@ class Display {
     parseJSONBlocks(json){
         this.squares = JSON.parse(json);
     }
+    parseJSONItems(json){
+        this.items = JSON.parse(json);
+    }
     parseJSONCreatures(json){
         this.creatures = JSON.parse(json);
     }
@@ -170,17 +173,14 @@ class Display {
         for(let i = 0; i < this.squares.length; i++){
             for(let j = 0; j < this.squares[i].length; j++){
                 for(let z = 0; z < this.squares[i][j].length; z++){
-                    //this.clearBlock(i, j, z);
-                    //this.clear(i, j, z, Game.player);
-                    //this.level.map[i + this.view.xOffset][j + this.view.yOffset][z].clear();
-                    //this.setBlock(i, j, z, this.level.map[i + this.view.offsets[z].xOffset][j + this.view.offsets[z].yOffset][z]);
-
-                    //this.setBlock(i, j, z, Game.map.getBlock(i + this.view.offsets[z].xOffset, j + this.view.offsets[z].yOffset, z);
-
-                    //this.setBlock(i, j, z, this.getCorrespondingMapBlock(i, j, z));
                     this.draw(i, j, z);
                 }
             }
+        }
+        for(let i = 0; i < this.items.length; i++){
+            let item = this.items[i];
+            let td = this.td[item["x"]][item["y"]][item["z"]];
+            td.innerHTML = itemCodes[item["id"]] 
         }
         for(let i = 0; i < this.creatures.length; i++){
             let c = this.creatures[i];
@@ -321,4 +321,14 @@ creatureCodes["6"] = "&#x1F426;";
 creatureCodes["7"] = "&#x1F408;";
 creatureCodes["8"] = "&#x1F415;";
 creatureCodes["9"] = "&#x1F916;";
+
+let itemCodes = {};
+itemCodes["3"] = "&#x1F34A;";
+itemCodes["4"] = "&#x1F95C;";
+itemCodes["5"] = "&#x1F50B;";
+itemCodes["8"] = "&#x1F455;";
+itemCodes["10"] = "&#x1F456;";
+itemCodes["12"] = "&#x1F45F;";
+itemCodes["14"] = "&#x1F6E1;";
+itemCodes["16"] = "&#x270F;";
 
