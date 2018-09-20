@@ -63,13 +63,7 @@ class Display {
     parseJSONCreatures(json){
         this.creatures = JSON.parse(json);
     }
-    parseJSONPlayer(json){
-        this.player = JSON.parse(json);
-    }
-    parseJSONOffsets(json){
-        this.offsets = JSON.parse(json);
-    }
-
+    
     clearMessages(){
         this.messages.innerHTML = "";
     }
@@ -142,12 +136,12 @@ class Display {
         this.coeffW = 0.025 + level*0.0004;
 
         let bC = this.getBC(level);
-        let opacity = 0.1;
+        //let opacity = 0.1;
 
-        if(level == 0){
-            opacity = 1;
-        }
-        canvas.style.opacity = opacity;
+        //if(level == 0){
+         //   opacity = 1;
+        //}
+        //canvas.style.opacity = opacity;
         let tb = document.createElement("tbody");
         tb.style.display = "block";
         canvas.appendChild(tb);
@@ -208,9 +202,12 @@ class Display {
             if(c["s"] == -1){
                 tdC.classList.add("sc");
             }
+            if(c["id"] == 10){
+                this.player = c;
+            }
         }
         
-        //this.adjustLayerOpacity();
+        this.adjustLayerOpacity();
         twemoji.parse(document.body);
     }
 
@@ -246,23 +243,27 @@ class Display {
         //s.getStyle(s.td);
     };
 
-    drawIcon(x, y, level, icon) {
-        let s = this.squares[getKey(x, y, level)];
-        s.td.innerHTML = icon; 
-    };
-
     setLevelOpacity(level, op){
-        /*for(let i = 0; i < this.width; i++){
-            for(let j = 0; j < this.height; j++){
-                if(this.squares[i][j][level].td.style.opacity == op){
-                    return;    
-                }
-                this.squares[i][j][level].td.style.opacity = op;
-                this.draw(i, j, level);
-            }
-        }*/
         this.canvases[level].style.opacity = op;
     };
+
+    adjustLayerOpacity(){
+        let notSolidBelow = false;
+        for(let i = 0; i < this.levels; i++){
+            if(i <= this.player.z){
+                this.setLevelOpacity(i, "1");
+            }
+            if(i > this.player.z){
+                if(this.squares[this.player.x][this.player.y][i] == 8 && !notSolidBelow){
+                    this.setLevelOpacity(i, "0.5");
+                }
+                else{
+                    notSolidBelow = true;
+                    this.setLevelOpacity(i, "0.1");
+                }
+            }
+        }
+    }
 
     getBC(level){
         let bC;

@@ -39,6 +39,8 @@ img.emoji {
     background-image: url(../resources/aiga-stairs.png);
     transform: scaleX(-1);
     background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .n4 {

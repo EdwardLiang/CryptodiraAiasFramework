@@ -31,15 +31,6 @@ class Display {
         this.height = this.view.height;
         this.squares = [];
     }
-/*
-    generateTables(level){
-        for(let i = 0; i < this.height; i++){
-            for (let j = 0; j < this.width; j++){
-                this.squares[j][i][level] = new DisplayBlock(j, i, level); 
-            }
-        }
-    }
-    */
     
     displayMap(map) {
         this.levels = map.levels;
@@ -58,7 +49,7 @@ class Display {
         for (let i = 0; i < this.width; i++){
             this.squares[i] = new Array(this.height);
             for (let j = 0; j < this.squares[i].length; j++){
-                this.squares[i][j] = new Array(this.levels);
+                this.squares[i][j] = new Array(this.levels.length);
             }
         }
 
