@@ -83,7 +83,7 @@ class Display {
                             , y: j 
                             , z: z});
                     }
-                    if(block.creature){
+                    if(block.creature && !block.creatureSegment){
                         this.creatures.push({id: block.creature.id,
                             x:i,
                             y:j,

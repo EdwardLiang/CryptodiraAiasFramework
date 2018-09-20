@@ -205,25 +205,18 @@ class Display {
             if(c["id"] == 10){
                 this.player = c;
             }
+            if(c["id"] == 5){
+                //elephant
+                tdC.innerHTML = "";
+                let div = document.createElement("div");
+                div.innerHTML = creatureIcon;
+                tdC.append(div);
+            }
         }
-        
+
         this.adjustLayerOpacity();
         twemoji.parse(document.body);
     }
-
-    setBlock(x, y, level, block){
-        this.squares[x][y][level].icon = block.icon;
-        this.squares[x][y][level].color = block.iconColor;
-        this.squares[x][y][level].style = block.getStyle.bind(block);
-    }
-    clearBlock(x, y, level){
-        this.squares[x][y][level].icon = "";
-        this.squares[x][y][level].color = "white";
-    }
-
-    get container() {
-        return this.canvas;   
-    };
 
     draw(x, y, level) {
         let s = this.squares[x][y][level];
