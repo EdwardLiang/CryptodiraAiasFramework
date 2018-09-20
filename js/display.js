@@ -198,14 +198,6 @@ class Display {
             let x = parseInt(c["x"]);
             let y = parseInt(c["y"]);
             let z = parseInt(c["z"]);
-            //let xOffset = parseInt(this.offsets[z].xOffset);
-            //let yOffset = parseInt(this.offsets[z].yOffset);
-            //if(x - xOffset > this.width - 1 || 
-             //       x - xOffset < 0 
-              //      || y - yOffset > this.height - 1 ||
-               //     y - yOffset < 0){
-                //continue;
-            //}
             let creatureIcon = creatureCodes[c["id"]];
             let tdC = this.td[x][y][z];
             if(creatureIcon != undefined){
@@ -217,23 +209,7 @@ class Display {
                 tdC.classList.add("sc");
             }
         }
-        /*let p = this.player;
-        let x = parseInt(p["x"]);
-        let y = parseInt(p["y"]);
-        let z = parseInt(p["z"]);
-        let xOffset = parseInt(this.offsets[z].xOffset);
-        let yOffset = parseInt(this.offsets[z].yOffset);
-        if(x - xOffset > this.width - 1 || 
-                x - xOffset < 0 
-                || y - yOffset > this.height - 1 ||
-                y - yOffset < 0){
-        }
-        else{
-            let tdP = this.td[x - xOffset][y - yOffset][z];
-            tdP.classList.add("player");
-            tdP.innerHTML = "&#x1F3C3";
-        }*/
-
+        
         //this.adjustLayerOpacity();
         twemoji.parse(document.body);
     }

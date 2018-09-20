@@ -33,17 +33,12 @@ socket.on('blocks', function(data){
 socket.on('creatures', function(data){
     display.parseJSONCreatures(data);
 });
-socket.on('player', function(data){
-    display.parseJSONPlayer(data);
-});
+
 socket.on('items', function(data){
     display.parseJSONItems(data);
-});
-
-socket.on('offsets', function(data){
-    display.parseJSONOffsets(data);
     display.redraw();
 });
+
 socket.on('message', function(data){
     if(data != null && data !== "null"){
         display.hideMessages();

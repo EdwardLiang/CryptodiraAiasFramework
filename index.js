@@ -22,8 +22,6 @@ io.on('connection', function(client){
         client.emit('blocks', Game.makeDisplayBlocks());
         client.emit('creatures', Game.getCreaturesJSON());
         client.emit('items', Game.getItemsJSON());
-        client.emit('player', Game.getPlayerJSON());
-        client.emit('offsets', Game.getOffsetsJSON());
         client.emit('message', Game.getMessage());
     });
     client.on('key', function(data){
@@ -31,8 +29,6 @@ io.on('connection', function(client){
         client.emit('blocks', Game.getBlocksJSON());
         client.emit('creatures', Game.getCreaturesJSON());
         client.emit('items', Game.getItemsJSON());
-        client.emit('player', Game.getPlayerJSON());
-        client.emit('offsets', Game.getOffsetsJSON());
         client.emit('message', Game.getMessage());
         if(Game.getShowInventory()){
             client.emit('inventory', Game.getInventoryJSON());

@@ -133,30 +133,6 @@ class Display {
         return JSON.stringify(this.creatures);
     }
 
-    getPlayerJSON(player){
-        /*return JSON.stringify(player, function(key, val){
-            if(key === 'x'){
-                return val - this.view.offsets[player.z].xOffset;
-            }
-            else if(key === 'y'){
-                return val - this.view.offsets[player.z].yOffset;
-            }
-            else if(key === 'z' || key === 'id' || !key){
-                return val;
-            }
-            else{
-                return undefined;
-            }
-
-        }.bind(this));
-        */
-        return JSON.stringify(player, ['x', 'y', 'z']);
-    }
-
-    getOffsetsJSON(){
-        return JSON.stringify(this.view.offsets);
-    }
-
     getItemsJSON(){
         return JSON.stringify(this.items);
     }

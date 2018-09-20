@@ -220,7 +220,7 @@ class PlayerEventListener {
 
             let item = this.player.dropItem(index);
             if(item != null){
-                this.engine.addEvent(dropItem(item)); 
+                this.engine.addEvent(this.dropItem(item)); 
                 this.map.creaturesAct();
                 this.engine.timeStep();
             }

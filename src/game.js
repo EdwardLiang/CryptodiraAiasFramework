@@ -210,9 +210,6 @@ class Game {
         return this.display.getCreaturesJSON(creatures);
 
     }
-    getPlayerJSON(){
-        return this.display.getPlayerJSON(this.player);
-    }
     getOffsetsJSON(){
         return this.display.getOffsetsJSON();
     }
