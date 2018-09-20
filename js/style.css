@@ -92,6 +92,15 @@ img.emoji {
     /*todo elephant*/
 }
 
-.player{
+.c10{
+    /*player*/
     opacity: 0.7 !important;
+}
+
+.sc {
+    transform: scaleX(-1);
+}
+
+.cr {
+    background-image:none;
 }

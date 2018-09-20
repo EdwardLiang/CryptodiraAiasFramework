@@ -148,15 +148,15 @@ class StaircaseUpBlock extends StaircaseBlock{
 
 class BookBlock extends StaircaseUpBlock{
 
-    constructor(x, y){
+    constructor(x, y, lvl){
         super(x, y);
         this.icon = "&#x1F4D6;";
         this.originalIcon = "&#x1F4D6;";
         this.iconColor = "blue";
         this.id = 2;
-        //this.lvl = new level.Level(50, 30);
-        //this.lvl.setBlock(1, 1, new EvergreenBlock(1, 1));
-        //this.lvl.setBlock(2, 1, new StaircaseDownBlock(7, 3));
+        this.lvl = lvl;
+        this.lvl.setBlock(1, 1, new EvergreenBlock(1, 1));
+        this.lvl.setBlock(2, 1, new StaircaseDownBlock(7, 3));
 
     }
     getStyle(e){

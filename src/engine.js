@@ -33,7 +33,7 @@ class Engine {
         //Game.display.redraw();
 
         if(!this.Game.realTime){
-           // Game.display.clearMessages();
+            this.Game.display.clearMessages();
         }
        
         if(!this.Game.realTime){

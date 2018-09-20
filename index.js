@@ -3,7 +3,7 @@ var express = require('express');
 var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
-var Game = require('./src/game.js');
+var game = require('./src/game.js');
 
 app.use("/socket", express.static('node_modules'));
 app.use("/resources", express.static('resources'));
@@ -16,6 +16,7 @@ app.get('/', function(req, res, next){
 
 io.on('connection', function(client){
     console.log('Client connected');
+    var Game = new game.Game();
     client.on('join', function(data){
         Game.init();
         client.emit('blocks', Game.makeDisplayBlocks());
@@ -23,6 +24,7 @@ io.on('connection', function(client){
         client.emit('items', Game.getItemsJSON());
         client.emit('player', Game.getPlayerJSON());
         client.emit('offsets', Game.getOffsetsJSON());
+        client.emit('message', Game.getMessage());
     });
     client.on('key', function(data){
         Game.controls.handleEvent(JSON.parse(data));

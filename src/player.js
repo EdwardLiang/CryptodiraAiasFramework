@@ -15,6 +15,7 @@ class Player extends creature.Creature{
         this.shoes = null;
         this.shield = null;
         this.weapon = null;
+        this.id = 10;
     }
 
     getStyle(e){
@@ -211,13 +212,13 @@ move(diff){
             display.view.offsets[player.z].yOffset = 0;
         }
 
-        if (newZTemp > tZ){
+        /*if (newZTemp > tZ){
             display.setLevelOpacity(newZ, "1");
         }
 
         if (newZTemp < tZ){
             display.setLevelOpacity(tZ, "0.1");
-        }
+        }*/
     }
 
 }

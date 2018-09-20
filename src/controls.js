@@ -1,5 +1,6 @@
 "use strict";
 var distance = require("./distance.js");
+var mapblock = require("./mapblock.js");
 let DIRS = {};
 DIRS[72] = new distance.Distance(-1, 0, 0); //left
 DIRS[74] = new distance.Distance(0, 1, 0); //down
@@ -370,9 +371,9 @@ class PlayerEventListener {
                 return;
             }
             let block = this.map.getBlock(this.player.x, this.player.y, this.player.z);
-            if(block instanceof BookBlock){
+            if(block instanceof mapblock.BookBlock){
                 this.map.setLevel(block.lvl, 1);
-                diff = new Distance(0, 0, 1);
+                diff = new distance.Distance(0, 0, 1);
             }
         }
         if(code == 190 && e.shiftKey){

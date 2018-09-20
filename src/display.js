@@ -66,7 +66,7 @@ class Display {
             this.view.offsets[i] = new Offset();
             //this.generateTables(i);
         }
-        this.calculateBlocksAndItems();
+        this.calculateBlocksItemsCreatures();
     }
     getMessage(){
         return JSON.stringify(this.message);
@@ -76,11 +76,12 @@ class Display {
         this.message = message;
     }
     clearMessages(){
-        this.message = "";
+        this.message = null;
     }
 
-    calculateBlocksAndItems(){
+    calculateBlocksItemsCreatures(){
         this.items = [];
+        this.creatures = [];
         for(let i = 0; i < this.squares.length; i++){
             for(let j = 0; j < this.squares[i].length; j++){
                 for(let z = 0; z < this.squares[i][j].length; z++){
@@ -90,6 +91,13 @@ class Display {
                             x: i 
                             , y: j 
                             , z: z});
+                    }
+                    if(block.creature){
+                        this.creatures.push({id: block.creature.id,
+                            x:i,
+                            y:j,
+                            z:z,
+                            s:block.creature.scale});
                     }
                     block.calculateIconId();
                     this.setBlock(i, j, z, block);
@@ -115,14 +123,14 @@ class Display {
     }
 
     getDisplayBlocks(){
-        this.calculateBlocksAndItems();
+        this.calculateBlocksItemsCreatures();
         return JSON.stringify(this.squares);
     }
 
-    getCreaturesJSON(creatures){
+    getCreaturesJSON(){
         //console.log(JSON.stringify(creatures, creatureReplacer));
         //console.log(creatureReplacer);
-        return JSON.stringify(creatures, ['x', 'y', 'z', 'id']);
+        return JSON.stringify(this.creatures);
     }
 
     getPlayerJSON(player){

@@ -45,9 +45,12 @@ socket.on('offsets', function(data){
     display.redraw();
 });
 socket.on('message', function(data){
-    if(data != null){
-        display.clearMessages();
+    if(data != null && data !== "null"){
+        display.hideMessages();
         display.showMessage(JSON.parse(data));
+    }
+    else{
+        display.hideMessages();
     }
 });
 

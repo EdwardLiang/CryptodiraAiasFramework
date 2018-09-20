@@ -10,12 +10,14 @@ var items = require("./item.js");
 var btb = require("./behavior/behaviortreebuilder.js");
 var controls = require("./controls.js");
 
-module.exports = {
-    display: null,
-    realTime: false,
-    timer: 0,
-    messageStayDelay: 10,
-    simpleLayers: false,
+class Game {
+    constructor(){
+        this.display = null;
+        this.realTime = false;
+        this.timer = 0;
+        this.messageStayDelay = 10;
+        this.simpleLayers = false;
+    }
 
     init(){
         this.map = new gameMap.GameMap(this);
@@ -104,7 +106,7 @@ module.exports = {
         //this.map.setBlock(6,6,4, new StaircaseUpBlock(6,6));
         //this.map.setBlock(3,3,5, new StaircaseDownBlock(3,3));
 
-        this.map.setBlock(7,3,0, new mapblock.BookBlock(7,3));
+        this.map.setBlock(7,3,0, new mapblock.BookBlock(7,3, new level.Level(50, 30)));
         //this.map.setBlock(3,5,4, new mapblock.GrassBlock(3,5,4));
         this.map.getBlock(5,5,0).items.push(new items.Orange());
         this.map.getBlock(6,5,0).items.push(new items.BasicShirt());
@@ -164,7 +166,7 @@ module.exports = {
         this.controls.display = this.display;
 
         //window.addEventListener("keydown", PlayerEventListener);
-
+/*
 
         if(this.realTime){
             let loop = function(){
@@ -184,21 +186,21 @@ module.exports = {
                 setTimeout(loop, 100);
             }
             loop();
-        }
-    },
+        }*/
+    }
 
     makeDisplayBlocks(){
         this.display.displayMap(this.map);
         this.map.clearVisible();
         //this.display.redraw();
        return this.display.getDisplayBlocks();
-    },
+    }
 
     getBlocksJSON(){
         this.map.clearVisible();
         //this.display.redraw();
        return this.display.getDisplayBlocks();
-    },
+    }
 
     getCreaturesJSON(){
         let creatures = [];
@@ -207,25 +209,29 @@ module.exports = {
         }
         return this.display.getCreaturesJSON(creatures);
 
-    },
+    }
     getPlayerJSON(){
         return this.display.getPlayerJSON(this.player);
-    },
+    }
     getOffsetsJSON(){
         return this.display.getOffsetsJSON();
-    },
+    }
     getItemsJSON(){
         //Items are returned with an already display-offsetted values since it was easy.
         return this.display.getItemsJSON();
-    },
+    }
     getInventoryJSON(){
         return this.display.getInventoryJSON();
-    },
+    }
     getShowInventory(){
         return this.display.inventoryVisible;
-    },
+    }
 
     getMessage(){
         return this.display.getMessage();
     }
 };
+
+module.exports = {
+    Game: Game
+}
