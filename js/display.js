@@ -202,6 +202,10 @@ class Display {
             if(c["s"] == -1){
                 tdC.classList.add("sc");
             }
+            else if(c["s"] == 1){
+                tdC.classList.add("scn");
+            }
+
             if(c["id"] == 10){
                 this.player = c;
             }

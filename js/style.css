@@ -30,7 +30,7 @@ img.emoji {
 
 .n1 {
     background-image:url(../resources/aiga-stairs.png);
-    background-size: 80%;
+    background-size: 70%;
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -38,7 +38,7 @@ img.emoji {
 .n3 {
     background-image: url(../resources/aiga-stairs.png);
     transform: scaleX(-1);
-    background-size: 80%;
+    background-size: 70%;
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -66,6 +66,10 @@ img.emoji {
 .n8 {
     opacity: 0.0 !important;   
 }
+.n9 {
+    color: #AA3311 !important;
+}
+
 
 .n10 {
     background-color: green !important;
@@ -109,7 +113,12 @@ img.emoji {
 }
 
 .sc {
+    /*scale creature*/
     transform: scaleX(-1);
+}
+.scn {
+    /*noscale creature*/
+    transform: scaleX(1);
 }
 
 .cr {
