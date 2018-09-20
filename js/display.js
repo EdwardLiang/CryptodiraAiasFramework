@@ -185,7 +185,8 @@ class Display {
         for(let i = 0; i < this.items.length; i++){
             let item = this.items[i];
             let td = this.td[item["x"]][item["y"]][item["z"]];
-            td.innerHTML = itemCodes[item["id"]] 
+            td.innerHTML = itemCodes[item["id"]];
+            td.classList.add("item");
         }
         for(let i = 0; i < this.creatures.length; i++){
             let c = this.creatures[i];
