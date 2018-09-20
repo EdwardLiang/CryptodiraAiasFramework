@@ -1,6 +1,7 @@
 "use strict";
 //var Game = require("./game.js");
 var engine = require("./engine.js");
+var item = require("./item.js");
 
 class View {
     constructor(){
@@ -150,6 +151,63 @@ class Display {
 
     getItemsJSON(){
         return JSON.stringify(this.items);
+    }
+    
+    appendCategoryToList(list, cat, name){
+        if(Object.keys(cat).length > 0){
+            list.push(name);
+        }
+
+        for(let i in cat){
+            if(this.Game.player.isEquipped(cat[i])){
+                list.push(i + " - " + cat[i].name + " (worn)");
+            }
+            else if(this.Game.player.isWielded(cat[i])){
+                list.push(i + " - " + cat[i].name + " (weapon in hand)");
+            }
+            else{
+                list.push(i + " - " + cat[i].name);
+            }
+        }
+
+    }
+
+    showInventory(){
+        this.inventoryVisible = true;
+    }
+    hideInventory(){
+        this.inventoryVisible = false;
+    }
+
+    getInventoryJSON(){
+        let items = this.Game.player.items;
+        let i = []; 
+
+        let equipment = {};
+        let food = {};
+        let misc = {};
+        let weapon = {};
+
+        for(let i in items){
+            if(items[i] instanceof item.Equipment){
+                equipment[i] = items[i];
+            }
+            if(items[i] instanceof item.Food){
+                food[i] = items[i];
+            }
+            if(items[i] instanceof item.MiscItem){
+                misc[i] = items[i];
+            }
+            if(items[i] instanceof item.Weapon){
+                weapon[i] = items[i];
+            }
+        }
+        this.appendCategoryToList(i, weapon, "Weapon");
+        this.appendCategoryToList(i, equipment, "Equipment");
+        this.appendCategoryToList(i, food, "Food");
+        this.appendCategoryToList(i, misc, "Misc");
+
+        return JSON.stringify(i);
     }
 }
 

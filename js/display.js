@@ -114,6 +114,17 @@ class Display {
         th.innerHTML = "Inventory";
         this.inventory.append(th);
 
+        for(let i = 0; i < items.length; i++){
+            let tr = document.createElement("tr");
+            let td1 = document.createElement("td");
+            td1.style.fontSize = this.expWidth * this.coeffW * 0.70 + "px";
+            td1.style.font = this.expWidth * this.coeffW * 0.70 + "px monospace";
+            td1.style.color = "white";
+            td1.innerHTML = items[i];
+            tr.append(td1);
+            this.inventory.append(tr);
+        }
+
         this.inventory.style.opacity = "0.5";
         this.inventoryVisible = true;
     }
@@ -189,9 +200,9 @@ class Display {
             let xOffset = parseInt(this.offsets[z].xOffset);
             let yOffset = parseInt(this.offsets[z].yOffset);
             if(x - xOffset > this.width - 1 || 
-                x - xOffset < 0 
-                || y - yOffset > this.height - 1 ||
-                y - yOffset < 0){
+                    x - xOffset < 0 
+                    || y - yOffset > this.height - 1 ||
+                    y - yOffset < 0){
                 continue;
             }
             let creatureIcon = creatureCodes[c["id"]];

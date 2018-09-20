@@ -156,12 +156,12 @@ module.exports = {
         this.map.addCreature(dol);
         this.map.addCreature(tow);
 
-        this.controls = controls.PlayerEventListener;
+        this.controls = new controls.PlayerEventListener();
 
-        controls.PlayerEventListener.player = this.player;
-        controls.PlayerEventListener.map = this.map;
-        controls.PlayerEventListener.engine = this.engine;
-        controls.PlayerEventListener.display = this.display;
+        this.controls.player = this.player;
+        this.controls.map = this.map;
+        this.controls.engine = this.engine;
+        this.controls.display = this.display;
 
         //window.addEventListener("keydown", PlayerEventListener);
 
@@ -218,8 +218,14 @@ module.exports = {
         //Items are returned with an already display-offsetted values since it was easy.
         return this.display.getItemsJSON();
     },
+    getInventoryJSON(){
+        return this.display.getInventoryJSON();
+    },
+    getShowInventory(){
+        return this.display.inventoryVisible;
+    },
+
     getMessage(){
-        //Items are returned with an already display-offsetted values since it was easy.
         return this.display.getMessage();
     }
 };

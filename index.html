@@ -45,11 +45,21 @@ socket.on('offsets', function(data){
     display.redraw();
 });
 socket.on('message', function(data){
-    display.clearMessages();
-    display.showMessage(JSON.parse(data));
+    if(data != null){
+        display.clearMessages();
+        display.showMessage(JSON.parse(data));
+    }
 });
 
-
+socket.on('inventory', function(data){
+    if(data == 'false'){
+        display.hideInventory(); 
+    }
+    else{
+        display.hideInventory(); 
+        display.showInventory(JSON.parse(data));
+    }
+});
 
 window.addEventListener("keydown", PlayerEventListener);
 

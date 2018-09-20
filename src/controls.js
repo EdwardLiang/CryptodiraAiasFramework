@@ -12,249 +12,242 @@ DIRS[85] = new distance.Distance(1, -1, 0); //right up
 DIRS[188] = new distance.Distance(0, 0, 1);
 DIRS[190] = new distance.Distance(0, 0, -1);
 
+class PlayerEventListener {
 
-function itemSelectorWear(e){
-    if(!PlayerEventListener.equipping){
-        Game.display.clearMessages();
-        Game.display.showMessage("What do you wish to wear? Type index or * to open inventory.");
-        PlayerEventListener.equipping = true;
-        return;
+    constructor(Game){
+        this.player = null;
+        this.map = null;
+        this.engine = null;
+        this.display = null;
+        this.dropping = false;
+        this.equipping = false;
+        this.unequipping = false;
+        this.wielding = false;
+        this.Game = Game
     }
 
-    let code = e.keyCode;
-    if(code == 16){
-        //shift
-        return;
-    }
-    if(code == 56 && e.shiftKey){ 
-        if(Game.display.inventoryVisible){
-            Game.display.hideInventory();
-            Game.display.showInventory(Game.player.items);
+    itemSelectorWear(e){
+        if(!this.equipping){
+            this.display.clearMessages();
+            this.display.showMessage("What do you wish to wear? Type index or * to open inventory.");
+            this.equipping = true;
+            return;
+        }
+
+        let code = e.keyCode;
+        if(code == 16){
+            //shift
+            return;
+        }
+        if(code == 56 && e.shiftKey){ 
+            if(this.display.inventoryVisible){
+                this.display.hideInventory();
+                this.display.showInventory(this.player.items);
+            }
+            else{
+                this.display.showInventory(this.player.items);
+            }
         }
         else{
-            Game.display.showInventory(Game.player.items);
+            let index = String.fromCharCode(code);
+            if(!e.shiftKey){
+                index = index.toLowerCase();
+            }
+
+            let hasItem = this.player.getItem(index);
+            let equippable = this.player.equippable(index);
+            let isWielded = this.player.isWieldedIndex(index);
+
+            if(hasItem == null){
+                //item not in inventory
+                this.display.clearMessages();
+                this.display.showMessage("You don't have that item.");
+            }
+            else if(!equippable){
+                //item in inventory
+                this.display.clearMessages();
+                this.display.showMessage("You can't wear that item.");
+            }
+            else if(isWielded){
+                this.display.clearMessages();
+                this.display.showMessage("You are using that item as a weapon.");
+            }
+            else{
+                this.engine.addEvent(this.player.equipIndex(index)); 
+                this.map.creaturesAct();
+                this.engine.timeStep();
+            }
+            this.equipping = false;
+            if(this.display.inventoryVisible){
+                this.display.hideInventory();
+            }
         }
     }
-    else{
-        let index = String.fromCharCode(code);
-        if(!e.shiftKey){
-            index = index.toLowerCase();
+
+    itemSelectorWield(e){
+        if(!this.wielding){
+            this.display.clearMessages();
+            this.display.showMessage("What do you wish to wield? Type index or * to open inventory.");
+            this.wielding = true;
+            return;
         }
 
-        let hasItem = Game.player.getItem(index);
-        let equippable = Game.player.equippable(index);
-        let isWielded = Game.player.isWieldedIndex(index);
-
-        if(hasItem == null){
-            //item not in inventory
-            Game.display.clearMessages();
-            Game.display.showMessage("You don't have that item.");
+        let code = e.keyCode;
+        if(code == 16){
+            //shift
+            return;
         }
-        else if(!equippable){
-            //item in inventory
-            Game.display.clearMessages();
-            Game.display.showMessage("You can't wear that item.");
-        }
-        else if(isWielded){
-            Game.display.clearMessages();
-            Game.display.showMessage("You are using that item as a weapon.");
+        if(code == 56 && e.shiftKey){ 
+            if(this.display.inventoryVisible){
+                this.display.hideInventory();
+                this.display.showInventory(this.player.items);
+            }
+            else{
+                this.display.showInventory(this.player.items);
+            }
         }
         else{
-            Game.engine.addEvent(Game.player.equipIndex(index)); 
-            Game.map.creaturesAct();
-            Game.engine.timeStep();
-        }
-        PlayerEventListener.equipping = false;
-        if(Game.display.inventoryVisible){
-            Game.display.hideInventory();
-        }
-    }
-}
+            let index = String.fromCharCode(code);
+            if(!e.shiftKey){
+                index = index.toLowerCase();
+            }
 
-function itemSelectorWield(e){
-    if(!PlayerEventListener.wielding){
-        Game.display.clearMessages();
-        Game.display.showMessage("What do you wish to wield? Type index or * to open inventory.");
-        PlayerEventListener.wielding = true;
-        return;
+            let hasItem = this.player.getItem(index);
+            let isEquipped = this.player.isEquippedIndex(index);
+
+            if(hasItem == null){
+                //item not in inventory
+                this.display.clearMessages();
+                this.display.showMessage("You don't have that item.");
+            }
+            else if(isEquipped){
+                //item in inventory
+                this.display.clearMessages();
+                this.display.showMessage("You are wearing that item.");
+            }
+            else{
+                this.engine.addEvent(this.player.wieldIndex(index)); 
+                this.map.creaturesAct();
+                this.engine.timeStep();
+            }
+            this.wielding = false;
+            if(this.display.inventoryVisible){
+                this.display.hideInventory();
+            }
+        }
     }
 
-    let code = e.keyCode;
-    if(code == 16){
-        //shift
-        return;
-    }
-    if(code == 56 && e.shiftKey){ 
-        if(Game.display.inventoryVisible){
-            Game.display.hideInventory();
-            Game.display.showInventory(Game.player.items);
+    itemSelectorUnequip(e){
+        if(!this.unequipping){
+            this.display.clearMessages();
+            this.display.showMessage("What do you wish to take off? Type index or * to open inventory.");
+            this.unequipping = true;
+            return;
+        }
+
+        let code = e.keyCode;
+        if(code == 16){
+            //shift
+            return;
+        }
+        if(code == 56 && e.shiftKey){ 
+            if(this.display.inventoryVisible){
+                this.display.hideInventory();
+                this.display.showInventory(this.player.items);
+            }
+            else{
+                this.display.showInventory(this.player.items);
+            }
         }
         else{
-            Game.display.showInventory(Game.player.items);
+            let index = String.fromCharCode(code);
+            if(!e.shiftKey){
+                index = index.toLowerCase();
+            }
+
+            let hasItem = this.player.getItem(index);
+            let isEquipped = this.player.isEquippedIndex(index);
+
+            if(hasItem == null){
+                //item not in inventory
+                this.display.showMessage("You don't have that item.");
+            }
+            else if(!isEquipped){
+                //item in inventory
+                this.display.showMessage("That item is not equipped");
+            }
+            else{
+                this.engine.addEvent(this.player.unequip(index)); 
+                this.map.creaturesAct();
+                this.engine.timeStep();
+            }
+            this.unequipping = false;
+            if(this.display.inventoryVisible){
+                this.display.hideInventory();
+            }
         }
     }
-    else{
-        let index = String.fromCharCode(code);
-        if(!e.shiftKey){
-            index = index.toLowerCase();
+
+
+    itemSelectorDrop(e){
+        if(!this.dropping){
+            this.display.clearMessages();
+            this.display.showMessage("What do you wish to drop? Type index or * to open inventory.");
+            this.dropping = true;
+            return;
         }
 
-        let hasItem = Game.player.getItem(index);
-        let isEquipped = Game.player.isEquippedIndex(index);
-
-        if(hasItem == null){
-            //item not in inventory
-            Game.display.clearMessages();
-            Game.display.showMessage("You don't have that item.");
+        let code = e.keyCode;
+        if(code == 16){
+            //shift
+            return;
         }
-        else if(isEquipped){
-            //item in inventory
-            Game.display.clearMessages();
-            Game.display.showMessage("You are wearing that item.");
+        if(code == 56 && e.shiftKey){ 
+            if(this.display.inventoryVisible){
+                this.display.hideInventory();
+                this.display.showInventory(this.player.items);
+            }
+            else{
+                this.display.showInventory(this.player.items);
+            }
         }
         else{
-            Game.engine.addEvent(Game.player.wieldIndex(index)); 
-            Game.map.creaturesAct();
-            Game.engine.timeStep();
-        }
-        PlayerEventListener.wielding = false;
-        if(Game.display.inventoryVisible){
-            Game.display.hideInventory();
-        }
-    }
-}
+            let index = String.fromCharCode(code);
+            if(!e.shiftKey){
+                index = index.toLowerCase();
+            }
 
-
-function itemSelectorUnequip(e){
-    if(!PlayerEventListener.unequipping){
-        Game.display.clearMessages();
-        Game.display.showMessage("What do you wish to take off? Type index or * to open inventory.");
-        PlayerEventListener.unequipping = true;
-        return;
-    }
-
-    let code = e.keyCode;
-    if(code == 16){
-        //shift
-        return;
-    }
-    if(code == 56 && e.shiftKey){ 
-        if(Game.display.inventoryVisible){
-            Game.display.hideInventory();
-            Game.display.showInventory(Game.player.items);
-        }
-        else{
-            Game.display.showInventory(Game.player.items);
+            let item = this.player.dropItem(index);
+            if(item != null){
+                this.engine.addEvent(dropItem(item)); 
+                this.map.creaturesAct();
+                this.engine.timeStep();
+            }
+            else{
+                this.display.clearMessages();
+                this.display.showMessage("You don't have that item.");
+            }
+            this.dropping = false;
+            if(this.display.inventoryVisible){
+                this.display.hideInventory();
+            }
         }
     }
-    else{
-        let index = String.fromCharCode(code);
-        if(!e.shiftKey){
-            index = index.toLowerCase();
+
+
+
+    dropItem(item){
+        return () => {
+            return ["You dropped the: " + item.name];
         }
 
-        let hasItem = Game.player.getItem(index);
-        let isEquipped = Game.player.isEquippedIndex(index);
-
-        if(hasItem == null){
-            //item not in inventory
-            Game.display.clearMessages();
-            Game.display.showMessage("You don't have that item.");
-        }
-        else if(!isEquipped){
-            //item in inventory
-            Game.display.clearMessages();
-            Game.display.showMessage("That item is not equipped");
-        }
-        else{
-            Game.engine.addEvent(Game.player.unequip(index)); 
-            Game.map.creaturesAct();
-            Game.engine.timeStep();
-        }
-        PlayerEventListener.unequipping = false;
-        if(Game.display.inventoryVisible){
-            Game.display.hideInventory();
-        }
-    }
-}
-
-function itemSelectorDrop(e){
-    if(!PlayerEventListener.dropping){
-        Game.display.clearMessages();
-        Game.display.showMessage("What do you wish to drop? Type index or * to open inventory.");
-        PlayerEventListener.dropping = true;
-        return;
     }
 
-    let code = e.keyCode;
-    if(code == 16){
-        //shift
-        return;
-    }
-    if(code == 56 && e.shiftKey){ 
-        if(Game.display.inventoryVisible){
-            Game.display.hideInventory();
-            Game.display.showInventory(Game.player.items);
-        }
-        else{
-            Game.display.showInventory(Game.player.items);
-        }
-    }
-    else{
-        let index = String.fromCharCode(code);
-        if(!e.shiftKey){
-            index = index.toLowerCase();
-        }
-
-        let item = Game.player.dropItem(index);
-        if(item != null){
-            Game.engine.addEvent(dropItem(item)); 
-            Game.map.creaturesAct();
-            Game.engine.timeStep();
-        }
-        else{
-            Game.display.clearMessages();
-            Game.display.showMessage("You don't have that item.");
-        }
-        PlayerEventListener.dropping = false;
-        if(Game.display.inventoryVisible){
-            Game.display.hideInventory();
-        }
-    }
-}
-
-function dropItem(item){
-    return () => {
-        return ["You dropped the: " + item.name];
-    }
-
-}
-
-function refreshInventory(){
-    if(Game.display.inventoryVisible){
-        Game.display.hideInventory();
-        Game.display.showInventory(Game.player.items);
-    }
-}
-
-
-let PlayerEventListener = {
-
-    player: null,
-    map: null,
-    engine: null,
-    display: null,
-    dropping: false,
-    equipping: false,
-    unequipping: false,
-    wielding: false,
-
-    handleEvent(e){
-
-        let pickUp = function(){
-            let player = PlayerEventListener.player;
-            let display = PlayerEventListener.display;
-            let mapBlock = Game.map.getBlock(player.x, player.y, player.z);
+    pickUp(){
+        return () => {
+            let player = this.player;
+            let display = this.display;
+            let mapBlock = this.map.getBlock(player.x, player.y, player.z);
             player.addItems(mapBlock.items);
             let items = mapBlock.items;
             let itemsSArray = [];
@@ -264,17 +257,18 @@ let PlayerEventListener = {
                 }
                 mapBlock.clearItems();
 
-                refreshInventory();
                 return ["You pick up: " + itemsSArray.join(", ")];
             }
             else{
                 return ["There's nothing to pick up here"];
             }
+        }
 
-        };
+    }
+
+    handleEvent(e){
 
         let code = e.keyCode;
-
 
         if(code == 32 && this.engine.messageQ.length > 0){
 
@@ -300,42 +294,42 @@ let PlayerEventListener = {
 
         if(code == 87 && !e.shiftKey){
             //w (wield)
-            itemSelectorWield(e);
+            this.itemSelectorWield(e);
             return;
         }
         else if(this.wielding){
-            itemSelectorWield(e);
+            this.itemSelectorWield(e);
             return;
         }
 
 
         if(code == 84 && e.shiftKey){
             //T (take off)
-            itemSelectorUnequip(e);
+            this.itemSelectorUnequip(e);
             return;
         }
         else if(this.unequipping){
-            itemSelectorUnequip(e);
+            this.itemSelectorUnequip(e);
             return;
         }
 
 
         if(code == 87 && e.shiftKey){
             //W (wear)
-            itemSelectorWear(e);
+            this.itemSelectorWear(e);
             return;
         }
         else if(this.equipping){
-            itemSelectorWear(e);
+            this.itemSelectorWear(e);
             return;
         }
 
         if(code == 68 && !e.shiftKey){
-            itemSelectorDrop(e);
+            this.itemSelectorDrop(e);
             return;
         }
         else if(this.dropping){
-            itemSelectorDrop(e);
+            this.itemSelectorDrop(e);
             return;
         }
 
@@ -345,17 +339,17 @@ let PlayerEventListener = {
                 this.display.hideInventory();
             }
             else{
-                this.display.showInventory(this.player.items);
+                this.display.showInventory();
             }
         }
 
         if(code == 188 && !e.shiftKey){
             //pickup (,)
-            this.engine.addEvent(pickUp.bind(this));
-            if(!Game.realTime){
-                this.map.creaturesAct();
-                this.engine.timeStep();
-            }
+            this.engine.addEvent(this.pickUp().bind(this));
+            //if(!this.Game.realTime){
+            this.map.creaturesAct();
+            this.engine.timeStep();
+            //}
             return;
         }
         if(code == 190 && !e.shiftKey){
@@ -387,7 +381,7 @@ let PlayerEventListener = {
             }
         }
 
-        this.engine.addEvent(PlayerEventListener.player.move(diff));
+        this.engine.addEvent(this.player.move(diff));
         if(!this.realTime){
             this.map.creaturesAct();
             this.engine.timeStep();

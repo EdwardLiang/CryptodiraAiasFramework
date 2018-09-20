@@ -32,8 +32,15 @@ io.on('connection', function(client){
         client.emit('player', Game.getPlayerJSON());
         client.emit('offsets', Game.getOffsetsJSON());
         client.emit('message', Game.getMessage());
+        if(Game.getShowInventory()){
+            client.emit('inventory', Game.getInventoryJSON());
+        }
+        else{
+            client.emit('inventory', 'false');
+        }
     });
-
+    client.on('inventory', function(data){
+    });
 });
 
 
