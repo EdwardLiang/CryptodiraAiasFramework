@@ -108,12 +108,12 @@ class Game {
 
         this.map.setBlock(7,3,0, new mapblock.BookBlock(7,3, new level.Level(50, 30)));
         //this.map.setBlock(3,5,4, new mapblock.GrassBlock(3,5,4));
-        this.map.getBlock(5,5,0).items.push(new items.Orange());
-        this.map.getBlock(6,5,0).items.push(new items.BasicShirt());
-        this.map.getBlock(8,5,0).items.push(new items.BasicPants());
-        this.map.getBlock(9,5,0).items.push(new items.RunningShoes());
-        this.map.getBlock(10,5,0).items.push(new items.CryptodiraAias());
-        this.map.getBlock(11,5,0).items.push(new items.Pencil());
+        this.map.addItem(5,5,0, new items.Orange());
+        this.map.addItem(6,5,0, new items.BasicShirt());
+        this.map.addItem(8,5,0, new items.BasicPants());
+        this.map.addItem(9,5,0, new items.RunningShoes());
+        this.map.addItem(10,5,0, new items.CryptodiraAias());
+        this.map.addItem(11,5,0, new items.Pencil());
 
 
 
@@ -165,6 +165,8 @@ class Game {
         this.controls.engine = this.engine;
         this.controls.display = this.display;
 
+        this.display.displayMap(this.map);
+
         //window.addEventListener("keydown", PlayerEventListener);
 /*
 
@@ -190,7 +192,6 @@ class Game {
     }
 
     makeDisplayBlocks(){
-        this.display.displayMap(this.map);
         this.map.clearVisible();
         //this.display.redraw();
        return this.display.getDisplayBlocks();
@@ -202,16 +203,20 @@ class Game {
        return this.display.getDisplayBlocks();
     }
 
+    getMapJSON(){
+        return this.display.getMapJSON();
+    }
+    getOffsetsJSON(){
+        return this.display.getOffsetsJSON();
+    }
+
+
     getCreaturesJSON(){
         let creatures = [];
         for(let i = 0; i < this.map.levels.length; i++){
             creatures = creatures.concat(this.map.levels[i].creatures);
         }
         return this.display.getCreaturesJSON(creatures);
-
-    }
-    getOffsetsJSON(){
-        return this.display.getOffsetsJSON();
     }
     getItemsJSON(){
         //Items are returned with an already display-offsetted values since it was easy.
@@ -222,6 +227,14 @@ class Game {
     }
     getShowInventory(){
         return this.display.inventoryVisible;
+    }
+
+    getPlayerJSON(){
+        return this.display.getPlayerJSON();
+    }
+
+    getOffsets(){
+        return this.display.getOffsetsJSON();
     }
 
     getMessage(){

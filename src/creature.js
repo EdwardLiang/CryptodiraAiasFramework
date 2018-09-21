@@ -60,7 +60,7 @@ class Creature{
     dropItem(index){
         let item = this.getItem(index);
         if(index in this.items){
-            this.Game.map.getBlock(this.x,this.y,this.z).items.unshift(this.items[index]);
+            this.Game.map.getOrMakeBlock(this.x,this.y,this.z).items.unshift(this.items[index]);
 
             delete this.items[index];
             this.availableSymbols.unshift(index);
@@ -111,7 +111,7 @@ class Creature{
 
         let itemKeys = Object.keys(this.items);
         for(let i = 0; i < itemKeys.length; i++){
-            this.Game.map.getBlock(this.x,this.y,this.z).items.unshift(this.items[itemKeys[i]]);
+            this.Game.map.getOrMakeBlock(this.x,this.y,this.z).items.unshift(this.items[itemKeys[i]]);
         }
         this.items = {};
         //Game.level.map[this.x][this.y][this.z].
@@ -123,6 +123,7 @@ class Creature{
                 //for(let z = 0; z < this.zLevels; z++){
                 this.Game.map.getBlock(this.x + x,this.y + y,this.z).removeCreature(this);
                 this.Game.map.getBlock(this.x + x,this.y + y,this.z).creatureSegment = false;
+                this.Game.map.deleteIfEmpty(this.x + x, this.y + y, this.z);
                 //}
             }
         }

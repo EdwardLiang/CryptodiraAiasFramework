@@ -374,6 +374,7 @@ class PlayerEventListener {
             if(block instanceof mapblock.BookBlock){
                 this.map.setLevel(block.lvl, 1);
                 diff = new distance.Distance(0, 0, 1);
+                this.map.levelChanged = true;
             }
         }
         if(code == 190 && e.shiftKey){

@@ -19,14 +19,20 @@ io.on('connection', function(client){
     var Game = new game.Game();
     client.on('join', function(data){
         Game.init();
-        client.emit('blocks', Game.makeDisplayBlocks());
+        client.emit('offsets', Game.getOffsetsJSON());
+        client.emit('player', Game.getPlayerJSON());
+        client.emit('map', Game.getMapJSON());
         client.emit('creatures', Game.getCreaturesJSON());
         client.emit('items', Game.getItemsJSON());
         client.emit('message', Game.getMessage());
     });
     client.on('key', function(data){
         Game.controls.handleEvent(JSON.parse(data));
-        client.emit('blocks', Game.getBlocksJSON());
+        client.emit('offsets', Game.getOffsetsJSON());
+        client.emit('player', Game.getPlayerJSON());
+        if(Game.map.levelChanged){
+            client.emit('map', Game.getMapJSON());
+        }
         client.emit('creatures', Game.getCreaturesJSON());
         client.emit('items', Game.getItemsJSON());
         client.emit('message', Game.getMessage());

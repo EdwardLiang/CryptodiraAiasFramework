@@ -57,7 +57,7 @@ class Display {
             this.view.offsets[i] = new Offset();
             //this.generateTables(i);
         }
-        this.calculateBlocksItemsCreatures();
+        this.calculateItemsCreatures();
     }
     getMessage(){
         return JSON.stringify(this.message);
@@ -70,10 +70,23 @@ class Display {
         this.message = null;
     }
 
-    calculateBlocksItemsCreatures(){
+    inDisplayRange(x, y, z){
+        if(z > this.levels.length){
+            return false;
+        }
+        if(x - this.view.offsets[z].xOffset < 0 || x - this.view.offsets[z].xOffset > this.width - 1){
+            return false;
+        }
+        if(y - this.view.offsets[z].yOffset < 0 || y - this.view.offsets[z].yOffset > this.height - 1){
+            return false;
+        }
+        return true;
+    }
+
+    calculateItemsCreatures(){
         this.items = [];
         this.creatures = [];
-        for(let i = 0; i < this.squares.length; i++){
+        /*for(let i = 0; i < this.squares.length; i++){
             for(let j = 0; j < this.squares[i].length; j++){
                 for(let z = 0; z < this.squares[i][j].length; z++){
                     let block = this.getCorrespondingMapBlock(i, j, z);
@@ -94,8 +107,28 @@ class Display {
                     this.setBlock(i, j, z, block);
                 }
             }
-        }
+        }*/
 
+        for(let z = 0; z < this.levels.length; z++){
+            for(let key in this.levels[z].blocks){
+                let block = this.levels[z].blocks[key];
+                if(this.inDisplayRange(block.x, block.y, z)){
+                    if(block.items.length > 0){
+                        this.items.push({id: block.item.id, 
+                            x: block.x
+                                , y: block.y 
+                                , z: z});
+                    }
+                    if(block.creature && !block.creatureSegment){
+                        this.creatures.push({id: block.creature.id,
+                            x:block.x,
+                            y:block.y,
+                            z:z,
+                            s:block.creature.scale});
+                    }
+                }
+            }
+        }
     }
 
     getCorrespondingMapBlock(x, y, z){
@@ -113,9 +146,38 @@ class Display {
         this.squares[x][y][level].color = "white";
     }
 
-    getDisplayBlocks(){
-        this.calculateBlocksItemsCreatures();
-        return JSON.stringify(this.squares);
+    /*getDisplayBlocks(){
+      this.calculateBlocksItemsCreatures();
+      return JSON.stringify(this.squares);
+      }*/
+
+    getMapJSON(){
+        let width = this.Game.map.width;
+        let height = this.Game.map.height;
+        let blocks = new Array(this.levels.length); 
+
+        for(let z = 0; z < this.levels.length; z++){
+            blocks[z] = new Array(this.levels[z].width);
+
+            for(let x = 0; x < blocks[z].length; x++){
+                blocks[z][x] = new Array(this.levels[z].height);
+
+                for(let y = 0; y < blocks[z][x].length; y++){
+                    let block = this.Game.map.getBlock(x, y, z);
+                    if(block){
+                        blocks[z][x][y] = block.id; 
+                    }
+                    else{
+                        blocks[z][x][y] = 0; 
+                    }
+                }
+            }
+        }
+        return JSON.stringify(blocks);
+    }
+
+    getOffsetsJSON(){
+        return JSON.stringify(this.view.offsets);
     }
 
     getCreaturesJSON(){
@@ -124,10 +186,14 @@ class Display {
         return JSON.stringify(this.creatures);
     }
 
+    getPlayerJSON(){
+        return JSON.stringify(this.Game.player, ['x', 'y', 'z']);
+    }
+
     getItemsJSON(){
         return JSON.stringify(this.items);
     }
-    
+
     appendCategoryToList(list, cat, name){
         if(Object.keys(cat).length > 0){
             list.push(name);

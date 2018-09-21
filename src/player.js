@@ -180,7 +180,8 @@ move(diff){
         player.y = newY;
         player.z = newZ;
 
-        map.getBlock(player.x, player.y, player.z).creature = player;
+        player.moveToBlock(player.x, player.y, player.z);
+
         let items = map.getBlock(player.x, player.y, player.z).items;
         let itemsSArray = [];
         if(items.length > 0){

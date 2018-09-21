@@ -4,8 +4,10 @@
         <meta charset="UTF-8">
 
         <script src="http://twemoji.maxcdn.com/2/twemoji.min.js?11.0"></script>
+        <!--
         //Acknowledgments: Many icons from twemoji.
         //some icons from glitch game.
+        -->
         <link rel="icon" href="./resources/shield.png" type="image/png">
         <style>
 body{
@@ -29,12 +31,24 @@ socket.on('connect', function(data){
     socket.emit('join', 'Hello World');
     //display.redraw();
 });
-socket.on('blocks', function(data){
+/*socket.on('blocks', function(data){
     display.parseJSONBlocks(data);
+});*/
+socket.on('map', function(data){
+    display.parseJSONMap(data);
 });
 socket.on('creatures', function(data){
     display.parseJSONCreatures(data);
 });
+
+socket.on('player', function(data){
+    display.parseJSONPlayer(data);
+});
+
+socket.on('offsets', function(data){
+    display.parseJSONOffsets(data);
+});
+
 
 socket.on('items', function(data){
     display.parseJSONItems(data);

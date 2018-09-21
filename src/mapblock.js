@@ -112,6 +112,10 @@ class MapBlock{
         //   e.style.opacity = "0.7";
         //}
     }
+
+    static getKey(x, y){
+        return x + "," + y;
+    }
 }
 
 class StaircaseBlock extends MapBlock{
@@ -156,7 +160,7 @@ class BookBlock extends StaircaseUpBlock{
         this.id = 2;
         this.lvl = lvl;
         this.lvl.setBlock(1, 1, new EvergreenBlock(1, 1));
-        this.lvl.setBlock(2, 1, new StaircaseDownBlock(7, 3));
+        this.lvl.setBlock(2, 1, new StaircaseDownBlock(2, 1));
 
     }
     getStyle(e){

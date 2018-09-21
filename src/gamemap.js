@@ -27,18 +27,34 @@ class GameMap {
             }
         }*/
         this.levels = [];
+        this.levelChanged = false;
     }
 
     setBlock(x, y, level, block){
-        this.levels[level].blocks[x][y] = block;
+        this.levels[level].setBlock(x, y, block);
     }
 
     getBlock(x, y, level){
-        return this.levels[level].blocks[x][y];
+        return this.levels[level].getBlock(x, y);
+    }
+
+    getOrMakeBlock(x, y, level){
+        return this.levels[level].getOrMakeBlock(x, y);
     }
 
     setLevel(level, pos){
         this.levels[pos] = level;
+    }
+
+    addItem(x, y, level, item){
+        let block = this.levels[level].getOrMakeBlock(x, y).items.push(item);
+    }
+
+    deleteIfEmpty(x, y, z){
+        let block = this.getBlock(x, y, z);
+        if(block && block.id == 0 && block.creatures.length == 0 && block.items.length == 0){
+            delete this.levels[z].blocks[mapblock.MapBlock.getKey(x, y)];
+        }
     }
     //setZLevelColor(level, color){
      //   this.backgroundColor = color;
@@ -74,6 +90,7 @@ class GameMap {
     }
 
     addCreature(creature){
+        //console.log(this.levels[creature.level].getBlock(creature.x, creature.y));
         if(!this.getCreature(creature.x, creature.y, creature.level)){
             if(!(creature === this.Game.player)){
                 this.levels[creature.level].creatures.push(creature);
@@ -86,14 +103,14 @@ class GameMap {
     }
 
     canGoUp(x, y, z){
-        if (this.levels[z].blocks[x][y] instanceof mapblock.StaircaseUpBlock){
+        if (this.levels[z].getBlock(x, y) instanceof mapblock.StaircaseUpBlock){
             return true;
         }
         return false;
     }
 
     canGoDown(x, y, z){
-        if (this.levels[z].blocks[x][y] instanceof mapblock.StaircaseDownBlock){
+        if (this.levels[z].getBlock(x, y) instanceof mapblock.StaircaseDownBlock){
             return true;
         }
         return false;

@@ -1,9 +1,17 @@
+class Offset {
+    constructor(){
+        this.xOffset = 0;
+        this.yOffset = 0;
+    }
+}
 class Display {
 
     constructor(){
         this.canvases = [];
         this.squares = [];
         this.td = [];
+        this.offsets = [];
+
 
         this.div = document.createElement("div");
         let scale = Math.min((window.innerWidth - 50) / 1855, (window.innerHeight- 50) / 965);
@@ -48,22 +56,36 @@ class Display {
 
         for(let i = 0; i < this.levels; i++){
             this.generateTables(i);
+            this.offsets[i] = new Offset();
         }
+
 
         this.div.appendChild(this.inventory);
         this.div.appendChild(this.messages);
+
     }
 
     parseJSONBlocks(json){
         this.squares = JSON.parse(json);
     }
+
+    parseJSONMap(json){
+        this.map = JSON.parse(json);
+    }
+
     parseJSONItems(json){
         this.items = JSON.parse(json);
+    }
+    parseJSONOffsets(json){
+        this.offsets = JSON.parse(json);
     }
     parseJSONCreatures(json){
         this.creatures = JSON.parse(json);
     }
-    
+    parseJSONPlayer(json){
+        this.player = JSON.parse(json);
+    }
+
     clearMessages(){
         this.messages.innerHTML = "";
     }
@@ -139,7 +161,7 @@ class Display {
         //let opacity = 0.1;
 
         //if(level == 0){
-         //   opacity = 1;
+        //   opacity = 1;
         //}
         //canvas.style.opacity = opacity;
         let tb = document.createElement("tbody");
@@ -184,17 +206,21 @@ class Display {
         }
         for(let i = 0; i < this.items.length; i++){
             let item = this.items[i];
-            let td = this.td[item["x"]][item["y"]][item["z"]];
+            let offsetX = this.offsets[item["z"]].xOffset;
+            let offsetY = this.offsets[item["z"]].yOffset;
+            let td = this.td[item["x"] - offsetX][item["y"] - offsetY][item["z"]];
             td.innerHTML = itemCodes[item["id"]];
             td.classList.add("item");
         }
         for(let i = 0; i < this.creatures.length; i++){
             let c = this.creatures[i];
+            let offsetX = this.offsets[c["z"]].xOffset;
+            let offsetY = this.offsets[c["z"]].yOffset;
             let x = parseInt(c["x"]);
             let y = parseInt(c["y"]);
             let z = parseInt(c["z"]);
             let creatureIcon = creatureCodes[c["id"]];
-            let tdC = this.td[x][y][z];
+            let tdC = this.td[x - offsetX][y - offsetY][z];
             if(creatureIcon != undefined){
                 tdC.innerHTML = creatureIcon;
             }
@@ -208,7 +234,7 @@ class Display {
             }
 
             if(c["id"] == 10){
-                this.player = c;
+                this.playerDisplay = c;
             }
             if(c["id"] == 5){
                 //elephant
@@ -224,7 +250,7 @@ class Display {
     }
 
     draw(x, y, level) {
-        let s = this.squares[x][y][level];
+        let s = this.map[level][x + this.offsets[level].xOffset][y + this.offsets[level].yOffset];
         let td = this.td[x][y][level];
         td.innerHTML = "";
         td.className = "n" + s;
@@ -252,7 +278,10 @@ class Display {
                 this.setLevelOpacity(i, "1");
             }
             if(i > this.player.z){
-                if(this.squares[this.player.x][this.player.y][i] == 8 && !notSolidBelow){
+                //if(this.squares[this.playerDisplay.x][this.playerDisplay.y][i] == 8 && !notSolidBelow){
+                if(this.map[i][this.player.x - this.offsets[this.player.z].xOffset + this.offsets[i].xOffset][
+                        this.player.y - this.offsets[this.player.z].yOffset + this.offsets[i].yOffset] == 8
+                        && !notSolidBelow){
                     this.setLevelOpacity(i, "0.5");
                 }
                 else{

@@ -29,8 +29,9 @@ class Engine {
         }
         this.nSteps++;
         this.events = [];
-        this.Game.map.clearVisible();
+        //this.Game.map.clearVisible();
         //Game.display.redraw();
+        this.Game.display.calculateItemsCreatures();
 
         if(!this.Game.realTime){
             this.Game.display.clearMessages();
