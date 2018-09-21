@@ -219,7 +219,6 @@ class Game {
         return this.display.getCreaturesJSON(creatures);
     }
     getItemsJSON(){
-        //Items are returned with an already display-offsetted values since it was easy.
         return this.display.getItemsJSON();
     }
     getInventoryJSON(){

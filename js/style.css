@@ -87,6 +87,14 @@ img.emoji {
     background-position: center;
 }
 
+.cr {
+    background-image:none;
+}
+
+.item {
+    background-image:none;
+}
+
 .c4{
     background-image:url(../resources/tower.png);
     background-size: auto 80%;
@@ -95,7 +103,7 @@ img.emoji {
 }
 
 .c5 img.emoji{
-    /*todo elephant*/
+    /*elephant*/
     height: 2.2em;
     width: 2.2em;
 }
@@ -121,10 +129,4 @@ img.emoji {
     transform: scaleX(1);
 }
 
-.cr {
-    background-image:none;
-}
 
-.item {
-    background-image:none;
-}
