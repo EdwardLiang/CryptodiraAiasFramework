@@ -32,6 +32,7 @@ io.on('connection', function(client){
         client.emit('player', Game.getPlayerJSON());
         if(Game.map.levelChanged){
             client.emit('map', Game.getMapJSON());
+            Game.map.levelChanged = false;
         }
         client.emit('creatures', Game.getCreaturesJSON());
         client.emit('items', Game.getItemsJSON());
