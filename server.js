@@ -3,14 +3,14 @@ var express = require('express');
 var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
-var game = require('./src/game.js');
+var game = require('./server/game.js');
 
 app.use("/socket", express.static('node_modules'));
 app.use("/resources", express.static('resources'));
-app.use("/display", express.static('js'));
+app.use("/client", express.static('client'));
 
 app.get('/', function(req, res, next){
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(__dirname + '/cryptodira.html');
 });
 
 
