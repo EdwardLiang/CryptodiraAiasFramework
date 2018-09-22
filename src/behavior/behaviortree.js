@@ -3,7 +3,6 @@
 class BehaviorTree {
 
     constructor(r){
-        //this.root = r || new RandomSelectionNode();
         let r2 = new RepeatDecorator();
         let n = new RandomSelectionNode();
         r2.addChild(n); 
@@ -79,20 +78,15 @@ class BehaviorTree {
                         return this.goDownTree();
                     }
                     else{
-                        //console.log("test");
                         this.lastNode = this.currNode;
                         this.currNode = this.stack.pop();
-                        //console.log(this.lastNode);
-                        //console.log(this.currNode);
                     }
 
                 }
 
                 if(this.currNode instanceof RepeatDecorator){
-                    //return this.handleRepeatDecorator();
 
                     this.stack.push(this.currNode);
-                    //this.lastNode = this.currNode;
                     this.currNode = this.currNode.child;
                     this.stack.push(this.currNode);
                     return this.goDownTree();
@@ -107,11 +101,8 @@ class BehaviorTree {
                     if(this.currNode instanceof RandomSequenceNode){
                         this.currNode.reset = true;
                     }
-                    //this.lastNode = null;
                 }
                 else{
-                    //this.stack.push(this.currNode);
-                    //this.currNode = this.currNode.selectNode(this.lastNode);
                     if(this.currNode){
                         this.stack.push(this.currNode);
                     }
@@ -129,7 +120,6 @@ class BehaviorTree {
                     this.currNode = this.stack.pop();
                 }
                 else{
-                    //this.currNode = this.currNode.selectNode(this.lastNode);
                     if(this.currNode){
                         this.stack.push(this.currNode);
                     }
@@ -143,7 +133,6 @@ class BehaviorTree {
     goDownTree(){
         //console.log("going down tree");
         while(this.currNode instanceof BehaviorNodeWithChildren || this.currNode instanceof Decorator){
-            //console.log(this.currNode);
             if(this.currNode instanceof BehaviorNodeWithChildren){
                 if(this.currNode instanceof RandomSequenceNode || this.currNode instanceof RandomSelectionNode){
                     this.currNode.randomize();
@@ -169,7 +158,6 @@ class BehaviorTree {
             //runs next command immediately.
             this.currNode.evaluatePredicate();
             let x = this.currNode;
-            //var lastSuccess = this.stack.pop().success;
             this.lastNode = this.stack.pop();
             this.currNode = this.stack.pop();
             if(this.currNode instanceof BehaviorNodeWithChildren && !x.success){

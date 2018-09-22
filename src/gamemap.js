@@ -3,29 +3,10 @@ var Level = require("./level.js");
 var distance = require("./distance.js");
 var creature = require("./creature.js");
 var mapblock = require("./mapblock.js");
-//var Game = require("./game.js");
 
 class GameMap {
     constructor(Game){
         this.Game = Game;
-        //this.map = [];
-        //this.creatures = [];
-        //this.levels = levels;
-        //this.backgroundColor = undefined;
-        //this is some bad naming here.
-        //this.map = new Array(width);
-        /*
-        for (let i = 0; i < this.map.length; i++){
-            this.map[i] = new Array(height);
-
-            for(let j = 0; j < this.map[i].length; j++){
-                this.map[i][j] = new Array(levels);
-
-                for(let z = 0; z < this.map[i][j].length; z++){
-                    this.map[i][j][z] = new MapBlock(i, j, z);
-                }
-            }
-        }*/
         this.levels = [];
         this.levelChanged = false;
     }
@@ -57,7 +38,7 @@ class GameMap {
         }
     }
     //setZLevelColor(level, color){
-     //   this.backgroundColor = color;
+    //   this.backgroundColor = color;
     //}
 
     //also checks for water types to only go onto other water blocks.
@@ -77,7 +58,7 @@ class GameMap {
         }
         return this.levels[level].checkAttackable(x, y);
     }
-    
+
     checkWater(x, y, level){
         if(level > this.levels.length - 1 || level < 0){
             return false;
@@ -90,7 +71,6 @@ class GameMap {
     }
 
     addCreature(creature){
-        //console.log(this.levels[creature.level].getBlock(creature.x, creature.y));
         if(!this.getCreature(creature.x, creature.y, creature.level)){
             if(!(creature === this.Game.player)){
                 this.levels[creature.level].creatures.push(creature);
@@ -126,21 +106,7 @@ class GameMap {
         }
     }
 
-    clearVisible(){
-        let display = this.Game.display;
-        for(let i = 0; i < display.squares.length; i++){
-            for(let j = 0; j < display.squares[i].length; j++){
-                for(let z = 0; z < display.squares[i][j].length; z++){
-                    //Game.level.map[i + display.view.xOffset][j + display.view.yOffset][z].clear();
-                    //this.levels[z].blocks[i + display.view.xOffset][j + display.view.yOffset].clear();
-
-                    this.getBlock(i + display.view.offsets[z].xOffset, j + display.view.offsets[z].yOffset, z).clear();
-                }
-            }
-        }
-    }
 }
-
 module.exports = {
     GameMap: GameMap
 }

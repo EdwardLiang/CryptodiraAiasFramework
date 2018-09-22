@@ -1,12 +1,10 @@
 "use strict";
-//var Game = require("./game.js");
 var engine = require("./engine.js");
 var item = require("./item.js");
 
 class View {
     constructor(){
         this.width = 30;
-        //this.width = 30;
         this.height = 15;
         this.widthPx = 1855;
         this.heightPx = 965;
@@ -55,7 +53,6 @@ class Display {
 
         for (let i = 0; i < this.levels.length; i++){
             this.view.offsets[i] = new Offset();
-            //this.generateTables(i);
         }
         this.calculateItemsCreatures();
     }
@@ -86,28 +83,6 @@ class Display {
     calculateItemsCreatures(){
         this.items = [];
         this.creatures = [];
-        /*for(let i = 0; i < this.squares.length; i++){
-            for(let j = 0; j < this.squares[i].length; j++){
-                for(let z = 0; z < this.squares[i][j].length; z++){
-                    let block = this.getCorrespondingMapBlock(i, j, z);
-                    if(block.items.length > 0){
-                        this.items.push({id: block.item.id, 
-                            x: i 
-                            , y: j 
-                            , z: z});
-                    }
-                    if(block.creature && !block.creatureSegment){
-                        this.creatures.push({id: block.creature.id,
-                            x:i,
-                            y:j,
-                            z:z,
-                            s:block.creature.scale});
-                    }
-                    block.calculateIconId();
-                    this.setBlock(i, j, z, block);
-                }
-            }
-        }*/
 
         for(let z = 0; z < this.levels.length; z++){
             for(let key in this.levels[z].blocks){
@@ -136,20 +111,12 @@ class Display {
     }
 
     setBlock(x, y, level, block){
-        //this.squares[x][y][level].icon = block.icon;
-        //this.squares[x][y][level].color = block.iconColor;
-        //this.squares[x][y][level].style = block.getStyle.bind(block);
         this.squares[x][y][level] = block.iconId;
     }
     clearBlock(x, y, level){
         this.squares[x][y][level].icon = "";
         this.squares[x][y][level].color = "white";
     }
-
-    /*getDisplayBlocks(){
-      this.calculateBlocksItemsCreatures();
-      return JSON.stringify(this.squares);
-      }*/
 
     getMapJSON(){
         let width = this.Game.map.width;

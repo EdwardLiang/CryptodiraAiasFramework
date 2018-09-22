@@ -1,6 +1,4 @@
-
 "use strict";
-//var Game = require("./game.js");
 
 class Engine {
     constructor(Game){
@@ -29,8 +27,6 @@ class Engine {
         }
         this.nSteps++;
         this.events = [];
-        //this.Game.map.clearVisible();
-        //Game.display.redraw();
         this.Game.display.calculateItemsCreatures();
 
         if(!this.Game.realTime){

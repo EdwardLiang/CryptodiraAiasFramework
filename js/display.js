@@ -259,12 +259,6 @@ class Display {
         if(icon != undefined){
             td.innerHTML = icon;
         }
-
-        //console.log(td);
-        //console.log("x: " + x + "y: " + y + "z: " + level);
-        //td.innerHTML = s.icon; 
-        //td.style.color = s.color;
-        //s.getStyle(s.td);
     };
 
     setLevelOpacity(level, op){

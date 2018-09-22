@@ -11,14 +11,6 @@ class Level{
         this.items = [];
 
         this.blocks = {};
-
-        /*this.blocks = new Array(width);
-        for (let i = 0; i < this.blocks.length; i++){
-            this.blocks[i] = new Array(height);
-            for(let j = 0; j < this.blocks[i].length; j++){
-                this.blocks[i][j] = new mapblock.MapBlock(i, j);
-            }
-        }*/
     }
 
     getBlock(x, y){
