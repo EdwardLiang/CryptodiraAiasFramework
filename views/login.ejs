@@ -10,4 +10,8 @@
     <div>
         <input type="submit" value="Log In"/>
     </div>
+
+    <% if (message.length > 0){ %>
+    <div class="alert alert-danger"><%= message %></div>
+    <% } %>
 </form>

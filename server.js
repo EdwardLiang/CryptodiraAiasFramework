@@ -14,13 +14,14 @@ var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
 var config = require('./config.js');
 
+app.use(flash());
 app.use("/socket", express.static('node_modules'));
 app.use("/resources", express.static('resources'));
 app.use("/client", express.static('client'));
 app.use(cookieParser('keyboard cat'));
 app.use(bodyParser());
+app.set('view engine', 'ejs');
 app.use(session({ cookie: {maxAge: 60000 }}));
-app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -52,11 +53,13 @@ app.get('/', function(req, res, next){
 });
 
 app.get('/login', function(req, res, next){
-    res.sendFile(__dirname + '/login.html');
+    //res.sendFile(__dirname + '/login.html');
+    res.render('login.ejs', {message: req.flash('error')} );
 });
 
 app.get('/signup', function(req, res, next){
-    res.sendFile(__dirname + '/signup.html');
+    //res.sendFile(__dirname + '/signup.html');
+    res.render('signup.ejs', {message: req.flash('error')} );
 });
 app.post('/signup', passport.authenticate('local-signup', {
                                                             successRedirect: '/login',
@@ -75,12 +78,13 @@ passport.use(new LocalStrategy(
                     }
                     if (! user){
                         return done(null, false, {message: 'Incorrect username.' });
+                        //return done(null, false, req.flash('message', "Incorrect username"));
                     }
                     if(!user.validPassword(password)) {
-                        console.log(user);
                         return done(null, false, {message: 'Incorrect password.' });
+
+                        //return done(null, false, {message: 'Incorrect password.' });
                     }
-                    console.log("test");
                     /*hash( password, user.salt, function(err, hash){
                         if(err) {return done(err);}
                         if(hash == user.hash) return done(null, user);
