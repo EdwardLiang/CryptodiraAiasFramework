@@ -18,18 +18,60 @@ app.use(flash());
 app.use("/socket", express.static('node_modules'));
 app.use("/resources", express.static('resources'));
 app.use("/client", express.static('client'));
-app.use(cookieParser('keyboard cat'));
+app.use(cookieParser('session_secret'));
 app.use(bodyParser());
 app.set('view engine', 'ejs');
-app.use(session({ cookie: {maxAge: 60000 }}));
-app.use(passport.initialize());
-app.use(passport.session());
+//app.use(session({ cookie: {maxAge: 60000 }}));
 
-var mongoDB = 'mongodb://admin:' + config.admin_db_password + '@127.0.0.1/cryptodira?authSource=admin&authMode=scram-sha1&rm.tcpNoDelay=true';
+var mongoDB = 'mongodb://admin:' + config.admin_db_password + '@127.0.0.1/cryptodira?authSource=admin';
 mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
 
 var db = mongoose.connection;
+
+
+var connect = require('connect');
+/*var MongoStore = require('connect-mongo-store')(connect);
+var mongoStore = new MongoStore(db);
+connect().use(connect.session({store: mongoStore, secret: 'keyboard cat'}));
+
+mongoStore.on('connect', function(){
+    console.log("mongo connection working");
+});
+
+mongoStore.on('error', function(err){
+    console.log("mongo connection error", err);
+});*/
+
+
+
+var MongoStore = require("connect-mongo")(session);
+var sessionStore = new MongoStore({mongooseConnection: db});
+
+app.use(session({
+    secret: 'session_secret',
+    store: sessionStore,
+    cookie: {maxAge: 60000},
+    saveUninitialized: true
+    }));
+
+
+var passportSocketIo = require("passport.socketio");
+
+io.use(passportSocketIo.authorize({
+    //passport: passport,
+    //cookieParser: cookieParser,
+    key: "connect.sid",
+    secret: "session_secret",
+    store: sessionStore,
+    success: onAuthorizeSuccess,
+    fail: onAuthorizeFail,
+    resave: false
+}));
+
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 var LocalUserSchema = new mongoose.Schema({
     username: String,
@@ -121,16 +163,19 @@ passport.use('local-signup', new LocalStrategy(
             }));
 
 passport.serializeUser(function(user, done){
-    done(null, user);
+    done(null, user.id);
 });
-passport.deserializeUser(function(user, done){
-    done(null, user);
+passport.deserializeUser(function(id, done){
+    User.findById(id, function(err, user){
+        done(err, user);
+    });
 });
 
 io.on('connection', function(client){
     console.log('Client connected');
     var Game = new game.Game();
     client.on('join', function(data){
+        console.log(client.request.user);
         Game.init();
         client.emit('offsets', Game.getOffsetsJSON());
         client.emit('player', Game.getPlayerJSON());
@@ -160,6 +205,17 @@ io.on('connection', function(client){
     client.on('inventory', function(data){
     });
 });
+
+function onAuthorizeSuccess(data, accept){
+    accept();
+}
+
+function onAuthorizeFail(data, message, error, accept){
+    console.log(message);
+    if(error){
+        accept(new Error(message));
+    }
+}
 
 
 server.listen(8080);
