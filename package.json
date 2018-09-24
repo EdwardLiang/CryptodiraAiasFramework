@@ -9,6 +9,7 @@
   "author": "",
   "license": "UNLICENSED",
   "dependencies": {
+    "bcrypt": "^3.0.1",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.3",
     "connect": "^3.6.6",

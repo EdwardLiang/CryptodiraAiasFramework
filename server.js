@@ -11,7 +11,7 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var bcrypt = require('bcrypt-nodejs');
+var bcrypt = require('bcrypt');
 var config = require('./config.js');
 
 app.use(flash());
@@ -52,7 +52,8 @@ app.use(session({
     secret: 'session_secret',
     store: sessionStore,
     cookie: {maxAge: 60000},
-    saveUninitialized: true
+    saveUninitialized: true,
+    resave: false
     }));
 
 
@@ -75,17 +76,14 @@ app.use(passport.session());
 
 var LocalUserSchema = new mongoose.Schema({
     username: String,
-    salt: String,
     hash: String
 });
 
-
-LocalUserSchema.methods.generateHash = function(password){
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-};
-
-LocalUserSchema.methods.validPassword = function(password){
-    return bcrypt.compareSync(password, this.hash);
+LocalUserSchema.methods.setPassword = function (password, callback){
+    bcrypt.hash(password, 8, function(err, hash) {
+        this.hash = hash;
+        callback(this);
+    }.bind(this));
 };
 
 var User = mongoose.model('userauths', LocalUserSchema);
@@ -120,20 +118,15 @@ passport.use(new LocalStrategy(
                     }
                     if (! user){
                         return done(null, false, {message: 'Incorrect username.' });
-                        //return done(null, false, req.flash('message', "Incorrect username"));
                     }
-                    if(!user.validPassword(password)) {
-                        return done(null, false, {message: 'Incorrect password.' });
-
-                        //return done(null, false, {message: 'Incorrect password.' });
-                    }
-                    /*hash( password, user.salt, function(err, hash){
-                        if(err) {return done(err);}
-                        if(hash == user.hash) return done(null, user);
-                        done(null, false, { message: 'Incorrect Password.' });
-                    });*/
-
-                    return done(null, user);
+                    bcrypt.compare(password, user.hash, function(err, res){
+                        if(res == true){
+                            return done(null, user);
+                        }
+                        else{
+                            return done(null, false, {message: 'Incorrect password.' });
+                        }
+                    });
                 });
             }));
 
@@ -150,12 +143,13 @@ passport.use('local-signup', new LocalStrategy(
                         else{
                             var newUser = new User();
                             newUser.username = username;
-                            newUser.hash = newUser.generateHash(password);
-                            newUser.save(function(err){
-                                if(err){
-                                    throw err;
-                                }
-                                return done(null, newUser);
+                            newUser.setPassword(password, function(newUser){
+                                newUser.save(function(err){
+                                    if(err){
+                                        throw err;
+                                    }
+                                    return done(null, newUser);
+                                });
                             });
                         }
                     });
