@@ -280,8 +280,40 @@ class Anger extends Creature{
         let a = this.behaviorTree.next();
         return a.execute.bind(a);
     }
+}
+
+class Addition extends Creature{
+
+    constructor(x, y, z, game){
+        super(x, y, z, game);
+        this.name = "Addition";
+        this.id = 12;
+    }
+
+    move(diff){
+        super.move(diff);
+        let a = this.behaviorTree.next();
+        return a.execute.bind(a);
+    }
+}
+
+class Derivative extends Creature{
+
+    constructor(x, y, z, game){
+        super(x, y, z, game);
+        this.name = "Derivative";
+        this.id = 13;
+    }
+
+    move(diff){
+        super.move(diff);
+        let a = this.behaviorTree.next();
+        return a.execute.bind(a);
+    }
 
 }
+
+
 
 
 module.exports = {
@@ -295,5 +327,7 @@ module.exports = {
     Cat: Cat,
     Dog: Dog,
     Robot: Robot,
-    Anger: Anger
+    Anger: Anger,
+    Addition: Addition,
+    Derivative: Derivative
 }

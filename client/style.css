@@ -95,6 +95,15 @@ img.emoji {
     background-image:none;
 }
 
+.sc {
+    /*scale creature*/
+    transform: scaleX(-1);
+}
+.scn {
+    /*noscale creature*/
+    transform: scaleX(1);
+}
+
 .c4{
     background-image:url(../resources/tower.png);
     background-size: auto 80%;
@@ -120,12 +129,21 @@ img.emoji {
     opacity: 0.7 !important;
 }
 
-.sc {
-    /*scale creature*/
-    transform: scaleX(-1);
+.c12{
+    /*addition*/
+    background-image:url(../resources/addition2.png);
+    background-size: auto 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+    transform: scaleX(1);
 }
-.scn {
-    /*noscale creature*/
+
+.c13{
+    /*addition*/
+    background-image:url(../resources/derivative2.png);
+    background-size: auto 80%;
+    background-repeat: no-repeat;
+    background-position: center;
     transform: scaleX(1);
 }
 

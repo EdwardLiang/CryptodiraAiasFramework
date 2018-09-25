@@ -108,7 +108,9 @@ class Game {
         //
         let virtueLevel = new level.Level(50, 30);
 
-        this.map.setBlock(7,3,0, new mapblock.BookBlock(7,3, new level.Level(50, 30), 7, 3));
+        let mathLevel = new level.Level(50,30);
+
+        this.map.setBlock(7,3,0, new mapblock.BookBlock(7,3, mathLevel, 7, 3));
         this.map.setBlock(8,3,0, new mapblock.ThoughtBlock(8,3, new level.Level(50, 30), 8, 3));
         this.map.setBlock(9,3,0, new mapblock.VirtueBlock(9,3, virtueLevel, 9, 3));
         virtueLevel.setBlock(9, 4, new mapblock.RealityBlock(9, 4, level0, 10, 10));
@@ -145,6 +147,8 @@ class Game {
         let dol = new creature.Dolphin(4, 14, 0, this);
         let tow = new creature.Tower(14, 4, 0, this);
         let anger = new creature.Anger(14, 4, 3, this);
+        let add = new creature.Addition(14, 4, 1, this);
+        let der = new creature.Derivative(15, 4, 1, this);
         b.addItem(new items.Peanut());
         e.addItem(new items.Peanut());
         r.addItem(new items.Battery());
@@ -164,6 +168,8 @@ class Game {
         this.map.addCreature(dol);
         this.map.addCreature(tow);
         virtueLevel.addCreature(anger);
+        mathLevel.addCreature(add);
+        mathLevel.addCreature(der);
 
         this.controls = new controls.PlayerEventListener();
 
