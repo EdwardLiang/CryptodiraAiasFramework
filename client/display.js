@@ -323,6 +323,7 @@ blockCodes["11"] = "&#x1F333;";
 blockCodes["12"] = "&#x26F2;";
 blockCodes["14"] = "&#x1F4AD;";
 blockCodes["15"] = "&#x2728;";
+blockCodes["16"] = "&#x1F30E;";
 
 let creatureCodes = {};
 creatureCodes["2"] = "&#x1F42C;";

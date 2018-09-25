@@ -1,6 +1,5 @@
 "use strict";
 class Distance{
-
     constructor(x, y, z){
         this.x = x;
         this.y = y;
@@ -23,6 +22,6 @@ CDIRS[7] = new Distance(1, -1, 0); //right up
 
 module.exports = {
     Distance: Distance,
-    CDIRS, CDIRS
+    CDIRS: CDIRS
 }
 

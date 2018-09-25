@@ -108,9 +108,10 @@ class Game {
         //
         let virtueLevel = new level.Level(50, 30);
 
-        this.map.setBlock(7,3,0, new mapblock.BookBlock(7,3, new level.Level(50, 30)));
-        this.map.setBlock(8,3,0, new mapblock.ThoughtBlock(8,3, new level.Level(50, 30)));
-        this.map.setBlock(9,3,0, new mapblock.VirtueBlock(9,3, virtueLevel));
+        this.map.setBlock(7,3,0, new mapblock.BookBlock(7,3, new level.Level(50, 30), 7, 3));
+        this.map.setBlock(8,3,0, new mapblock.ThoughtBlock(8,3, new level.Level(50, 30), 8, 3));
+        this.map.setBlock(9,3,0, new mapblock.VirtueBlock(9,3, virtueLevel, 9, 3));
+        virtueLevel.setBlock(9, 4, new mapblock.RealityBlock(9, 4, level0, 10, 10));
         //this.map.setBlock(3,5,4, new mapblock.GrassBlock(3,5,4));
         this.map.addItem(5,5,0, new items.Orange());
         this.map.addItem(6,5,0, new items.BasicShirt());

@@ -83,10 +83,12 @@ class StaircaseUpBlock extends StaircaseBlock{
 
 class BookBlock extends StaircaseUpBlock{
 
-    constructor(x, y, lvl){
+    constructor(x, y, lvl, xTarget, yTarget){
         super(x, y);
         this.id = 2;
         this.lvl = lvl;
+        this.xTarget = xTarget;
+        this.yTarget = yTarget;
         this.lvl.setBlock(1, 1, new EvergreenBlock(1, 1));
         this.lvl.setBlock(2, 1, new StaircaseDownBlock(2, 1));
 
@@ -175,20 +177,35 @@ class StoneBlock extends UnmovableBlock{
 }
 
 class ThoughtBlock extends StaircaseUpBlock{
-    constructor(x, y, lvl){
+    constructor(x, y, lvl, xTarget, yTarget){
         super(x, y);
         this.lvl = lvl;
         this.id = 14;
+        this.xTarget = xTarget;
+        this.yTarget = yTarget;
     }
 }
 
 class VirtueBlock extends StaircaseUpBlock{
-    constructor(x, y, lvl){
+    constructor(x, y, lvl, xTarget, yTarget){
         super(x, y);
         this.lvl = lvl;
         this.id = 15;
+        this.xTarget = xTarget;
+        this.yTarget = yTarget;
     }
 }
+
+class RealityBlock extends StaircaseDownBlock{
+    constructor(x, y, lvl, xTarget, yTarget){
+        super(x, y);
+        this.lvl = lvl;
+        this.id = 16;
+        this.xTarget = xTarget;
+        this.yTarget = yTarget;
+    }
+}
+
 
 module.exports = {
     StoneBlock: StoneBlock,
@@ -207,6 +224,7 @@ module.exports = {
     BookBlock: BookBlock,
     MapBlock: MapBlock,
     ThoughtBlock: ThoughtBlock,
-    VirtueBlock: VirtueBlock
+    VirtueBlock: VirtueBlock,
+    RealityBlock: RealityBlock
 }
 

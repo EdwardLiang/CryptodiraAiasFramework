@@ -373,17 +373,20 @@ class PlayerEventListener {
             let block = this.map.getBlock(this.player.x, this.player.y, this.player.z);
             if(block instanceof mapblock.BookBlock){
                 this.map.setLevel(block.lvl, 1);
-                diff = new distance.Distance(0, 0, 1);
+                diff = new distance.Distance(block.xTarget - this.player.x, 
+                        block.yTarget - this.player.y, 1 - this.player.z);
                 this.map.levelChanged = true;
             }
             if(block instanceof mapblock.ThoughtBlock){
                 this.map.setLevel(block.lvl, 2);
-                diff = new distance.Distance(0, 0, 2);
+                diff = new distance.Distance(block.xTarget - this.player.x
+                        , block.yTarget - this.player.y, 2 - this.player.z);
                 this.map.levelChanged = true;
             }
             if(block instanceof mapblock.VirtueBlock){
                 this.map.setLevel(block.lvl, 3);
-                diff = new distance.Distance(0, 0, 3);
+                diff = new distance.Distance(block.xTarget - this.player.x
+                        , block.yTarget - this.player.y, 3 - this.player.z);
                 this.map.levelChanged = true;
             }
 
@@ -393,6 +396,14 @@ class PlayerEventListener {
             if(!this.map.canGoDown(this.player.x, this.player.y, this.player.z)){
                 return;
             }
+            let block = this.map.getBlock(this.player.x, this.player.y, this.player.z);
+            if(block instanceof mapblock.RealityBlock){
+                this.map.setLevel(block.lvl, 0);
+                diff = new distance.Distance(block.xTarget - this.player.x, 
+                        block.yTarget - this.player.y, 0 - this.player.z);
+                this.map.levelChanged = true;
+            }
+
         }
 
         this.engine.addEvent(this.player.move(diff));
