@@ -89,6 +89,14 @@ LocalUserSchema.methods.setPassword = function (password, callback){
 var User = mongoose.model('userauths', LocalUserSchema);
 
 app.get('/cryptodira.html', function(req, res, next){
+    if(req.user){
+        next();
+    }
+    else{
+        res.redirect('/');
+    }
+},
+function(req, res, next){
     res.sendFile(__dirname + '/cryptodira.html');
 });
 
@@ -102,9 +110,9 @@ app.get('/signup', function(req, res, next){
     res.render('signup.ejs', {message: req.flash('error')} );
 });
 app.post('/signup', passport.authenticate('local-signup', {
-                                                            successRedirect: '/',
-                                                            failureRedirect: '/signup',
-                                                            failureFlash: true}));
+    successRedirect: '/',
+    failureRedirect: '/signup',
+    failureFlash: true}));
 
 app.post('/login', passport.authenticate('local', { successRedirect: '/cryptodira.html',
     failureRedirect: '/', failureFlash: true }));
@@ -169,7 +177,6 @@ io.on('connection', function(client){
     console.log('Client connected');
     var Game = new game.Game();
     client.on('join', function(data){
-        console.log(client.request.user);
         Game.init();
         client.emit('offsets', Game.getOffsetsJSON());
         client.emit('player', Game.getPlayerJSON());
