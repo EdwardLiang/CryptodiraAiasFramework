@@ -267,6 +267,23 @@ class Robot extends Creature{
 
 }
 
+class Anger extends Creature{
+
+    constructor(x, y, z, game){
+        super(x, y, z, game);
+        this.name = "Anger";
+        this.id = 11;
+    }
+
+    move(diff){
+        super.move(diff);
+        let a = this.behaviorTree.next();
+        return a.execute.bind(a);
+    }
+
+}
+
+
 module.exports = {
     Creature: Creature,
     WaterCreature: WaterCreature,
@@ -277,5 +294,6 @@ module.exports = {
     Bird: Bird,
     Cat: Cat,
     Dog: Dog,
-    Robot: Robot
+    Robot: Robot,
+    Anger: Anger
 }

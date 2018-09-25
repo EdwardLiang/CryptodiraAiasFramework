@@ -72,10 +72,7 @@ class GameMap {
 
     addCreature(creature){
         if(!this.getCreature(creature.x, creature.y, creature.level)){
-            if(!(creature === this.Game.player)){
-                this.levels[creature.level].creatures.push(creature);
-            }
-            this.levels[creature.level].setCreatureBlocks(creature, creature.x, creature.y);
+            this.levels[creature.level].addCreature(creature);
         }
         else{
             console.log("Warning! Creature overwritten!");

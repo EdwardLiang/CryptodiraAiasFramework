@@ -1,5 +1,6 @@
 "use strict";
 var creature = require("./creature.js");
+var player = require("./player.js");
 var mapblock = require("./mapblock.js");
 
 class Level{
@@ -15,6 +16,20 @@ class Level{
 
     getBlock(x, y){
         return this.blocks[mapblock.MapBlock.getKey(x, y)];
+    }
+
+    addCreature(creature){
+        //Do not use this method to add the player to the map.
+        if(!this.getCreature(creature.x, creature.y)){
+            if(!(creature instanceof player.Player)){
+                this.creatures.push(creature);
+            }
+            this.setCreatureBlocks(creature, creature.x, creature.y);
+        }
+        else{
+            console.log("Warning! Creature overwritten!");
+        }
+
     }
 
     getOrMakeBlock(x, y){

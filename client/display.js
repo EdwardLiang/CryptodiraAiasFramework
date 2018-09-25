@@ -313,12 +313,6 @@ class DisplayBlock{
         this.icon = "";
         this.color = "white";
     }
-    /*set style(s){
-      this.sty = s;
-      }
-      getStyle(e){
-      this.sty(e);
-      }*/
 }
 
 let blockCodes = {};
@@ -327,6 +321,8 @@ blockCodes["9"] = "&#128857;";
 blockCodes["10"] = "&#x1F332;";
 blockCodes["11"] = "&#x1F333;";
 blockCodes["12"] = "&#x26F2;";
+blockCodes["14"] = "&#x1F4AD;";
+blockCodes["15"] = "&#x2728;";
 
 let creatureCodes = {};
 creatureCodes["2"] = "&#x1F42C;";
@@ -337,6 +333,7 @@ creatureCodes["7"] = "&#x1F408;";
 creatureCodes["8"] = "&#x1F415;";
 creatureCodes["9"] = "&#x1F916;";
 creatureCodes["10"] = "&#x1F3C3;";
+creatureCodes["11"] = "&#x1F4A2;";
 
 let itemCodes = {};
 itemCodes["3"] = "&#x1F34A;";

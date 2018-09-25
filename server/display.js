@@ -113,10 +113,6 @@ class Display {
     setBlock(x, y, level, block){
         this.squares[x][y][level] = block.iconId;
     }
-    clearBlock(x, y, level){
-        this.squares[x][y][level].icon = "";
-        this.squares[x][y][level].color = "white";
-    }
 
     getMapJSON(){
         let width = this.Game.map.width;

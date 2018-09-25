@@ -376,6 +376,18 @@ class PlayerEventListener {
                 diff = new distance.Distance(0, 0, 1);
                 this.map.levelChanged = true;
             }
+            if(block instanceof mapblock.ThoughtBlock){
+                this.map.setLevel(block.lvl, 2);
+                diff = new distance.Distance(0, 0, 2);
+                this.map.levelChanged = true;
+            }
+            if(block instanceof mapblock.VirtueBlock){
+                this.map.setLevel(block.lvl, 3);
+                diff = new distance.Distance(0, 0, 3);
+                this.map.levelChanged = true;
+            }
+
+
         }
         if(code == 190 && e.shiftKey){
             if(!this.map.canGoDown(this.player.x, this.player.y, this.player.z)){

@@ -5,7 +5,7 @@ var creature = require("./creature.js");
 class Player extends creature.Creature{
 
     constructor(x, y, z, Game){
-        super(x, y, z, "&#x1F3C3", "#ff0");
+        super(x, y, z, Game);
         this.Game = Game;
         this.shirt = null;
         this.pants = null;

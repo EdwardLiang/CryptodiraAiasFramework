@@ -105,8 +105,12 @@ class Game {
 
         //this.map.setBlock(6,6,4, new StaircaseUpBlock(6,6));
         //this.map.setBlock(3,3,5, new StaircaseDownBlock(3,3));
+        //
+        let virtueLevel = new level.Level(50, 30);
 
         this.map.setBlock(7,3,0, new mapblock.BookBlock(7,3, new level.Level(50, 30)));
+        this.map.setBlock(8,3,0, new mapblock.ThoughtBlock(8,3, new level.Level(50, 30)));
+        this.map.setBlock(9,3,0, new mapblock.VirtueBlock(9,3, virtueLevel));
         //this.map.setBlock(3,5,4, new mapblock.GrassBlock(3,5,4));
         this.map.addItem(5,5,0, new items.Orange());
         this.map.addItem(6,5,0, new items.BasicShirt());
@@ -139,6 +143,7 @@ class Game {
         let b = new creature.Bird(13, 13, 0, this.player, this);
         let dol = new creature.Dolphin(4, 14, 0, this);
         let tow = new creature.Tower(14, 4, 0, this);
+        let anger = new creature.Anger(14, 4, 3, this);
         b.addItem(new items.Peanut());
         e.addItem(new items.Peanut());
         r.addItem(new items.Battery());
@@ -157,6 +162,7 @@ class Game {
         this.map.addCreature(this.player);
         this.map.addCreature(dol);
         this.map.addCreature(tow);
+        virtueLevel.addCreature(anger);
 
         this.controls = new controls.PlayerEventListener();
 
