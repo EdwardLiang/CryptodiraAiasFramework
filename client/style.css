@@ -155,5 +155,29 @@ img.emoji {
     background-position: center;
 }
 
+.c19{
+    /*contradiction*/
+    background-image:url(../resources/connection.png);
+    background-size: auto 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.c21{
+    /*synthesis*/
+    background-image:url(../resources/synthesis.png);
+    background-size: auto 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.c22{
+    /*induction*/
+    background-image:url(../resources/induction.png);
+    background-size: 80% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
 
 

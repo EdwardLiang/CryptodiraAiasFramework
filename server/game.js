@@ -153,6 +153,10 @@ class Game {
         let mN = new creature.MusicNote(14, 5, 1, this);
         let bStorm = new creature.BrainStorm(15, 5, 2, this);
         let contradiction = new creature.Contradiction(17, 5, 2, this);
+        let connection = new creature.Connection(19, 5, 2, this);
+        let puz = new creature.Puzzle(20, 5, 2, this);
+        let syn = new creature.Synthesis(20, 6, 2, this);
+        let ind = new creature.Induction(24, 6, 2, this);
         let wrath = new creature.Wrath(14, 4, 3, this);
         let lust = new creature.Lust(14, 5, 3, this);
         let add = new creature.Addition(14, 4, 1, this);
@@ -180,6 +184,10 @@ class Game {
         thoughtLevel.addCreature(bStorm);
         thoughtLevel.addCreature(anger);
         thoughtLevel.addCreature(contradiction);
+        thoughtLevel.addCreature(connection);
+        thoughtLevel.addCreature(puz);
+        thoughtLevel.addCreature(syn);
+        thoughtLevel.addCreature(ind);
         virtueLevel.addCreature(wrath);
         virtueLevel.addCreature(lust);
 

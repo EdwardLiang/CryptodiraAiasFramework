@@ -394,8 +394,70 @@ class Contradiction extends Creature{
 
 }
 
+class Connection extends Creature{
 
+    constructor(x, y, z, game){
+        super(x, y, z, game);
+        this.name = "Connection";
+        this.id = 19;
+    }
 
+    move(diff){
+        super.move(diff);
+        let a = this.behaviorTree.next();
+        return a.execute.bind(a);
+    }
+
+}
+
+class Puzzle extends Creature{
+
+    constructor(x, y, z, game){
+        super(x, y, z, game);
+        this.name = "Puzzle";
+        this.id = 20;
+    }
+
+    move(diff){
+        super.move(diff);
+        let a = this.behaviorTree.next();
+        return a.execute.bind(a);
+    }
+
+}
+
+class Synthesis extends Creature{
+
+    constructor(x, y, z, game){
+        super(x, y, z, game);
+        this.name = "Synthesis";
+        this.id = 21;
+    }
+
+    move(diff){
+        super.move(diff);
+        let a = this.behaviorTree.next();
+        return a.execute.bind(a);
+    }
+
+}
+
+class Induction extends Creature{
+
+    constructor(x, y, z, game){
+        super(x, y, z, game);
+        this.name = "Induction";
+        this.id = 22;
+    }
+
+    move(diff){
+        super.move(diff);
+        let a = this.behaviorTree.next();
+        return a.execute.bind(a);
+    }
+
+}
+//deduction, metaphor, abstraction, memory
 
 module.exports = {
     Creature: Creature,
@@ -415,5 +477,9 @@ module.exports = {
     Lust: Lust,
     BrainStorm: BrainStorm,
     MusicNote: MusicNote,
-    Contradiction: Contradiction
+    Contradiction: Contradiction,
+    Connection: Connection,
+    Puzzle: Puzzle,
+    Synthesis: Synthesis,
+    Induction: Induction
 }

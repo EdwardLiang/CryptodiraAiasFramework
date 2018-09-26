@@ -339,6 +339,7 @@ creatureCodes["14"] = "&#x1F525;";
 creatureCodes["15"] = "&#x1F48B;";
 creatureCodes["16"] = "&#x26C8;";
 creatureCodes["17"] = "&#x1F3B5;";
+creatureCodes["20"] = "&#x1F9E9;";
 
 let itemCodes = {};
 itemCodes["3"] = "&#x1F34A;";
