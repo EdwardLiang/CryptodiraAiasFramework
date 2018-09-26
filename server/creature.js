@@ -458,9 +458,10 @@ class Induction extends Creature{
 
 }
 //Thought/Feeling layer:
-//deduction, metaphor, abduction, abstraction, memory, imagination, hatred, sadness, fear, loneliness, 
+//deduction, metaphor, abduction, abstraction, classifification, regression, fallacy, 
+//memory, imagination, hatred, sadness, fear, loneliness, impulse
 //heartbrokenness, annoyance, attraction, boredom, disappointment, embaressment, frustration, grief, guilt, 
-//jealousy, panic, rejection, shyness, wonder, distraction, tiredness
+//jealousy, panic, rejection, shyness, wonder, distraction, tiredness, regret, dream, 
 //
 //happiness, calmness, empathy, enthusiasm, excitement, wisdom, understanding, rationality
 //
