@@ -1,6 +1,7 @@
 "use strict";
 //var Game = require("./game.js");
 var btb = require("./behavior/behaviortreebuilder.js");
+var item = require("./item");
 
 class Creature{
 
@@ -313,6 +314,86 @@ class Derivative extends Creature{
 
 }
 
+class Wrath extends Creature{
+
+    constructor(x, y, z, game){
+        super(x, y, z, game);
+        this.name = "Wrath";
+        this.id = 14;
+    }
+
+    move(diff){
+        super.move(diff);
+        let a = this.behaviorTree.next();
+        return a.execute.bind(a);
+    }
+}
+
+class Lust extends Creature{
+
+    constructor(x, y, z, game){
+        super(x, y, z, game);
+        this.name = "Lust";
+        this.id = 15;
+    }
+
+    move(diff){
+        super.move(diff);
+        let a = this.behaviorTree.next();
+        return a.execute.bind(a);
+    }
+
+}
+
+class BrainStorm extends Creature{
+
+    constructor(x, y, z, game){
+        super(x, y, z, game);
+        this.name = "Brain Storm";
+        this.id = 16;
+        this.addItem(new item.Idea());
+    }
+
+    move(diff){
+        super.move(diff);
+        let a = this.behaviorTree.next();
+        return a.execute.bind(a);
+    }
+
+}
+
+class MusicNote extends Creature{
+
+    constructor(x, y, z, game){
+        super(x, y, z, game);
+        this.name = "Music Note";
+        this.id = 17;
+    }
+
+    move(diff){
+        super.move(diff);
+        let a = this.behaviorTree.next();
+        return a.execute.bind(a);
+    }
+
+}
+
+class Contradiction extends Creature{
+
+    constructor(x, y, z, game){
+        super(x, y, z, game);
+        this.name = "Contradiction";
+        this.id = 18;
+    }
+
+    move(diff){
+        super.move(diff);
+        let a = this.behaviorTree.next();
+        return a.execute.bind(a);
+    }
+
+}
+
 
 
 
@@ -329,5 +410,10 @@ module.exports = {
     Robot: Robot,
     Anger: Anger,
     Addition: Addition,
-    Derivative: Derivative
+    Derivative: Derivative,
+    Wrath: Wrath,
+    Lust: Lust,
+    BrainStorm: BrainStorm,
+    MusicNote: MusicNote,
+    Contradiction: Contradiction
 }

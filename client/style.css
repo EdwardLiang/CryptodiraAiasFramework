@@ -147,4 +147,13 @@ img.emoji {
     transform: scaleX(1);
 }
 
+.c18{
+    /*contradiction*/
+    background-image:url(../resources/contradictionfilled.png);
+    background-size: auto 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
 

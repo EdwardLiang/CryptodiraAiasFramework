@@ -335,6 +335,10 @@ creatureCodes["8"] = "&#x1F415;";
 creatureCodes["9"] = "&#x1F916;";
 creatureCodes["10"] = "&#x1F3C3;";
 creatureCodes["11"] = "&#x1F4A2;";
+creatureCodes["14"] = "&#x1F525;";
+creatureCodes["15"] = "&#x1F48B;";
+creatureCodes["16"] = "&#x26C8;";
+creatureCodes["17"] = "&#x1F3B5;";
 
 let itemCodes = {};
 itemCodes["3"] = "&#x1F34A;";
@@ -345,4 +349,5 @@ itemCodes["10"] = "&#x1F456;";
 itemCodes["12"] = "&#x1F45F;";
 itemCodes["14"] = "&#x1F6E1;";
 itemCodes["16"] = "&#x270F;";
+itemCodes["19"] = "&#x1F4A1;";
 

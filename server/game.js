@@ -110,10 +110,13 @@ class Game {
 
         let mathLevel = new level.Level(50,30);
 
+        let thoughtLevel = new level.Level(50,30);
+
         this.map.setBlock(7,3,0, new mapblock.BookBlock(7,3, mathLevel, 7, 3));
-        this.map.setBlock(8,3,0, new mapblock.ThoughtBlock(8,3, new level.Level(50, 30), 8, 3));
+        this.map.setBlock(8,3,0, new mapblock.ThoughtBlock(8,3, thoughtLevel, 8, 3));
         this.map.setBlock(9,3,0, new mapblock.VirtueBlock(9,3, virtueLevel, 9, 3));
         virtueLevel.setBlock(9, 4, new mapblock.RealityBlock(9, 4, level0, 10, 10));
+        thoughtLevel.setBlock(9, 4, new mapblock.BookBlock(9, 4, mathLevel, 10, 10));
         //this.map.setBlock(3,5,4, new mapblock.GrassBlock(3,5,4));
         this.map.addItem(5,5,0, new items.Orange());
         this.map.addItem(6,5,0, new items.BasicShirt());
@@ -146,7 +149,12 @@ class Game {
         let b = new creature.Bird(13, 13, 0, this.player, this);
         let dol = new creature.Dolphin(4, 14, 0, this);
         let tow = new creature.Tower(14, 4, 0, this);
-        let anger = new creature.Anger(14, 4, 3, this);
+        let anger = new creature.Anger(14, 4, 2, this);
+        let mN = new creature.MusicNote(14, 5, 1, this);
+        let bStorm = new creature.BrainStorm(15, 5, 2, this);
+        let contradiction = new creature.Contradiction(17, 5, 2, this);
+        let wrath = new creature.Wrath(14, 4, 3, this);
+        let lust = new creature.Lust(14, 5, 3, this);
         let add = new creature.Addition(14, 4, 1, this);
         let der = new creature.Derivative(15, 4, 1, this);
         b.addItem(new items.Peanut());
@@ -167,7 +175,14 @@ class Game {
         this.map.addCreature(this.player);
         this.map.addCreature(dol);
         this.map.addCreature(tow);
-        virtueLevel.addCreature(anger);
+        thoughtLevel.addCreature(anger);
+        mathLevel.addCreature(mN);
+        thoughtLevel.addCreature(bStorm);
+        thoughtLevel.addCreature(anger);
+        thoughtLevel.addCreature(contradiction);
+        virtueLevel.addCreature(wrath);
+        virtueLevel.addCreature(lust);
+
         mathLevel.addCreature(add);
         mathLevel.addCreature(der);
 

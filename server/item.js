@@ -135,6 +135,14 @@ class Book extends Item{
     }
 }
 
+class Idea extends MiscItem{
+    constructor(){
+        super("Idea");
+        this.id = 19;
+    }
+}
+
+
 module.exports = {
     Book: Book,
     Ring: Ring,
@@ -154,6 +162,7 @@ module.exports = {
     Orange: Orange,
     Food: Food,
     MiscItem: MiscItem,
-    Item: Item
+    Item: Item,
+    Idea: Idea
 }
 
