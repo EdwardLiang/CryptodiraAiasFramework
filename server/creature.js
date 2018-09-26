@@ -457,8 +457,23 @@ class Induction extends Creature{
     }
 
 }
-//deduction, metaphor, abstraction, memory
-
+//Thought/Feeling layer:
+//deduction, metaphor, abduction, abstraction, memory, imagination, hatred, sadness, fear, loneliness, 
+//heartbrokenness, annoyance, attraction, boredom, disappointment, embaressment, frustration, grief, guilt, 
+//jealousy, panic, rejection, shyness, wonder, distraction, tiredness
+//
+//happiness, calmness, empathy, enthusiasm, excitement, wisdom, understanding, rationality
+//
+//
+//Virtue Layer: 
+//greed, gluttony, sloth, envy, pride, depression, delusion, corruption, evil, anxiety, ignorance, doubt, 
+//immorality, foolishness, procrastination, stress, worry, suffering(?), pessimism, aggression, prejudice, 
+//
+//love, joy, peace, patience, kindness, self-control, glory, beauty, sacrifice, bravery, diligence, humility, 
+//temperance, gratitude, hope, optimism, trust, faith, determination, balance, acceptance
+//
+//Defeating a vice creates a virtue/leaves material?/combine virtues/material?
+//
 module.exports = {
     Creature: Creature,
     WaterCreature: WaterCreature,
