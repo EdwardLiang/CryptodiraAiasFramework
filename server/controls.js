@@ -24,8 +24,73 @@ class PlayerEventListener {
         this.equipping = false;
         this.unequipping = false;
         this.wielding = false;
+        this.applying = false;
         this.Game = Game
     }
+
+    itemSelectorApply(e){
+        if(!this.applying){
+            this.display.clearMessages();
+            this.display.showMessage("What do you wish to apply? Type index or * to open inventory.");
+            this.applying = true;
+            return;
+        }
+
+        let code = e.keyCode;
+        if(code == 16){
+            //shift
+            return;
+        }
+        if(code == 56 && e.shiftKey){ 
+            if(this.display.inventoryVisible){
+                this.display.hideInventory();
+                this.display.showInventory(this.player.items);
+            }
+            else{
+                this.display.showInventory(this.player.items);
+            }
+        }
+        else{
+            let index = String.fromCharCode(code);
+            if(!e.shiftKey){
+                index = index.toLowerCase();
+            }
+
+            let hasItem = this.player.getItem(index);
+            let applyable = this.player.applyable(index);
+            let isWielded = this.player.isWieldedIndex(index);
+            let isEquipped = this.player.isEquippedIndex(index);
+
+            if(hasItem == null){
+                //item not in inventory
+                this.display.clearMessages();
+                this.display.showMessage("You don't have that item.");
+            }
+            else if(!applyable){
+                //item in inventory
+                this.display.clearMessages();
+                this.display.showMessage("You can't apply that item.");
+            }
+            else if(isWielded){
+                this.display.clearMessages();
+                this.display.showMessage("You are using that item as a weapon.");
+            }
+            else if(isEquipped){
+                this.display.clearMessages();
+                this.display.showMessage("You are wearing that item.");
+            }
+            else{
+                this.engine.addEvent(hasItem.use(this.Game)); 
+                this.map.creaturesAct();
+                this.engine.timeStep();
+            }
+            this.applying = false;
+            if(this.display.inventoryVisible){
+                this.display.hideInventory();
+            }
+        }
+    }
+
 
     itemSelectorWear(e){
         if(!this.equipping){
@@ -292,6 +357,17 @@ class PlayerEventListener {
                 this.display.hideInventory();
             }
         }
+
+        if(code == 65 && !e.shiftKey){
+            //a (apply)
+            this.itemSelectorApply(e);
+            return;
+        }
+        else if(this.applying){
+            this.itemSelectorApply(e);
+            return;
+        }
+
 
         if(code == 87 && !e.shiftKey){
             //w (wield)

@@ -1,4 +1,6 @@
 "use strict";
+
+var mapblock = require("./mapblock.js");
 class Item {
     constructor(name){
         this.name = name;
@@ -6,6 +8,35 @@ class Item {
         this.id = 0;
         //3 bottom, 2, middle, 1 top
         //unimplemented
+    }
+}
+
+class Applyable extends Item{
+    constructor(name){
+        super(name);
+        this.id = 20; 
+    }
+    use(game){
+
+    }
+}
+
+class BlockMaker extends Applyable{
+    constructor(name){
+        super(name);
+        this.id = 21; 
+    }
+}
+
+class WaterBlockMaker extends Applyable{
+    constructor(){
+        super("Water Block Maker");
+        this.id = 22; 
+    }
+    use(game){
+        let block = new mapblock.WaterBlock(game.player.x, game.player.y);
+        block.creature = game.player;
+        game.getGameMap().setBlock(game.player.x, game.player.y, game.player.level, block);
     }
 }
 
@@ -162,6 +193,9 @@ module.exports = {
     Orange: Orange,
     Food: Food,
     MiscItem: MiscItem,
+    Applyable: Applyable,
+    BlockMaker: BlockMaker,
+    WaterBlockMaker: WaterBlockMaker,
     Item: Item,
     Idea: Idea
 }

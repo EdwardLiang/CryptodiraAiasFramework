@@ -191,6 +191,7 @@ class Display {
         let food = {};
         let misc = {};
         let weapon = {};
+        let applyable = {};
 
         for(let i in items){
             if(items[i] instanceof item.Equipment){
@@ -202,6 +203,9 @@ class Display {
             if(items[i] instanceof item.MiscItem){
                 misc[i] = items[i];
             }
+            if(items[i] instanceof item.Applyable){
+                applyable[i] = items[i];
+            }
             if(items[i] instanceof item.Weapon){
                 weapon[i] = items[i];
             }
@@ -210,6 +214,7 @@ class Display {
         this.appendCategoryToList(i, equipment, "Equipment");
         this.appendCategoryToList(i, food, "Food");
         this.appendCategoryToList(i, misc, "Misc");
+        this.appendCategoryToList(i, applyable, "Applyable");
 
         return JSON.stringify(i);
     }

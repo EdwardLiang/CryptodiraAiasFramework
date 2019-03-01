@@ -42,6 +42,16 @@ class Player extends creature.Creature{
             return false;
         }
     }
+    applyable(index){
+        let item = this.items[index];
+        if(item instanceof items.Applyable){
+            return true; 
+        }
+        else{
+            return false;
+        }
+    }
+
     unwield(index){
         let item = this.getItem(index);
         if(item === this.weapon){

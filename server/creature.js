@@ -458,7 +458,7 @@ class Induction extends Creature{
 
 }
 //Thought/Feeling layer:
-//deduction, metaphor, abduction, abstraction, classifification, regression, fallacy, 
+//deduction, metaphor, abduction, abstraction, classifification, regression, fallacy, bug, question, hypothesis(?)
 //memory, imagination, hatred, sadness, fear, loneliness, impulse
 //heartbrokenness, annoyance, attraction, boredom, disappointment, embaressment, frustration, grief, guilt, 
 //jealousy, panic, rejection, shyness, wonder, distraction, tiredness, regret, dream, 
@@ -469,6 +469,7 @@ class Induction extends Creature{
 //Virtue Layer: 
 //greed, gluttony, sloth, envy, pride, depression, delusion, corruption, evil, anxiety, ignorance, doubt, 
 //immorality, foolishness, procrastination, stress, worry, suffering(?), pessimism, aggression, prejudice, 
+//obsession, addiction
 //
 //love, joy, peace, patience, kindness, self-control, glory, beauty, sacrifice, bravery, diligence, humility, 
 //temperance, gratitude, hope, optimism, trust, faith, determination, balance, acceptance

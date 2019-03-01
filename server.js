@@ -189,9 +189,10 @@ io.on('connection', function(client){
         Game.controls.handleEvent(JSON.parse(data));
         client.emit('offsets', Game.getOffsetsJSON());
         client.emit('player', Game.getPlayerJSON());
-        if(Game.map.levelChanged){
+        if(Game.map.levelChanged || Game.map.blockChanged){
             client.emit('map', Game.getMapJSON());
             Game.map.levelChanged = false;
+            Game.map.blockChanged = false;
         }
         client.emit('creatures', Game.getCreaturesJSON());
         client.emit('items', Game.getItemsJSON());

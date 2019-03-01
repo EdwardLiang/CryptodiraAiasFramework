@@ -19,6 +19,10 @@ class Game {
         this.simpleLayers = false;
     }
 
+    getGameMap(){
+        return this.map;
+    }
+
     init(){
         this.map = new gameMap.GameMap(this);
         this.display = new display.Display(this);
@@ -119,6 +123,7 @@ class Game {
         thoughtLevel.setBlock(9, 4, new mapblock.BookBlock(9, 4, mathLevel, 10, 10));
         //this.map.setBlock(3,5,4, new mapblock.GrassBlock(3,5,4));
         this.map.addItem(5,5,0, new items.Orange());
+        this.map.addItem(5,6,0, new items.WaterBlockMaker());
         this.map.addItem(6,5,0, new items.BasicShirt());
         this.map.addItem(8,5,0, new items.BasicPants());
         this.map.addItem(9,5,0, new items.RunningShoes());
@@ -194,7 +199,7 @@ class Game {
         mathLevel.addCreature(add);
         mathLevel.addCreature(der);
 
-        this.controls = new controls.PlayerEventListener();
+        this.controls = new controls.PlayerEventListener(this);
 
         this.controls.player = this.player;
         this.controls.map = this.map;
@@ -202,6 +207,7 @@ class Game {
         this.controls.display = this.display;
 
         this.display.displayMap(this.map);
+        this.map.blockChanged = false;
 
         //window.addEventListener("keydown", PlayerEventListener);
 /*

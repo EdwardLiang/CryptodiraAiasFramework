@@ -9,10 +9,12 @@ class GameMap {
         this.Game = Game;
         this.levels = [];
         this.levelChanged = false;
+        this.blockChanged = false;
     }
 
     setBlock(x, y, level, block){
         this.levels[level].setBlock(x, y, block);
+        this.blockChanged = true;
     }
 
     getBlock(x, y, level){
@@ -25,6 +27,9 @@ class GameMap {
 
     setLevel(level, pos){
         this.levels[pos] = level;
+    }
+    getLevel(z){
+        return this.levels[z];
     }
 
     addItem(x, y, level, item){
