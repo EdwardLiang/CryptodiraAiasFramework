@@ -68,6 +68,75 @@ class MapBlock{
     }
 }
 
+class BlockFactory{
+    constructor(){
+    }
+    createBlock(blockType, x, y, xTarget, yTarget, lvl){
+
+        if(blockType == "StaircaseDownBlock"){
+            return new StaircaseDownBlock(x, y);
+        }
+        else if (blockType == "StaircaseUpBlock"){
+            return new StaircaseUpBlock(x, y);
+        }
+        else if (blockType == "BookBlock"){
+            return new BookBlock(x, y, lvl, xTarget, yTarget);
+        }
+        else if (blockType == "NewLevelBookBlock"){
+            return new BookBlock(x, y, lvl, xTarget, yTarget);
+        }
+        else if (blockType == "WaterBlock"){
+            return new WaterBlock(x, y);
+        }
+        else if (blockType == "GrassBlock"){
+            return new GrassBlock(x, y);
+        }
+        else if (blockType == "IceBlock"){
+            return new IceBlock(x, y);
+        }
+        else if (blockType == "UnmovableBlock"){
+            return new UnmovableBlock(x, y);
+        }
+        else if (blockType == "SolidBlock"){
+            return new SolidBlock(x, y);
+        }
+        else if (blockType == "WallBlock"){
+            return new WallBlock(x, y);
+        }
+        else if (blockType == "EvergreenBlock"){
+            return new EvergreenBlock(x, y);
+        }
+        else if (blockType == "DeciduousBlock"){
+            return new DeciduousBlock(x, y);
+        }
+        else if (blockType == "FountainBlock"){
+            return new FountainBlock(x, y);
+        }
+        else if (blockType == "StoneBlock"){
+            return new StoneBlock(x, y);
+        }
+        else if (blockType == "ThoughtBlock"){
+            return new ThoughtBlock(x, y, lvl, xTarget, yTarget);
+        }
+        else if (blockType == "NewThoughtBlock"){
+            return new ThoughtBlock(x, y, lvl, xTarget, yTarget);
+        }
+        else if (blockType == "VirtueBlock"){
+            return new VirtueBlock(x, y, lvl, xTarget, yTarget);
+        }
+        else if (blockType == "NewVirtueBlock"){
+            return new VirtueBlock(x, y, lvl, xTarget, yTarget);
+        }
+        else if (blockType == "RealityBlock"){
+            return new RealityBlock(x, y, lvl, xTarget, yTarget);
+        }
+        else if (blockType == "NewRealityBlock"){
+            return new RealityBlock(x, y, lvl, xTarget, yTarget);
+        }
+    }
+
+}
+
 class StaircaseBlock extends MapBlock{
     constructor(x, y){
         super(x, y);
@@ -225,6 +294,7 @@ module.exports = {
     MapBlock: MapBlock,
     ThoughtBlock: ThoughtBlock,
     VirtueBlock: VirtueBlock,
-    RealityBlock: RealityBlock
+    RealityBlock: RealityBlock,
+    BlockFactory: BlockFactory 
 }
 

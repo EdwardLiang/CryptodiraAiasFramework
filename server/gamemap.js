@@ -25,6 +25,13 @@ class GameMap {
         return this.levels[level].getOrMakeBlock(x, y);
     }
 
+    createAndSetLevel(pos){
+        this.setLevel(new Level.level(50,30), pos);
+    }
+    createLevel(width, height){
+        return new Level.level(width, height);
+    }
+
     setLevel(level, pos){
         this.levels[pos] = level;
     }

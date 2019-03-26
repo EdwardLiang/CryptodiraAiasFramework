@@ -123,7 +123,7 @@ class Game {
         thoughtLevel.setBlock(9, 4, new mapblock.BookBlock(9, 4, mathLevel, 10, 10));
         //this.map.setBlock(3,5,4, new mapblock.GrassBlock(3,5,4));
         this.map.addItem(5,5,0, new items.Orange());
-        this.map.addItem(5,6,0, new items.WaterBlockMaker());
+        this.map.addItem(5,6,0, new items.BlockMaker("WaterBlock"));
         this.map.addItem(6,5,0, new items.BasicShirt());
         this.map.addItem(8,5,0, new items.BasicPants());
         this.map.addItem(9,5,0, new items.RunningShoes());

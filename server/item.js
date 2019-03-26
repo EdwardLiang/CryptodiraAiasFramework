@@ -20,21 +20,44 @@ class Applyable extends Item{
 
     }
 }
-
+/*
 class BlockMaker extends Applyable{
     constructor(name){
         super(name);
         this.id = 21; 
     }
 }
+*/
 
-class WaterBlockMaker extends Applyable{
-    constructor(){
-        super("Water Block Maker");
+class BlockMaker extends Applyable{
+    constructor(blockType){
+        super("Block Maker");
         this.id = 22; 
+        this.factory = new mapblock.BlockFactory(); 
+        this.blockType = blockType;
     }
     use(game){
-        let block = new mapblock.WaterBlock(game.player.x, game.player.y);
+        //let block = new mapblock.WaterBlock(game.player.x, game.player.y);
+        let blockType = this.blocktype;
+        if(blockType == "NewThoughtBlock" || blockType == "NewRealityBlock" || blockType == "NewBookBlock" || blockType == "NewVirtueBlock"){
+            var block = this.factory.createBlock(this.blockType, game.player.x, game.player.y, game.player.x, game.player.y, game.createLevel(50,30)); 
+        }
+        let level = 0;
+        if(blockType == "ThoughtBlock"){
+            level = 2;
+        }
+        else if(blockType == "RealityBlock"){
+            level = 0;
+        }
+        else if(blockType == "BookBlock"){
+            level = 1;
+        }
+        else if(blockType == "VirtueBlock"){
+            level = 3;
+        }
+        else{
+            var block = this.factory.createBlock(this.blockType, game.player.x, game.player.y, game.player.x, game.player.y, game.map.getLevel(level)); 
+        }
         block.creature = game.player;
         game.getGameMap().setBlock(game.player.x, game.player.y, game.player.level, block);
     }
@@ -195,7 +218,7 @@ module.exports = {
     MiscItem: MiscItem,
     Applyable: Applyable,
     BlockMaker: BlockMaker,
-    WaterBlockMaker: WaterBlockMaker,
+//    WaterBlockMaker: WaterBlockMaker,
     Item: Item,
     Idea: Idea
 }

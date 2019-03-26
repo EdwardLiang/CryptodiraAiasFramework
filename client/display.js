@@ -351,5 +351,6 @@ itemCodes["12"] = "&#x1F45F;";
 itemCodes["14"] = "&#x1F6E1;";
 itemCodes["16"] = "&#x270F;";
 itemCodes["19"] = "&#x1F4A1;";
+itemCodes["21"] = "&#x1F528;";
 itemCodes["22"] = "&#x1F528;";
 
