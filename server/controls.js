@@ -434,6 +434,10 @@ class PlayerEventListener {
             this.engine.timeStep();
             return;
         }
+        if(code == 80){
+            //p
+            this.Game.save = true;
+        }
 
         if(!(code in DIRS)){return;}
 
@@ -481,7 +485,7 @@ class PlayerEventListener {
             }
 
         }
-
+        
         this.engine.addEvent(this.player.move(diff));
         if(!this.realTime){
             this.map.creaturesAct();

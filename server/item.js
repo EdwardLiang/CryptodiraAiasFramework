@@ -31,7 +31,7 @@ class BlockMaker extends Applyable{
 
 class BlockMaker extends Applyable{
     constructor(blockType){
-        super("Block Maker");
+        super(blockType + " Block Maker");
         this.id = 22; 
         this.factory = new mapblock.BlockFactory(); 
         this.blockType = blockType;

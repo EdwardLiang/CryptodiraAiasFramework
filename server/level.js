@@ -104,6 +104,20 @@ class Level{
 
     }
 
+    getJSON(){
+        let blocks = {};
+        //console.log(Object.keys(this.blocks));
+        for(var key in this.blocks){
+            let creatures = [];
+            for(var c in this.blocks[key].creatures){
+                creatures.push(this.blocks[key].creatures[c].getJSON());
+            }
+            blocks[key] = [ this.blocks[key].id, this.blocks[key].items, creatures];
+        }
+        return JSON.stringify(blocks);
+        //console.log(blocks);
+        //return JSON.stringify(this.blocks);
+    }
 }
 module.exports = {
     Level: Level

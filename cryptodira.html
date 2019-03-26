@@ -74,6 +74,18 @@ socket.on('inventory', function(data){
         display.showInventory(JSON.parse(data));
     }
 });
+socket.on('downloadlevel', function(data){
+    var blob = new Blob([data], {type: "application/json"});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.download = "level.json";
+    a.href = url;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    delete a;
+});
+
 
 window.addEventListener("keydown", PlayerEventListener);
 

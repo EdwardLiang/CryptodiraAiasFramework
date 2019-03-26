@@ -194,6 +194,10 @@ io.on('connection', function(client){
             Game.map.levelChanged = false;
             Game.map.blockChanged = false;
         }
+        if(Game.save){
+            client.emit('downloadlevel', Game.getCurrentLevelJSON());
+            Game.save = false;
+        }
         client.emit('creatures', Game.getCreaturesJSON());
         client.emit('items', Game.getItemsJSON());
         client.emit('message', Game.getMessage());

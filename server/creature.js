@@ -24,6 +24,15 @@ class Creature{
         this.behaviorTreeBuilder = new btb.RandomMoveBuilder(this, this.Game); 
         this.behaviorTree = this.behaviorTreeBuilder.behaviorTree;
     }
+    replacerJSON(key, value){
+        if(key == "Game") return undefined;
+        else if (key == "behaviorTreeBuilder") return undefined;
+        else if (key == "behaviorTree") return undefined;
+        else return value;
+    }
+    getJSON(){
+        return JSON.stringify(this, this.replacerJSON);
+    }
 
     get level(){
         return this.z;

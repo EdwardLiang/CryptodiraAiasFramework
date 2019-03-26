@@ -17,10 +17,14 @@ class Game {
         this.timer = 0;
         this.messageStayDelay = 10;
         this.simpleLayers = false;
+        this.save = false;
     }
 
     getGameMap(){
         return this.map;
+    }
+    getCurrentLevelJSON(){
+        return this.map.getLevel(this.player.z).getJSON();
     }
 
     init(){
