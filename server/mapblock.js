@@ -66,15 +66,52 @@ class MapBlock{
     static getKey(x, y){
         return x + "," + y;
     }
+    static parseKey(key){
+        let arr = key.split(",");
+        return {x:arr[0], y:arr[1]};
+    }
+}
+
+var blockIds = {
+    0:"MapBlock",
+    1:"StaircaseUpBlock",
+    2:"BookBlock",
+    3:"StaircaseDownBlock",
+    4:"WaterBlock",
+    5:"GrassBlock",
+    6:"IceBlock",
+    7:"UnmovableBlock",
+    8:"SolidBlock",
+    9:"WallBlock",
+    10:"EvergreenBlock",
+    11:"DeciduousBlock",
+    12:"FountainBlock",
+    13:"StoneBlock",
+    14:"ThoughtBlock",
+    15:"VirtueBlock",
+    16:"RealityBlock"
+}
+
+var levelNum = {
+    "RealityBlock":0,
+    "BookBlock":1,
+    "ThoughtBlock":2,
+    "VirtueBlock":3
 }
 
 class BlockFactory{
     constructor(){
     }
+    idToType(id){
+        return blockIds[id];
+    }
     createBlock(blockType, x, y, xTarget, yTarget, lvl){
 
         if(blockType == "StaircaseDownBlock"){
             return new StaircaseDownBlock(x, y);
+        }
+        else if(blockType == "MapBlock"){
+            return new MapBlock(x, y);
         }
         else if (blockType == "StaircaseUpBlock"){
             return new StaircaseUpBlock(x, y);

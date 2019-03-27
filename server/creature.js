@@ -3,6 +3,7 @@
 var btb = require("./behavior/behaviortreebuilder.js");
 var item = require("./item");
 
+
 class Creature{
 
     constructor(x, y, level, Game){
@@ -32,6 +33,28 @@ class Creature{
     }
     getJSON(){
         return JSON.stringify(this, this.replacerJSON);
+    }
+    static parseCreature(obj, game){
+        let t = cFactory.idToType(obj.id); 
+        let creat = cFactory.createCreature(t, obj.x, obj.y, obj.z, game);
+        creat.availableSymbols = obj.availableSymbols;
+        creat.defeated = obj.defeated;
+        creat.scale = obj.scale;
+        creat.hp = obj.hp;
+        creat.name = obj.name;
+        creat.width = obj.width;
+        creat.height = obj.height;
+        for(var key in obj.items){
+            creat.items[key] = item.parseItem(obj.items[key]);
+        }
+        return creat;
+    }
+    static parseArray(arr, game){
+        let ret = [];
+        for(let i = 0; i < arr.length; i++){
+            ret[i] = parseCreature(arr[i], game); 
+        }
+        return ret;
     }
 
     get level(){
@@ -140,6 +163,107 @@ class Creature{
         this.behaviorTree = this.behaviorTreeBuilder.behaviorTree;
     }
 }
+
+var creatureIds = {
+    0:"Creature",
+    2:"Dolphin",
+    3:"Turtle",
+    4:"Tower",
+    5:"Elephant",
+    6:"Bird",
+    7:"Cat",
+    8:"Dog",
+    9:"Robot",
+    11:"Anger",
+    12:"Addition",
+    13:"Derivative",
+    14:"Wrath",
+    15:"Lust",
+    16:"Brain Storm",
+    17:"Music Note",
+    18:"Contradiction",
+    19:"Connection",
+    20:"Puzzle",
+    21:"Synthesis",
+    22:"Induction"
+}
+
+class CreatureFactory{
+    constructor(){
+    }
+    idToType(id){
+        return creatureIds[id];
+    }
+    createCreature(creatureType, x, y, z, game){
+
+        if(creatureType == "Creature"){
+            return new Creature(x, y, z, game);
+        }
+        else if(creatureType == "Dolphin"){
+            return new Dolphin(x, y, z, game);
+        }
+        else if (creatureType == "Turtle"){
+            return new Turtle(x, y, z, game);
+        }
+        else if (creatureType == "Tower"){
+            return new Tower(x, y, z, game);
+        }
+        else if (creatureType == "Elephant"){
+            return new Elephant(x, y, z, game);
+        }
+        else if (creatureType == "Bird"){
+            return new Bird(x, y, z, game);
+        }
+        else if (creatureType == "Cat"){
+            return new Cat(x, y, z, game);
+        }
+        else if (creatureType == "Dog"){
+            return new Dog(x, y, z, game);
+        }
+        else if (creatureType == "Robot"){
+            return new Robot(x, y, z, game);
+        }
+        else if (creatureType == "Anger"){
+            return new Anger(x, y, z, game);
+        }
+        else if (creatureType == "Addition"){
+            return new Addition(x, y, z, game);
+        }
+        else if (creatureType == "Derivative"){
+            return new Derivative(x, y, z, game);
+        }
+        else if (creatureType == "Wrath"){
+            return new Wrath(x, y, z, game);
+        }
+        else if (creatureType == "Lust"){
+            return new Lust(x, y, z, game);
+        }
+        else if (creatureType == "Brain Storm"){
+            return new BrainStorm(x, y, z, game);
+        }
+        else if (creatureType == "Music Note"){
+            return new MusicNote(x, y, z, game); 
+        }
+        else if (creatureType == "Contradiction"){
+            return new Contradiction(x, y, z, game);
+        }
+        else if (creatureType == "Connection"){
+            return new Connection(x, y, z, game);
+        }
+        else if (creatureType == "Puzzle"){
+            return new Puzzle(x, y, z, game);
+        }
+        else if (creatureType == "Synthesis"){
+            return new Synthesis(x, y, z, game);
+        }
+        else if (creatureType == "Induction"){
+            return new Induction(x, y, z, game);
+        }
+    }
+
+}
+
+var cFactory = new CreatureFactory();
 
 class WaterCreature extends Creature{}
 

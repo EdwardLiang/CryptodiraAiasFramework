@@ -9,6 +9,18 @@ class Item {
         //3 bottom, 2, middle, 1 top
         //unimplemented
     }
+
+    static parseItem(obj){
+        let t = iFactory.idToType(obj.id); 
+        return iFactory.createItem(t);
+    }
+    static parseArray(arr){
+        let ret = [];
+        for(let i = 0; i < arr.length; i++){
+            ret[i] = parseItem(arr[i]); 
+        }
+        return ret;
+    }
 }
 
 class Applyable extends Item{
@@ -62,6 +74,110 @@ class BlockMaker extends Applyable{
         game.getGameMap().setBlock(game.player.x, game.player.y, game.player.level, block);
     }
 }
+
+var itemIds = {
+    0:"Item",
+    20:"Applyable",
+    22:"Block Maker",
+    1:"Misc Item",
+    2:"Food",
+    3:"Orange",
+    4:"Peanut",
+    5:"Battery",
+    6:"Equipment",
+    7:"Shirt",
+    8:"Basic Shirt",
+    9:"Pants",
+    10:"Basic Pants",
+    11:"Shoes",
+    12:"Running Shoes",
+    13:"Shield",
+    14:"Cryptodira Aias",
+    15:"Weapon",
+    16:"Pencil",
+    17:"Ring",
+    18:"Book",
+    19:"Idea"
+}
+
+class ItemFactory{
+    constructor(){
+    }
+    idToType(id){
+        return itemIds[id];
+    }
+    createItem(itemType){
+        if(itemType == "Item"){
+            return new Item("Item");
+        }
+        else if(itemType == "Applyable"){
+            return new Applyable("Applyable");
+        }
+        else if (itemType == "Block Maker"){
+            return new BlockMaker("WaterBlock");
+        }
+        else if (itemType == "Misc Item"){
+            return new MiscItem("Misc");
+        }
+        else if (itemType === "Food"){
+            return new Food("Food");
+        }
+        else if (itemType == "Orange"){
+            return new Orange();
+        }
+        else if (itemType == "Peanut"){
+            return new Peanut();
+        }
+        else if (itemType == "Battery"){
+            return new Battery();
+        }
+        else if (itemType == "Equipment"){
+            return new Equipment("Equipment");
+        }
+        else if (itemType == "Shirt"){
+            return new Shirt("Shirt");
+        }
+        else if (itemType == "Basic Shirt"){
+            return new BasicShirt();
+        }
+        else if (itemType == "Pants"){
+            return new Pants("Pants"); 
+        }
+        else if (itemType == "Basic Pants"){
+            return new BasicPants();
+        }
+        else if (itemType == "Shoes"){
+            return new Shoes("Shoes");
+        }
+        else if (itemType == "Running Shoes"){
+            return new RunningShoes();
+        }
+        else if (itemType == "Shield"){
+            return new Shield("Shield"); 
+        }
+        else if (itemType == "Cryptodira Aias"){
+            return new CryptodiraAias();
+        }
+        else if (itemType == "Weapon"){
+            return new Weapon("Weapon");
+        }
+        else if (itemType == "Pencil"){
+            return new Pencil();
+        }
+        else if (itemType == "Ring"){
+            return new Ring("Ring");
+        }
+        else if (itemType == "Book"){
+            return new Book("Book");
+        }
+        else if (itemType == "Idea"){
+            return new Idea();
+        }
+    }
+
+}
+var iFactory = new ItemFactory();
+
 
 class MiscItem extends Item{
     constructor(name){

@@ -2,6 +2,7 @@
 var creature = require("./creature.js");
 var player = require("./player.js");
 var mapblock = require("./mapblock.js");
+var item = require("./item.js");
 
 class Level{
 
@@ -117,6 +118,35 @@ class Level{
         return JSON.stringify(blocks);
         //console.log(blocks);
         //return JSON.stringify(this.blocks);
+    }
+
+    parseJSON(json, levelIndex, game){
+        let l = JSON.parse(json);
+        let level = new Level(50, 30);
+        let blockFactory = mapblock.BlockFactory();
+        for(var key in l){
+            let type = blockFactory.idToType(l[k][0][0]);
+            if(type != "ThoughtBlock" && type != "VirtueBlock" && type != "RealityBlock" && type != "BookBlock"){
+                var block = blockFactory.createBlock(type, parseKey(key).x, parseKey(key).y);  
+            }
+            else{
+                var block = blockFactory.createBlock(type, parseKey(key).x, parseKey(key).y, parseKey(key).x, parseKey(key).y, new Level(50, 30));  
+            }
+            block.creatures = creature.Creature.parseArray(l[k][0][2]);
+            block.items = item.Item.parseArray(l[k][0][1]); 
+
+            level[key] = block;
+        }
+    }
+
+    loadLevel(file){
+        var fs = require('fs'); 
+        var d;
+        fs.readFile('file', 'utf8', function(err, data) {
+            if(err) throw err;
+            d = data;
+        });
+        parseJSON(d);
     }
 }
 module.exports = {
