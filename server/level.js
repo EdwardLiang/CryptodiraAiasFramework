@@ -19,6 +19,12 @@ class Level{
         return this.blocks[mapblock.MapBlock.getKey(x, y)];
     }
 
+    setCreaturesZ(z){
+        for(let i = 0; i < this.creatures.length; i++){
+            this.creatures[i].z = z;
+        }
+    }
+
     addCreature(creature){
         //Do not use this method to add the player to the map.
         if(!this.getCreature(creature.x, creature.y)){
@@ -111,7 +117,9 @@ class Level{
         for(var key in this.blocks){
             let creatures = [];
             for(var c in this.blocks[key].creatures){
-                creatures.push(this.blocks[key].creatures[c].getJSON());
+                if(this.blocks[key].creatures[c].name != "player"){
+                    creatures.push(this.blocks[key].creatures[c].getJSON());
+                }
             }
             blocks[key] = [ this.blocks[key].id, this.blocks[key].items, creatures];
         }
@@ -120,33 +128,47 @@ class Level{
         //return JSON.stringify(this.blocks);
     }
 
-    parseJSON(json, levelIndex, game){
+    static parseJSON(json, game){
         let l = JSON.parse(json);
         let level = new Level(50, 30);
-        let blockFactory = mapblock.BlockFactory();
+        let blockFactory = new mapblock.BlockFactory();
         for(var key in l){
-            let type = blockFactory.idToType(l[k][0][0]);
+            let type = blockFactory.idToType(l[key][0]);
+            let x = mapblock.MapBlock.parseKey(key).x;
+            let y = mapblock.MapBlock.parseKey(key).y;
             if(type != "ThoughtBlock" && type != "VirtueBlock" && type != "RealityBlock" && type != "BookBlock"){
-                var block = blockFactory.createBlock(type, parseKey(key).x, parseKey(key).y);  
+                var block = blockFactory.createBlock(type, x, y);  
             }
             else{
-                var block = blockFactory.createBlock(type, parseKey(key).x, parseKey(key).y, parseKey(key).x, parseKey(key).y, new Level(50, 30));  
+                var block = blockFactory.createBlock(type, x, y, 
+                        x, y, new Level(50, 30));  
             }
-            block.creatures = creature.Creature.parseArray(l[k][0][2]);
-            block.items = item.Item.parseArray(l[k][0][1]); 
+            //console.log(l);
+            let creatures = creature.Creature.parseArray(l[key][2], game);
 
-            level[key] = block;
+            for(let k = 0; k < creatures.length; k++){
+                level.addCreature(creatures[k]); 
+            }
+            block.items = item.Item.parseArray(l[key][1]); 
+
+            level.blocks[key] = block;
         }
+        return level;
     }
 
-    loadLevel(file){
+    static loadLevel(file, game){
         var fs = require('fs'); 
         var d;
-        fs.readFile('file', 'utf8', function(err, data) {
+        var l;
+        /*fs.readFile('prototype.json', 'utf8', function(err, data) {
             if(err) throw err;
             d = data;
+            l = Level.parseJSON(d, game);
         });
-        parseJSON(d);
+        */
+        d = fs.readFileSync(file);
+
+        return Level.parseJSON(d, game);
     }
 }
 module.exports = {

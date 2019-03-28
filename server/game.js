@@ -120,6 +120,11 @@ class Game {
 
         let thoughtLevel = new level.Level(50,30);
 
+        let loadedLevel = level.Level.loadLevel('./server/levels/prototype.json', this);
+        loadedLevel.setCreaturesZ(1);
+        //console.log(level0);
+        //console.log(loadedLevel);
+        this.map.setBlock(10,3,0, new mapblock.BookBlock(10,3, loadedLevel, 10,3));
         this.map.setBlock(7,3,0, new mapblock.BookBlock(7,3, mathLevel, 7, 3));
         this.map.setBlock(8,3,0, new mapblock.ThoughtBlock(8,3, thoughtLevel, 8, 3));
         this.map.setBlock(9,3,0, new mapblock.VirtueBlock(9,3, virtueLevel, 9, 3));

@@ -13,6 +13,7 @@ class Player extends creature.Creature{
         this.shield = null;
         this.weapon = null;
         this.id = 10;
+        this.name = "player";
     }
 
     getStyle(e){

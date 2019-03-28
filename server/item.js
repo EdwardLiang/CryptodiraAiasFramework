@@ -11,13 +11,15 @@ class Item {
     }
 
     static parseItem(obj){
+        //let obj = JSON.parse(obj2);
+        //console.log(obj);
         let t = iFactory.idToType(obj.id); 
         return iFactory.createItem(t);
     }
     static parseArray(arr){
         let ret = [];
         for(let i = 0; i < arr.length; i++){
-            ret[i] = parseItem(arr[i]); 
+            ret[i] = Item.parseItem(arr[i]); 
         }
         return ret;
     }

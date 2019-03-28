@@ -34,25 +34,27 @@ class Creature{
     getJSON(){
         return JSON.stringify(this, this.replacerJSON);
     }
-    static parseCreature(obj, game){
-        let t = cFactory.idToType(obj.id); 
-        let creat = cFactory.createCreature(t, obj.x, obj.y, obj.z, game);
+    static parseCreature(obj2, game){
+        let obj = JSON.parse(obj2);
+        let t = cFactory.idToType(obj["id"]); 
+        let creat = cFactory.createCreature(t, obj["x"], obj["y"], obj["z"], game);
         creat.availableSymbols = obj.availableSymbols;
-        creat.defeated = obj.defeated;
-        creat.scale = obj.scale;
-        creat.hp = obj.hp;
-        creat.name = obj.name;
-        creat.width = obj.width;
-        creat.height = obj.height;
-        for(var key in obj.items){
-            creat.items[key] = item.parseItem(obj.items[key]);
+
+        creat.defeated = obj["defeated"];
+        creat.scale = obj["scale"];
+        creat.hp = obj["hp"];
+        creat.name = obj["name"];
+        creat.width = obj["width"];
+        creat.height = obj["height"];
+        for(var key in obj["items"]){
+            creat.items[key] = item.Item.parseItem(obj["items"][key]);
         }
         return creat;
     }
     static parseArray(arr, game){
         let ret = [];
         for(let i = 0; i < arr.length; i++){
-            ret[i] = parseCreature(arr[i], game); 
+            ret[i] = Creature.parseCreature(arr[i], game); 
         }
         return ret;
     }
@@ -212,7 +214,7 @@ class CreatureFactory{
             return new Elephant(x, y, z, game);
         }
         else if (creatureType == "Bird"){
-            return new Bird(x, y, z, game);
+            return new Bird(x, y, z, game.player, game);
         }
         else if (creatureType == "Cat"){
             return new Cat(x, y, z, game);
