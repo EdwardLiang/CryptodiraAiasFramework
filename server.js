@@ -60,8 +60,8 @@ app.use(session({
 var passportSocketIo = require("passport.socketio");
 
 io.use(passportSocketIo.authorize({
-    //passport: passport,
-    //cookieParser: cookieParser,
+    passport: passport,
+    cookieParser: cookieParser,
     key: "connect.sid",
     secret: "session_secret",
     store: sessionStore,
@@ -175,7 +175,9 @@ passport.deserializeUser(function(id, done){
 
 io.on('connection', function(client){
     console.log('Client connected');
-    var Game = new game.Game();
+    var Game = new game.Game(client.request.user);
+    console.log(client.id);
+    console.log("user: " + client.request.user);
     client.on('join', function(data){
         Game.init();
         client.emit('offsets', Game.getOffsetsJSON());
@@ -209,6 +211,9 @@ io.on('connection', function(client){
         }
     });
     client.on('inventory', function(data){
+    });
+    client.on('disconnect', function(data){
+        Game.map.saveAllLevelsMong();
     });
 });
 

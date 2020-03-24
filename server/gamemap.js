@@ -3,6 +3,16 @@ var Level = require("./level.js");
 var distance = require("./distance.js");
 var creature = require("./creature.js");
 var mapblock = require("./mapblock.js");
+var config = require('../config.js');
+var mongoose = require("mongoose");
+var levelSchema = new mongoose.Schema({
+    user: String,
+    name: String,
+    dump: String
+});
+
+var levelModel = mongoose.model('Level', levelSchema);
+
 
 class GameMap {
     constructor(Game){
@@ -33,7 +43,31 @@ class GameMap {
     }
 
     setLevel(level, pos){
+        this.saveLevelMong(pos);
         this.levels[pos] = level;
+    }
+    saveLevelMong(pos){
+        if(this.levels[pos]){
+
+            //var levelDump = new levelModel({user: this.Game.user, name: this.levels[pos].name, dump: this.levels[pos].getJSON()}); 
+            var mongoDB = 'mongodb://admin:' + config.admin_db_password + '@127.0.0.1/cryptodira?authSource=admin'; 
+            mongoose.connect(mongoDB);
+
+            var query = {'user': this.Game.user, 'name': this.levels[pos].name };
+            levelModel.findOneAndUpdate(query, {dump: this.levels[pos].getJSON()}, {upsert: true}, function(err, doc) {
+                if (err){
+                    console.log(err);
+                }
+                else{
+                    console.log('Successfully saved level.');
+                }
+            });
+        }
+    }
+    saveAllLevelsMong(){
+        for (let i = 0; i < this.levels.length; i++){
+            this.saveLevelMong(i);
+        }
     }
     getLevel(z){
         return this.levels[z];

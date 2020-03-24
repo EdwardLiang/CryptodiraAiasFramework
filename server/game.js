@@ -9,15 +9,29 @@ var mapblock = require("./mapblock.js");
 var items = require("./item.js");
 var btb = require("./behavior/behaviortreebuilder.js");
 var controls = require("./controls.js");
+//var mongoose = require('mongoose');
+var config = require('../config.js');
+var session = require('express-session');
 
 class Game {
-    constructor(){
+    constructor(user){
         this.display = null;
         this.realTime = false;
         this.timer = 0;
         this.messageStayDelay = 10;
         this.simpleLayers = false;
         this.save = false;
+        this.user = user.username;
+
+        this.mongoose = require('mongoose');
+        var mongoDB = 'mongodb://admin:' + config.admin_db_password + '@127.0.0.1/cryptodira?authSource=admin'; 
+        this.mongoose.connect(mongoDB);
+        this.mongoose.Promise = global.Promise;
+        var db = this.mongoose.connection;
+        var connect = require('connect');
+        var MongoStore = require("connect-mongo")(session);
+        var sessionStore = new MongoStore({mongooseConnection: db});
+
     }
 
     getGameMap(){
@@ -33,11 +47,11 @@ class Game {
         this.engine = new engine.Engine(this);
     
         this.player = new player.Player(1, 1, 0, this);
-        let level0 = new level.Level(50, 30);
-        let level1 = new level.Level(50, 30);
-        let level2 = new level.Level(50, 30);
-        let level3 = new level.Level(50, 30);
-        let level4 = new level.Level(50, 30);
+        let level0 = new level.Level(50, 30, "level0");
+        let level1 = new level.Level(50, 30, "level1");
+        let level2 = new level.Level(50, 30, "level2");
+        let level3 = new level.Level(50, 30, "level3");
+        let level4 = new level.Level(50, 30, "level4");
         //let level5 = new Level(50, 30);
         //
         this.map.setLevel(level0, 0);
@@ -114,11 +128,12 @@ class Game {
         //this.map.setBlock(6,6,4, new StaircaseUpBlock(6,6));
         //this.map.setBlock(3,3,5, new StaircaseDownBlock(3,3));
         //
-        let virtueLevel = new level.Level(50, 30);
+        let virtueLevel = new level.Level(50, 30, "virtueLevel");
 
-        let mathLevel = new level.Level(50,30);
+        let mathLevel = new level.Level(50,30, "mathLevel");
 
-        let thoughtLevel = new level.Level(50,30);
+        let thoughtLevel = new level.Level(50,30, "thoughtLevel");
+
 
         let loadedLevel = level.Level.loadLevel('./server/levels/prototype.json', this);
         loadedLevel.setCreaturesZ(1);

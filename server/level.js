@@ -6,12 +6,12 @@ var item = require("./item.js");
 
 class Level{
 
-    constructor(width, height){
+    constructor(width, height, name){
         this.width = width;
         this.height = height;
         this.creatures = [];
         this.items = [];
-
+        this.name = name;
         this.blocks = {};
     }
 

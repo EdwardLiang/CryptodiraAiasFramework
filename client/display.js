@@ -176,7 +176,7 @@ class Display {
                 this.td[j][i][level] = td;
                 td.style.width = this.expWidth * this.coeffW + "px";
                 td.style.height = this.expWidth * this.coeffH + "px";
-                td.style.overflow = "visible";
+                td.style.overflow = "hidden";
                 td.style.content = "center";
                 td.style.fontSize = this.expWidth * this.coeffW * 0.70;
                 td.align = "center";
@@ -258,6 +258,9 @@ class Display {
 
         if(icon != undefined){
             td.innerHTML = icon;
+        }
+        if(s == "9"){
+            td.style.font = this.expWidth * 0.5 * this.coeffW + "px monospace";
         }
     };
 
