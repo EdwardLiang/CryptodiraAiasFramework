@@ -4,15 +4,7 @@ var distance = require("./distance.js");
 var creature = require("./creature.js");
 var mapblock = require("./mapblock.js");
 var config = require('../config.js');
-var mongoose = require("mongoose");
-var levelSchema = new mongoose.Schema({
-    user: String,
-    name: String,
-    dump: String
-});
-
-var levelModel = mongoose.model('Level', levelSchema);
-
+var models = require("./databasemodels.js");
 
 class GameMap {
     constructor(Game){
@@ -54,7 +46,7 @@ class GameMap {
             mongoose.connect(mongoDB);
 
             var query = {'user': this.Game.user, 'name': this.levels[pos].name };
-            levelModel.findOneAndUpdate(query, {dump: this.levels[pos].getJSON()}, {upsert: true}, function(err, doc) {
+            models.levelModel.findOneAndUpdate(query, {dump: this.levels[pos].getJSON()}, {upsert: true}, function(err, doc) {
                 if (err){
                     console.log(err);
                 }
