@@ -5,6 +5,7 @@ var creature = require("./creature.js");
 var mapblock = require("./mapblock.js");
 var config = require('../config.js');
 var models = require("./databasemodels.js");
+//var mongoose = require("mongoose");
 
 class GameMap {
     constructor(Game){
@@ -39,14 +40,24 @@ class GameMap {
         this.levels[pos] = level;
     }
     saveLevelMong(pos){
-        if(this.levels[pos]){
+       /* if(this.levels[pos]){
 
             //var levelDump = new levelModel({user: this.Game.user, name: this.levels[pos].name, dump: this.levels[pos].getJSON()}); 
-            var mongoDB = 'mongodb://admin:' + config.admin_db_password + '@127.0.0.1/cryptodira?authSource=admin'; 
-            mongoose.connect(mongoDB);
+            //var mongoDB = 'mongodb://admin:' + config.admin_db_password + '@127.0.0.1/cryptodira?authSource=admin'; 
+            //mongoose.connect(mongoDB);
+
+            //var levelModel = Game.mongoose.model('Level', models.levelSchema);
+            /*var levelSchema = new Game.mongoose.Schema({
+                user: String,
+                name: String,
+                dump: String
+            });
+
+            var levelModel = Game.mongoose.model('Level', levelSchema);
+            this.mongoose.set('debug', true);
 
             var query = {'user': this.Game.user, 'name': this.levels[pos].name };
-            models.levelModel.findOneAndUpdate(query, {dump: this.levels[pos].getJSON()}, {upsert: true}, function(err, doc) {
+            levelModel.findOneAndUpdate(query, {dump: this.levels[pos].getJSON()}, {upsert: true}, function(err, doc) {
                 if (err){
                     console.log(err);
                 }
@@ -55,6 +66,7 @@ class GameMap {
                 }
             });
         }
+        */
     }
     saveAllLevelsMong(){
         for (let i = 0; i < this.levels.length; i++){

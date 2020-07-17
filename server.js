@@ -178,8 +178,9 @@ io.on('connection', function(client){
     var Game = new game.Game(client.request.user);
     console.log(client.id);
     console.log("user: " + client.request.user);
+    Game.init();
+    //Game.levelTest();
     client.on('join', function(data){
-        Game.init();
         client.emit('offsets', Game.getOffsetsJSON());
         client.emit('player', Game.getPlayerJSON());
         client.emit('map', Game.getMapJSON());

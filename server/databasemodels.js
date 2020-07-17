@@ -1,3 +1,4 @@
+
 var mongoose = require("mongoose");
 var levelSchema = new mongoose.Schema({
     user: String,
@@ -7,6 +8,7 @@ var levelSchema = new mongoose.Schema({
 
 var levelModel = mongoose.model('Level', levelSchema);
 
+
 module.exports = {
-    levelModel: levelModel
+    levelModel: levelModel 
 }
