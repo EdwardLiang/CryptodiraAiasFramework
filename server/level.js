@@ -128,9 +128,9 @@ class Level{
         //return JSON.stringify(this.blocks);
     }
 
-    static parseJSON(json, game){
+    static parseJSON(json, game, name){
         let l = JSON.parse(json);
-        let level = new Level(50, 30);
+        let level = new Level(50, 30, name);
         let blockFactory = new mapblock.BlockFactory();
         for(var key in l){
             let type = blockFactory.idToType(l[key][0]);
@@ -144,14 +144,14 @@ class Level{
                         x, y, new Level(50, 30));  
             }
             //console.log(l);
+            //
+            level.blocks[key] = block;
             let creatures = creature.Creature.parseArray(l[key][2], game);
 
             for(let k = 0; k < creatures.length; k++){
                 level.addCreature(creatures[k]); 
             }
             block.items = item.Item.parseArray(l[key][1]); 
-
-            level.blocks[key] = block;
         }
         return level;
     }

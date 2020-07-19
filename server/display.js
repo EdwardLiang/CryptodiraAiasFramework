@@ -31,6 +31,7 @@ class Display {
     }
     
     displayMap(map) {
+        console.log("display map");
         this.levels = map.levels;
         this.level = map;
 

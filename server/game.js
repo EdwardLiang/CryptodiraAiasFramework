@@ -69,85 +69,6 @@ class Game {
         });
 
     }
-    level0(err, result){
-        //console.log(result);
-        console.log(this);
-        if(err){
-            console.log(err);
-        }
-        if(result){
-            let level0 = level.Level.parseJSON(result.dump);
-            this.map.setLevel(level0, 0);
-        }
-        else{
-            this.map.setLevel(new level.Level(50, 30, "level0"));
-
-            this.map.setBlock(4,4,0,new mapblock.SolidBlock(4,4,0));
-            this.map.setBlock(4,5,0,new mapblock.EvergreenBlock(4,5,0));
-            this.map.setBlock(4,6,0,new mapblock.DeciduousBlock(4,6,0));
-            this.map.setBlock(10,3,0, new mapblock.BookBlock(10,3, loadedLevel, 10,3));
-            this.map.setBlock(7,3,0, new mapblock.BookBlock(7,3, mathLevel, 7, 3));
-            this.map.setBlock(8,3,0, new mapblock.ThoughtBlock(8,3, thoughtLevel, 8, 3));
-            this.map.setBlock(9,3,0, new mapblock.VirtueBlock(9,3, virtueLevel, 9, 3));
-            this.map.addItem(5,5,0, new items.Orange());
-            this.map.addItem(5,6,0, new items.BlockMaker("WaterBlock"));
-            this.map.addItem(6,5,0, new items.BasicShirt());
-            this.map.addItem(8,5,0, new items.BasicPants());
-            this.map.addItem(9,5,0, new items.RunningShoes());
-            this.map.addItem(10,5,0, new items.CryptodiraAias());
-            this.map.addItem(11,5,0, new items.Pencil());
-            this.map.setBlock(3,13,0, new mapblock.WaterBlock(3,13,0));
-            this.map.setBlock(3,14,0, new mapblock.WaterBlock(3,14,0));
-            this.map.setBlock(3,15,0, new mapblock.WaterBlock(3,15,0));
-            this.map.setBlock(4,13,0, new mapblock.WaterBlock(4,13,0));
-            this.map.setBlock(4,14,0, new mapblock.WaterBlock(4,14,0));
-            this.map.setBlock(4,15,0, new mapblock.WaterBlock(4,15,0));
-            this.map.setBlock(5,13,0, new mapblock.WaterBlock(5,13,0));
-            this.map.setBlock(5,14,0, new mapblock.WaterBlock(5,14,0));
-            this.map.setBlock(5,15,0, new mapblock.WaterBlock(5,15,0));
-            this.map.setBlock(4,4,0,new mapblock.SolidBlock(4,4,0));
-
-            this.map.setBlock(6,6,0,new mapblock.WaterBlock(6,6,0));
-            this.map.setBlock(7,7,0,new mapblock.GrassBlock(7,7,0));
-            this.map.setBlock(7,8,0,new mapblock.IceBlock(7,8,0));
-            this.map.setBlock(8,7,0,new mapblock.StoneBlock(8,7,0));
-            this.map.setBlock(9,7,0,new mapblock.FountainBlock(9,7,0));
-
-            this.map.setBlock(3,3,0,new mapblock.StaircaseUpBlock(3,3,0));
-
-            //this.level.map[6][6][0].(new Orange());
-            let t = new creature.Turtle(6,6,0, this);
-            let t2 = new creature.Turtle(10,6,0, this);
-            let t3 = new creature.Turtle(15,6,0, this);
-            let f = new creature.Cat(7,7,0, this);
-            let d = new creature.Dog(8,8,0, this);
-            let r = new creature.Robot(9,9,0, this);
-            let r2 = new creature.Robot(10,10,0, this);
-            let b = new creature.Bird(13, 13, 0, this.player, this);
-            let dol = new creature.Dolphin(4, 14, 0, this);
-            let tow = new creature.Tower(14, 4, 0, this);
-            b.addItem(new items.Peanut());
-            e.addItem(new items.Peanut());
-            r.addItem(new items.Battery());
-            r2.actionBuilder = new btb.MoveBoxPredicateSucceedBuilder(r2, this);
-            t2.actionBuilder = new btb.RandomMoveUntilFailBuilder(t2, this); 
-            t3.actionBuilder = new btb.RandomMoveCancelBuilder(t3, this); 
-            this.map.addCreature(t);
-            this.map.addCreature(t2);
-            this.map.addCreature(t3);
-            this.map.addCreature(f);
-            this.map.addCreature(d);
-            this.map.addCreature(r);
-            this.map.addCreature(r2);
-            this.map.addCreature(b);
-            this.map.addCreature(this.player);
-            this.map.addCreature(dol);
-            this.map.addCreature(tow);
-        }
-        this.levelsLoaded = true;
-
-        console.log("test4");
-    }
     async init(){
 
         //this.mongoose.connect(this.mongoDB);
@@ -157,7 +78,6 @@ class Game {
         this.display = new display.Display(this);
         this.engine = new engine.Engine(this);
 
-        this.player = new player.Player(1, 1, 0, this);
         var levelsLoaded = false;
 
 
@@ -214,19 +134,24 @@ class Game {
         let loadedLevel = level.Level.loadLevel('./server/levels/prototype.json', this);
         loadedLevel.setCreaturesZ(1);
 
+        this.player = new player.Player(1, 1, 0, this);
+
         await models.levelModel.findOne(query, function(err, result){
-            console.log("triggered"); 
-            console.log(result);
+            //console.log("triggered"); 
+            //console.log(result);
             //console.log(this);
             if(err){
                 console.log(err);
             }
             if(result){
-                let level0 = level.Level.parseJSON(result.dump);
+                //console.log(result);
+                let level0 = level.Level.parseJSON(result.dump, this, result.name);
                 this.map.setLevel(level0, 0);
+                console.log(level0);
             }
             else{
-                this.map.setLevel(new level.Level(50, 30, "level0"), 0);
+                let level0 = new level.Level(50, 30, "level0");
+                this.map.setLevel(level0, 0);
 
                 this.map.setBlock(4,4,0,new mapblock.SolidBlock(4,4,0));
                 this.map.setBlock(4,5,0,new mapblock.EvergreenBlock(4,5,0));
@@ -288,12 +213,14 @@ class Game {
                 this.map.addCreature(this.player);
                 this.map.addCreature(dol);
                 this.map.addCreature(tow);
+                console.log(level0);
             }
             this.levelsLoaded = true;
 
-            console.log("test4");
+            //console.log("test4");
 
         }.bind(this));
+
         //let level0 = (level.Level.parseJSON(models.levelModel.findOne({user:this.user, name:"level0"}).dump,this) || new level.Level(50, 30, "level0"));
         //
         /*l0.then(result => {
@@ -495,7 +422,6 @@ class Game {
 
                 //console.log(this.mongoose.connection.readyState);
                 // }
-                console.log("asdf2");
                 this.display.displayMap(this.map);
                 this.map.blockChanged = false;
 
