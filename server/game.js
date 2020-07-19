@@ -147,7 +147,8 @@ class Game {
                 //console.log(result);
                 let level0 = level.Level.parseJSON(result.dump, this, result.name);
                 this.map.setLevel(level0, 0);
-                console.log(level0);
+                this.map.addCreature(this.player);
+                //console.log(level0);
             }
             else{
                 let level0 = new level.Level(50, 30, "level0");

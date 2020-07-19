@@ -101,6 +101,7 @@ class Display {
                             y:block.y,
                             z:z,
                             s:block.creature.scale});
+                        //console.log(block.creature);
                     }
                 }
             }
